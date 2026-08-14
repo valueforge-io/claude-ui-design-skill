@@ -35,7 +35,7 @@ The skill can look at what it built. For that it needs a headless browser in you
 npm i -D playwright && npx playwright install chromium
 ```
 
-The browser download (~150 MB) happens once per machine; the library is per project. Without it the skill still works — it falls back to code-level checks (computed contrast, grid greps, state coverage) instead of screenshots. Claude Code will offer to run the install when the skill first needs it.
+The browser download (~150 MB) happens once per machine; the library is per project. Without it the skill still works — it falls back to code-level checks (computed contrast, grid greps, state coverage) instead of screenshots. Claude Code will offer to run the install when the skill first needs it. Run the script from your project root — it resolves the project's Playwright automatically even though the script itself lives in the plugin directory.
 
 ## Usage
 

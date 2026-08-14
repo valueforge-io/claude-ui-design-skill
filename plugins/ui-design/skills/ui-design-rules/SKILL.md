@@ -50,7 +50,7 @@ Build using token classes and the defaults below. Consult the domain references 
 
 Run every time, and prefer computed checks over eyeballing:
 
-- **See it:** if any rendering path exists, screenshot the result and inspect the image — you are multimodal, and balance, crowding, and broken layout are visible only in pixels. Use the bundled `scripts/screenshot.mjs` (`node scripts/screenshot.mjs page.html shot.png --width=1280`, needs playwright or puppeteer), or a running dev server plus a browser tool. Check desktop (`--width=1280`) and mobile (`--width=390`). Code-only checks are the fallback, not the norm.
+- **See it:** if any rendering path exists, screenshot the result and inspect the image — you are multimodal, and balance, crowding, and broken layout are visible only in pixels. Use the bundled `scripts/screenshot.mjs` — run it from the project root, calling the script by its absolute path (`node <path-to-this-skill>/scripts/screenshot.mjs page.html shot.png --width=1280`); it resolves playwright/puppeteer from the project's node_modules. Or use a running dev server plus a browser tool. Check desktop (`--width=1280`) and mobile (`--width=390`). Code-only checks are the fallback, not the norm.
 - **Squint test** (on the screenshot, or mentally on the code): does the intended element win? Exactly one dominant focal point?
 - **Contrast:** body text ≥4.5:1, large text and UI elements ≥3:1 — compute the ratios.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
