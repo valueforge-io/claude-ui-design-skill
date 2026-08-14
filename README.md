@@ -82,6 +82,15 @@ Baseline failures clustered exactly where you'd expect: text contrast, missing f
 
 The rules encode widely accepted UI design practice: WCAG 2.x contrast minimums, 4-point spacing systems, modular type scales, 60-30-10 color distribution, and standard component and visual-hierarchy conventions used across mature design systems.
 
+## Releasing (maintainers)
+
+1. Edit the skill files.
+2. Bump `version` in `plugins/ui-design/.claude-plugin/plugin.json` **and** in the plugin entry of `.claude-plugin/marketplace.json` (keep both in sync).
+3. Add an entry to `CHANGELOG.md`.
+4. Commit, push, then tag: `git tag vX.Y.Z && git push --tags`.
+
+Users receive updates via background marketplace auto-update, or manually with `/plugin marketplace update valueforge-skills`.
+
 ## License
 
 MIT
