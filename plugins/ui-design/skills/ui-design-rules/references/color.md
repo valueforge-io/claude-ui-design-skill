@@ -69,6 +69,18 @@ Record the result as the token schema (slot × step, with hex) before building s
 - Triadic: three hues 120° apart with fixed roles — main action, secondary, background tint. Use only for illustration-heavy or marketing surfaces; three voices rarely stay quiet in product UI.
 - Tetradic: four hues. Avoid in product work — coherence collapses; if handed one, demote two hues to illustration only.
 
+## Hue Discipline (Harmony)
+
+Whether a palette holds together is largely checkable. Work in hue degrees (0–360°) and chroma — the spread between the highest and lowest RGB channel (0–1). Neutrals = chroma below ~0.16 (classic HSL saturation misreads tinted grays like `slate`; chroma does not). Semantic status colors are exempt from family counts where they genuinely mark status.
+
+- Count non-neutral hue families (cluster hues within ~18°). Default 1–2, hard maximum 3 — more is noise that no step-tuning fixes; demote extras to illustration or drop them.
+- Classify each family pair by circular hue distance: ≤15° monochrome; 15–60° analogous; 180°±20° complementary; 120°±15° triadic. A pair in the 60–150° gap that isn't doing status work reads as a clash — move the accent to the nearest legal relationship or remove it.
+- Chroma coherence: chromatic colors should sit in one band (spread ≲ 0.35). One vivid element among muted ones shouts; one washed-out element among vivid ones looks broken.
+- Tinted neutrals (chroma 0.08–0.16) are fine when deliberate and hue-matched to the primary (branded neutral, see the palette recipe); a bug when their tint hue drifts far from the primary's.
+- Temperature roles hold inside the palette: cool/neutral structure, warmth only on attention targets (next section).
+
+Verification: sample real rendered colors — `node scripts/palette-check.mjs <file.html|url>` renders the page, clusters hue families, classifies pair relationships, and flags clash pairs, extra families, and chroma outliers. Numbers catch rule violations; the final aesthetic call is made on the screenshot.
+
 ## Temperature
 
 - Warm hues (red, orange, yellow, amber) advance and demand attention. Reserve them for CTAs, warnings, and essential interactions.

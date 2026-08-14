@@ -1,3 +1,5 @@
+🇵🇱 [Wersja polska](README.pl.md)
+
 # UI Design Rules — a Claude Code skill
 
 An opinionated design system for AI-built frontends. This skill makes Claude Code apply professional UI design rules — consistently, verifiably — whenever it builds or reviews React + Tailwind interfaces.
@@ -49,7 +51,7 @@ Restyle this settings form so it looks consistent with the rest of the app.
 Review the visual design of src/components/Dashboard.tsx and list concrete fixes.
 ```
 
-On a fresh project with no existing styles, the skill first asks three quick questions (brand color, typography, light/dark) — answer in seconds or say "defaults".
+On a fresh project with no existing styles, the skill reads the product context and proposes 2–3 concrete palettes with reasoning (plus matching typography) — pick one in seconds or say "defaults".
 
 ## What's inside
 
@@ -64,6 +66,7 @@ On a fresh project with no existing styles, the skill first asks three quick que
 | `references/design-process.md` | Wireframe → styleguide → implementation → design system |
 | `references/review-checklist.md` | Audit procedure, severity levels, report format |
 | `scripts/screenshot.mjs` | Render-and-look helper (Playwright/Puppeteer) |
+| `scripts/palette-check.mjs` | Color-harmony audit of the rendered page (hue families, clash detection) |
 
 Claude reads `SKILL.md` when the skill triggers and pulls individual reference files only when the task needs them, so routine work stays cheap.
 

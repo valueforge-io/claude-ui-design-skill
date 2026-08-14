@@ -28,10 +28,11 @@ Never style ad hoc. Source every visual decision through this cascade, first hit
 
 1. **Existing project system.** Look for `tailwind.config` color/font extensions, CSS custom properties, a component library (shadcn/ui, Flowbite…), or repeated class patterns in existing components. If found, follow it completely — consistency with the codebase beats every default in this skill. Never introduce skill defaults into a project that already has its own voice.
 2. **Explicit instructions** in the request: a brand hex, "make it green", an attached mockup or screenshot.
-3. **Quick intake.** Starting a new project, app, or standalone page with no constraints from 1–2? Ask the user before styling — one compact message, these three questions, each with a stated default so "go with defaults" is a complete answer:
-   - *Brand color:* got a hex/name, or pick a personality — trustworthy/corporate (blue-indigo, default), premium/creative (violet), friendly/energetic (amber-orange), calm/health (teal-green), bold/consumer (pink-red)?
-   - *Typography:* neutral modern sans (Inter, default), geometric (Poppins), or editorial (serif display + sans body)?
-   - *Mode:* light (default), dark, or both?
+3. **Guided intake.** Starting a new project, app, or standalone page with no constraints from 1–2? Don't make the user pick from abstract adjectives — read the product context from the request (domain, audience, competition) and PROPOSE, in one compact message:
+   - 2–3 concrete palette proposals fitted to this product, one line each: hue + why it fits + when to prefer it, one marked as default. Example for a team time-tracker: "indigo (default) — trust + modern SaaS convention, safe for B2B; teal — calmer, more human, stands out among blue competitors; slate + amber accent — bolder, if the brand should feel energetic". Ground the reasoning in the psychology table in references/color.md.
+   - A matching typography suggestion per proposal, one line: neutral sans (Inter) default; geometric (Poppins) when the brand should feel friendly and product-y; serif display + sans body for editorial or premium.
+   - Mode: light (default), dark, or both.
+   "Take the default" must be a complete answer. A given hex or brand asset skips the proposals — build the scale from it instead (references/color.md). No product context at all? Ask one question — which personality fits: trustworthy/corporate, premium/creative, friendly/energetic, calm/health, bold/consumer — then propose.
 4. **Skill defaults.** User defers, or the task is too small to justify questions: `indigo` primary, `slate` neutrals, Inter/system sans, 1.25 type scale, light mode.
 
 Do NOT run the intake for: component tweaks inside an existing codebase, bug fixes, or requests like "just make it look good" — that phrasing is deferral, take defaults and go. When surroundings can answer the question, never ask the user.
