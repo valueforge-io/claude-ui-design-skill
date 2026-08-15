@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.1 — 2026-08-15
+
+Fixes from the first full Kickoff run on a real project.
+
+- **The specimen gate only worked for the agent, not the user.** The image was rendered and the agent inspected it, but the user was asked for a pick in the same message — from an option list, with the file still unopened on disk. `specimen.mjs` now opens the PNG in the system viewer (`--open=false` to disable), and kickoff.md requires showing the image and asking in *separate* turns, with no option labelled "recommended" (a recommendation short-circuits the comparison).
+- **The specimen's six contrast pairs were incomplete** — an adversarial reviewer showed all three candidates of a real project passing while carrying blocking defects. Added: signal on surface, CTA fill vs title color (a CTA that shares the headline's value wins nothing by color), accent vs body text in grayscale (an accent below body luminance vanishes without hue), and surface vs canvas as an advisory (imperceptible elevation is legal, but then the palette owes a border or shadow token).
+- The same four structural pairs are now stated as rules in color.md and checked in the review checklist — they apply to ordinary building, not just to specimens.
+
 ## 2.2.0 — 2026-08-15
 
 Kickoff mode: the user decides on pixels, and real content becomes a first-class citizen.

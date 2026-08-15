@@ -151,19 +151,28 @@ const audit = await page.evaluate(() => {
     const cs = getComputedStyle(card);
     const v = n => cs.getPropertyValue(n).trim();
     const canvas = toRGB(v('--canvas')), surface = toRGB(v('--surface'));
+    const tp = toRGB(v('--tp')), ts = toRGB(v('--ts')), sig = toRGB(v('--sig')), abg = toRGB(v('--abg'));
     const pairs = [
-      ['title on canvas', toRGB(v('--tp')), canvas, 3],          // large display text
-      ['body on canvas', toRGB(v('--ts')), canvas, 4.5],
-      ['signal on canvas', toRGB(v('--sig')), canvas, 4.5],
-      ['body on surface', toRGB(v('--ts')), surface, 4.5],
-      ['action label on fill', toRGB(v('--afg')), toRGB(v('--abg')), 4.5],
-      ['action fill on canvas', toRGB(v('--abg')), canvas, 3],
-    ].map(([label, fg, bg, need]) => { const got = Math.round(ratio(fg, bg) * 100) / 100; return { label, got, need, pass: got + 0.05 >= need }; });
+      // WCAG minimums — legal requirements
+      ['title on canvas', tp, canvas, 3, 'wcag'],               // large display text
+      ['body on canvas', ts, canvas, 4.5, 'wcag'],
+      ['signal on canvas', sig, canvas, 4.5, 'wcag'],
+      ['body on surface', ts, surface, 4.5, 'wcag'],
+      ['signal on surface', sig, surface, 4.5, 'wcag'],         // eyebrows/rules live on cards too
+      ['action label on fill', toRGB(v('--afg')), abg, 4.5, 'wcag'],
+      ['action fill on canvas', abg, canvas, 3, 'wcag'],
+      // System checks — the skill's own rules; a palette can be WCAG-legal and still broken
+      ['surface visible on canvas', surface, canvas, 1.15, 'note'], // advisory: below this, cards need a border/shadow token to read as separate
+      ['action fill vs title', abg, tp, 1.2, 'sys'],                 // CTA must not equal the headline value
+      ['signal vs body (grayscale)', sig, ts, 1.2, 'sys'],           // accent must not vanish without hue
+    ].map(([label, fg, bg, need, kind]) => { const got = Math.round(ratio(fg, bg) * 100) / 100; return { label, got, need, kind, pass: got + 0.005 >= need }; });
     const ul = card.querySelector('.checks');
-    const failed = pairs.filter(p => !p.pass);
-    ul.innerHTML = pairs.map(p => `<li class="${p.pass ? 'ok' : 'bad'}"><span>${p.pass ? '✓' : '✗'}</span><span>${p.label}</span><span class="verdict">${p.got}:1 ${p.pass ? '' : `(needs ${p.need})`}</span></li>`).join('')
-      + `<li class="${failed.length ? 'bad' : 'ok'}" style="margin-top:4px"><span>${failed.length ? '✗' : '✓'}</span><span><strong>${failed.length ? `${failed.length} pair(s) fail — adjust before choosing` : 'all pairs pass WCAG'}</strong></span></li>`;
-    out.push({ name: card.dataset.name, pairs, failed: failed.length });
+    const failed = pairs.filter(p => !p.pass && p.kind !== 'note');
+    const notes = pairs.filter(p => !p.pass && p.kind === 'note');
+    ul.innerHTML = pairs.map(p => `<li class="${p.pass ? 'ok' : 'bad'}"><span>${p.pass ? '✓' : '✗'}</span><span>${p.label}${p.kind === 'sys' ? ' <em style="opacity:.6">(system)</em>' : ''}</span><span class="verdict">${p.got}:1 ${p.pass ? '' : `(needs ${p.need})`}</span></li>`).join('')
+      + `<li class="${failed.length ? 'bad' : 'ok'}" style="margin-top:4px"><span>${failed.length ? '✗' : '✓'}</span><span><strong>${failed.length ? `${failed.length} check(s) fail — adjust before choosing` : 'all hard checks pass (WCAG + system)'}</strong></span></li>`
+      + (notes.length ? `<li style="color:#a16207"><span>!</span><span>${notes.map(n => n.label).join(', ')} — allowed, but then cards need a border or shadow token</span></li>` : '');
+    out.push({ name: card.dataset.name, pairs, failed: failed.length, notes: notes.map(n => `${n.label} ${n.got}:1`) });
   }
   return out;
 });
@@ -176,13 +185,27 @@ await browser.close();
 console.log(`Specimen: ${palettes.length} palette(s), ${typePairs.length} type pairing(s)`);
 console.log(`  page  → ${outPath}`);
 console.log(`  image → ${shot}`);
+
+// Open it on the user's screen. A specimen the user never sees is worth nothing:
+// they will answer from the option list instead of from the pixels.
+if (flags.open !== 'false') {
+  const { spawn } = await import('node:child_process');
+  const opener = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+  try {
+    spawn(opener, [shot], { detached: true, stdio: 'ignore', shell: process.platform === 'win32' }).unref();
+    console.log(`  opened in the default viewer — ask for the pick only after this is on screen`);
+  } catch {
+    console.log(`  could not auto-open — tell the user to open ${shot} themselves, and wait for their reply`);
+  }
+}
 if (audit.length) {
   console.log('\nContrast audit:');
   for (const a of audit) {
-    console.log(`  ${a.failed ? '✗' : '✓'} ${a.name}${a.failed ? ` — ${a.failed} failing pair(s): ${a.pairs.filter(p => !p.pass).map(p => `${p.label} ${p.got}:1<${p.need}`).join(', ')}` : ' — all pairs pass'}`);
+    console.log(`  ${a.failed ? '✗' : '✓'} ${a.name}${a.failed ? ` — ${a.failed} failing check(s): ${a.pairs.filter(p => !p.pass && p.kind !== 'note').map(p => `${p.label} ${p.got}:1<${p.need}`).join(', ')}` : ' — all hard checks pass'}`);
+    if (a.notes.length) console.log(`      note: ${a.notes.join('; ')} — legal, but cards will need a border/shadow token to separate`);
   }
   if (audit.some(a => a.failed)) {
-    console.log('\nA failing candidate is not a choice yet. Adjust its steps (or apply the warm-hue escape hatch in color.md) and re-run before showing it.');
+    console.log('\nA failing candidate is not a choice yet. WCAG failures are legal violations; system failures (elevation, CTA-vs-title, accent-in-grayscale) mean the palette is legal but structurally broken. Adjust and re-run before showing anything.');
     process.exit(1);
   }
 }

@@ -66,6 +66,7 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 - Distribution near 60/30/10 (neutral surfaces / neutral text & structure / primary+accent+semantic); one saturated element family per view.
 - Semantic slots keep their meaning: red/error = destructive-failure, green = success, amber = warning — never repurposed.
 - Hover darkens one step in light mode; dark mode inverts the ladder and re-passes the same contrast minimums.
+- Structural pairs beyond WCAG: signal on surfaces (not only canvas), CTA fill distinguishable from the title color, accent still ranked above body text in grayscale, surface either visible against canvas or backed by a border/shadow token (color.md).
 - Harmony: ≤3 non-neutral hue families; no family pair in the 60–150° clash zone (unless semantic status); one chroma band; tinted neutrals only when hue-matched to the primary — see color.md “Hue Discipline”.
 
 ## Components

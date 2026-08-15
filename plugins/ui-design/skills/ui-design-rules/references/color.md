@@ -85,6 +85,15 @@ Whether a palette holds together is largely checkable. Work in hue degrees (0–
 - Tinted neutrals (chroma 0.08–0.16) are fine when deliberate and hue-matched to the primary (branded neutral, see the palette recipe); a bug when their tint hue drifts far from the primary's.
 - Temperature roles hold inside the palette: cool/neutral structure, warmth only on attention targets (next section).
 
+### Pairs beyond the WCAG list
+
+WCAG minimums keep text legible; they do not keep a palette structurally sound. Check these too — a palette can be fully compliant and still broken [PRINCIPLE]:
+
+- **Signal on every surface it lands on**, not just the canvas. Eyebrows and rules sit on cards too, and an accent that measures 5.2:1 on the page often drops into the weak 4.5–5:1 band on a raised surface.
+- **Action fill vs title color** — if the CTA fill and the headline share a value (ratio below ~1.2:1), the button wins nothing by color and relies entirely on its shape. On a page whose single job is one action, that is a hierarchy failure, not a nuance.
+- **Accent vs body text in grayscale** — if the signal's luminance sits at or below secondary text, the accent disappears the moment hue is removed, and the palette's whole personality was riding on hue alone.
+- **Surface vs canvas** — below ~1.15:1 the elevation is imperceptible; that is allowed (print-inspired palettes do it deliberately), but then the palette must ship a border or shadow token, or cards will not read as separate objects.
+
 Verification: sample real rendered colors — `node scripts/palette-check.mjs <file.html|url>` renders the page, clusters hue families, classifies pair relationships, and flags clash pairs, extra families, and chroma outliers. Numbers catch rule violations; the final aesthetic call is made on the screenshot.
 
 ## Temperature [HEURISTIC]
