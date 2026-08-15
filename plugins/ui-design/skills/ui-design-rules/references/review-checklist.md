@@ -33,6 +33,8 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 - Reading order matches task priority — what the user must see first is visually first; the primary action sits where the scan ends.
 - Every interactive element is keyboard-reachable in a sensible order, with a clearly visible focus indicator at every stop [STANDARD].
 - Interactive elements have their states (hover, focus-visible, disabled; valid/invalid on fields) — a missing state is a missing feature, not polish.
+- Layers (menus, dialogs, comboboxes) close on Escape and return focus to their trigger; no positive `tabindex`; no clickable `div`s posing as buttons (interaction.md).
+- Targets meet the 24×24px floor [STANDARD]; touch surfaces aim for ~44px (accessibility.md).
 
 ## Tokens & system
 
@@ -87,6 +89,7 @@ Prefer computed checks over judgment where possible; they are faster and non-neg
 - Tokens: grep component code for raw hex (`#[0-9a-fA-F]{3,8}`) and raw Tailwind families (`bg-indigo-`, `text-slate-`) that bypass slots.
 - Consistency: collect class strings of repeated components and diff them.
 - Harmony: run `node scripts/palette-check.mjs <page>` — samples rendered colors, clusters hue families, classifies relationships, flags clash pairs and chroma outliers.
+- Interaction: run `node scripts/interaction-check.mjs <page>` — Tab-walk reachability, focus-visibility diffing, positive tabindex, fake buttons, sub-24px targets.
 
 ## Common quick wins
 

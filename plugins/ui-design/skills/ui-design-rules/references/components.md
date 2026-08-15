@@ -1,12 +1,12 @@
 # Component Rules
 
 Per-component design rules for React + Tailwind: anatomy, states, sizing, and a one-line class recipe for 25 components.
-Consult when building or reviewing any individual UI component. Spacing follows the 4-point scale (see spacing-layout.md); color names like `primary-600` or `success-100` are palette slots — resolve them from the project palette; text classes map to the project type roles.
+Consult when building or reviewing any individual UI component. Spacing follows the 4-point scale (see spacing-layout.md); color names like `primary-600` or `success-100` are palette slots — resolve them from the project palette; text classes map to the project type roles. Keyboard and focus behavior for interactive patterns: interaction.md.
 
 ## Contents
 
 [Buttons](#buttons) · [Borders](#borders) · [Shadows](#shadows) · [Icons](#icons) · [Labels](#labels) · [Dividers](#dividers) ·
-[Forms](#forms) · [Inputs](#inputs) · [Checkbox](#checkbox) · [Radio](#radio) · [Textarea](#textarea) · [Toggle](#toggle) · [Dropdowns](#dropdowns) · [Submit buttons](#submit-buttons) ·
+[Forms](#forms) · [Inputs](#inputs) · [Checkbox](#checkbox) · [Radio](#radio) · [Textarea](#textarea) · [Toggle](#toggle) · [Dropdowns](#dropdowns) · [Dialogs](#dialogs) · [Submit buttons](#submit-buttons) ·
 [Badges](#badges) · [Toasts](#toasts) · [Breadcrumbs](#breadcrumbs) · [Tables](#tables) · [Lists](#lists) · [Tooltips](#tooltips) ·
 [Cards](#cards) · [Accordions](#accordions) · [Tabs](#tabs) · [Iconography](#iconography) · [Avatars](#avatars)
 
@@ -15,7 +15,7 @@ Consult when building or reviewing any individual UI component. Spacing follows 
 Apply these to every component before reading its specific block:
 
 - **Consistency beats style:** design every component — small button or large table — with the same care, and give identical components identical spacing, radius, and treatment everywhere.
-- **Control height:** interactive form controls share `h-10` (40px) by default so inputs, dropdowns, and buttons line up on one row; compact `h-8`, large `h-12`.
+- **Control height:** interactive form controls share `h-10` (40px) by default so inputs, dropdowns, and buttons line up on one row; compact `h-8`, large `h-12`. Touch surfaces pad to ≥44px; the 24×24px floor and its exceptions: accessibility.md.
 - **Radius:** one radius token across buttons, inputs, and containers (default `rounded-lg`); inner elements always use a smaller radius than their container.
 - **Focus [STANDARD]:** a clearly visible focus indicator on everything interactive. `focus-visible:ring-2` is the house default; CSS `outline` is equally valid — outline never affects layout (only added borders do). Whatever the technique: visible at every stop, ≥3:1 against adjacent colors, not obscured by neighboring elements.
 - **Disabled:** `disabled:opacity-50 disabled:pointer-events-none` — present but visibly inert.
@@ -28,6 +28,7 @@ Every interactive component needs visible default, hover, focus, and disabled st
 - Encode state with color, fill, shadow, or helper text only; keep geometry (size, border width, position) stable so nothing jumps.
 - Keep hover/focus shifts modest — a 5–15% tint or shade step — because dramatic flips disorient.
 - Pair every color-coded state with text (helper line, label, message) so meaning survives without color.
+- Which states a component needs is an explicit decision, not a habit — the full state matrix and per-pattern keyboard models: interaction.md.
 
 ## Buttons
 
@@ -140,6 +141,15 @@ Every interactive component needs visible default, hover, focus, and disabled st
 - **Long lists:** add type-ahead so users filter instead of scrolling.
 - **Sizing:** 40px trigger (`h-10`) and 40px menu rows, 16px horizontal padding, label 8px above, error text 4px below, 1px dividers in the menu.
 - **Recipe:** trigger `h-10 w-full rounded-lg bg-neutral-100 px-4 text-left text-sm focus:ring-2` + menu `mt-1 max-h-60 overflow-auto rounded-lg bg-white shadow-lg` + option `flex h-10 items-center px-4 hover:bg-neutral-100`.
+
+## Dialogs
+
+- **Anatomy:** overlay + panel: title, body, actions. Prefer native `<dialog>` with `showModal()` — focus trap, Escape, and `::backdrop` come free (full keyboard/focus model: interaction.md).
+- **Use when:** the user must respond before continuing; otherwise stay inline — every modal is an interruption.
+- **Actions:** right-aligned, secondary before primary; a destructive confirm names the object and the consequence ("Delete 'Project Alpha'? This permanently removes 38 tasks."), never a bare "Are you sure?".
+- **States:** closed, open, busy (async confirm: disable actions, show progress on the primary).
+- **Sizing:** `max-w-md` for confirmations, `max-w-2xl` for dialog forms; `p-6`; title-to-body `mt-2`, actions `mt-6`.
+- **Recipe:** `<dialog class="w-full max-w-md rounded-xl p-6 shadow-xl backdrop:bg-black/50">` + title `text-lg font-semibold` + body `mt-2 text-sm text-neutral-600` + actions `mt-6 flex justify-end gap-3`.
 
 ## Submit buttons
 

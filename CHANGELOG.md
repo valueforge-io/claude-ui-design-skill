@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 — 2026-08-15
+
+Interaction release: components stop being paint and start being behavior.
+
+- New `references/interaction.md`: keyboard models and focus management for nine interactive patterns (dialog, menu, combobox, tabs, accordion, checkbox/radio groups, toggle, toast, interactive tables), in the spirit of the ARIA Authoring Practices, plus the shared component state matrix.
+- New `references/accessibility.md`: WCAG 2.2 floors with rule levels — three-tier target size (24px compliance floor / ~44px touch default / dense-UI exception), focus visibility and obscurement, zoom/reflow and text spacing, reduced motion, dragging alternatives, redundant entry, accessible authentication, consistent help.
+- New `scripts/interaction-check.mjs`: third verification track — Tab-walk reachability, focus-indicator visibility (style diffing), positive tabindex, fake buttons, sub-24px targets. Calibrated on clean and deliberately broken fixtures.
+- components.md: new Dialog recipe (native `<dialog>` first, destructive confirms name object and consequence); control height tied to the target-size model; state decisions routed through the matrix.
+- SKILL.md: Step 2 becomes "build semantically, then style"; keyboard joins the Verify list as [STANDARD].
+
 ## 1.1.0 — 2026-08-15
 
 Correctness release: the skill now knows what kind of rule each rule is.

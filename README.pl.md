@@ -10,7 +10,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Dwa tryby** — *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
-- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko.
+- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Trzecim torem weryfikacji jest audyt klawiatury (spacer Tabem, widoczność fokusa, rozmiary celów).
 
 ## Instalacja
 
@@ -64,10 +64,13 @@ W świeżym projekcie bez istniejących stylów skill czyta kontekst produktu i 
 | `references/spacing-layout.md` | Baza 4pt, drabinka odstępów, gridy i guttery |
 | `references/components.md` | Przepisy na 25 komponentów (przyciski → tabele → toasty) |
 | `references/visual-hierarchy.md` | Wzorce skanowania, siedem dźwigni hierarchii, poziomy akcji |
+| `references/interaction.md` | Modele klawiaturowe, zarządzanie fokusem, macierz stanów komponentów |
+| `references/accessibility.md` | Podłogi WCAG 2.2: rozmiar celu, zoom/reflow, reduced motion, formularze |
 | `references/design-process.md` | Wireframe → styleguide → implementacja → design system |
 | `references/review-checklist.md` | Procedura audytu, poziomy wag, format raportu |
 | `scripts/screenshot.mjs` | Pomocnik „wyrenderuj i obejrzyj" (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Audyt harmonii barw wyrenderowanej strony (rodziny odcieni, wykrywanie zgrzytów) |
+| `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
 
 Claude czyta `SKILL.md`, gdy skill się uruchomi, a pojedyncze pliki referencyjne dociąga tylko wtedy, gdy zadanie ich dotyczy — rutynowa praca pozostaje tania.
 

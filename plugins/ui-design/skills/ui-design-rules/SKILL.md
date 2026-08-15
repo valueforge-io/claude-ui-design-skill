@@ -54,9 +54,9 @@ Then record the outcome as tokens **before the first styled component** — `the
 
 For new screens, decide the layout before any styling: what regions exist, what the reading order is, and which single element is the primary action of the view. A gray-box sketch or a written region list is enough. Layout mistakes cost minutes here and hours after styling. Details: `references/design-process.md`.
 
-### Step 2 — Style from the system
+### Step 2 — Build semantically, then style from the system
 
-Build using token classes and the defaults below. Consult the domain references (table at the bottom) when the task touches their area — they carry the full rules; this file only carries the core.
+Interaction before cosmetics: native elements first (`<button>`, `<a href>`, `<select>`, `<dialog>`), every pointer path has a keyboard path, and each component's states are explicitly decided — the state matrix and keyboard models live in `references/interaction.md`, the compliance floors in `references/accessibility.md`. Then style using token classes and the defaults below. Consult the domain references (table at the bottom) when the task touches their area — they carry the full rules; this file only carries the core.
 
 ### Step 3 — Verify before delivering
 
@@ -67,6 +67,7 @@ Run every time, and prefer computed checks over eyeballing:
 - **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — compute the ratios; never ship a silent violation.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
 - **States:** hover, focus-visible, and disabled present on everything interactive; valid/invalid on form fields.
+- **Keyboard [STANDARD]:** walk the page with Tab — everything reachable, a visible indicator at every stop, Escape closes layers and returns focus. `node scripts/interaction-check.mjs page.html` automates the static half.
 - **Consistency:** same-role elements styled identically; exactly one primary button per view [PRINCIPLE]; no raw hex in components.
 
 ## Core defaults
@@ -114,7 +115,7 @@ Distribution ≈ 60% neutral surfaces / 30% neutral text & structure / 10% color
 
 - Solid (primary) button: `px-4 py-2 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-2 disabled:opacity-50` — exactly one per view; secondary = tinted `bg-primary-50 text-primary-700`; tertiary = link.
 - Body text `text-neutral-900` on `bg-white`/`bg-neutral-50`; secondary `text-neutral-600`; placeholders `text-neutral-400`; borders `border-neutral-200`.
-- Controls share `h-10` height, one radius token (`rounded-lg`), ring focus (`focus-visible:ring-2`), `disabled:opacity-50`.
+- Controls share `h-10` height on desktop (pad to ≥44px on touch; 24×24px is the hard floor — `references/accessibility.md`), one radius token (`rounded-lg`), visible focus (`focus-visible:ring-2`), `disabled:opacity-50`.
 - Page container: `max-w-6xl mx-auto px-4` (or `px-8`), identical for every section of a page.
 - Hover darkens one step in light mode; state changes move color/fill only, never geometry.
 
@@ -131,6 +132,8 @@ When asked to review, critique, or improve existing UI: read `references/review-
 | `references/spacing-layout.md` | Page layout, grids/columns, any spacing uncertainty |
 | `references/components.md` | Building any specific component — recipes for 25 components |
 | `references/visual-hierarchy.md` | Screen feels flat or cluttered, landing pages, placement decisions, "what goes where" |
+| `references/interaction.md` | Building or reviewing anything the user operates — keyboard models, focus management, state matrix |
+| `references/accessibility.md` | Forms, touch targets, zoom/reflow, reduced motion — the compliance floor |
 | `references/design-process.md` | Project kickoff, creating the token layer, growing a design system |
 | `references/review-checklist.md` | Review mode, or final verification of a large build |
 

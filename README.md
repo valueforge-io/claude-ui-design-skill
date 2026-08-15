@@ -10,7 +10,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Two modes** — *Build* (create/style UI) and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
-- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed.
+- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. A keyboard audit (Tab-walk, focus visibility, target sizes) is the third verification track.
 
 ## Install
 
@@ -64,10 +64,13 @@ On a fresh project with no existing styles, the skill reads the product context 
 | `references/spacing-layout.md` | 4-point baseline, spacing ladder, grids and gutters |
 | `references/components.md` | Recipes for 25 components (buttons → tables → toasts) |
 | `references/visual-hierarchy.md` | Scan patterns, the seven hierarchy levers, action tiers |
+| `references/interaction.md` | Keyboard models, focus management, the component state matrix |
+| `references/accessibility.md` | WCAG 2.2 floors: target size, zoom/reflow, reduced motion, forms |
 | `references/design-process.md` | Wireframe → styleguide → implementation → design system |
 | `references/review-checklist.md` | Audit procedure, severity levels, report format |
 | `scripts/screenshot.mjs` | Render-and-look helper (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Color-harmony audit of the rendered page (hue families, clash detection) |
+| `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
 
 Claude reads `SKILL.md` when the skill triggers and pulls individual reference files only when the task needs them, so routine work stays cheap.
 
