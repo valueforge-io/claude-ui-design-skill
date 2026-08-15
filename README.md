@@ -10,6 +10,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
+- **Structure before style** — the page arc is rendered as a greyscale mockup at two viewports, with every section and slot numbered, before a single colour is chosen. Every string must sit in `[brackets]` or the mockup refuses to render, and those brackets become the keys of the content module.
 - **Assets first** — when a cover, logo, or product shot exists, the palette is measured out of it (ground hue, signal hue, lightness range) instead of invented, with a documented repair path for sampled colours that fail contrast.
 - **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered specimen** → section arc → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
 - **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. A keyboard audit (Tab-walk, focus visibility, target sizes) is the third verification track.
@@ -83,6 +84,7 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
 | `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
 | `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
+| `scripts/wireframe.mjs` | Renders the section arc as a neutral mockup (web + mobile) so structure is agreed slot by slot |
 | `scripts/specimen.mjs` | Renders palette/type candidates side by side on real copy, with contrast badges |
 | `scripts/extract-palette.mjs` | Measures ground hue, signal hue and lightness range out of an existing asset |
 

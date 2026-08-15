@@ -1,6 +1,6 @@
 {
   "name": "ui-design",
   "description": "Professional UI design rules for React + Tailwind with a styleguide-first workflow, build and review modes, and screenshot-based self-verification.",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "author": { "name": "Tomasz Kowalczyk" }
 }

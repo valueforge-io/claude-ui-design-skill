@@ -13,7 +13,7 @@ Corollary: asking *fewer* questions is not the goal — showing *more material* 
 Not every gate closes the same way, and confusing them is how a ritual becomes theatre [PRINCIPLE]:
 
 - **Confirm-by-silence** — a *summary you could correct*: the inventory and the intent brief. State it, invite a correction, move on. Silence is acceptance; these must never stall the work.
-- **Requires an answer** — a *decision only the user can make*: the visual pick (Stage 2) and the section arc (Stage 3). State it, ask for the specific input, and **end your turn**. Silence here is not acceptance; it means the user hasn't looked yet.
+- **Requires an answer** — a *decision only the user can make*: the section arc (Stage 2) and the visual pick (Stage 3). State it, ask for the specific input, and **end your turn**. Silence here is not acceptance; it means the user hasn't looked yet.
 
 Never put a confirm-by-silence stage and a requires-an-answer stage in the same message. Bundled, the decision reads as an appendix to the summary and scrolls past — the user "agrees" to a structure they never registered as a question.
 
@@ -39,11 +39,27 @@ Purpose: the 8-line brief and archetype (procedure and format: design-intent.md)
 
 **Gate (confirm-by-silence):** the user has seen the brief and hasn't objected. This stage must not stall — but it also must not carry a decision stage along with it.
 
-## Stage 2 — Specimen (the visual gate)
+## Stage 2 — Arc (the structural gate)
 
-Purpose: the user picks palette and typography from rendered pixels.
+Purpose: agree on **what stands where inside each section**, and on where the real words come from, before either exists in code. This stage gets its own message; it is never appended to the intent brief.
 
-1. Compose 3 palette candidates and 3–4 type pairings from the intent (visual-directions.md sets the character, color.md the construction). Make them differ in *character*, not in decimals — a control variant close to the obvious choice is useful as an anchor.
+The unit of this decision is the slot, not the section [PRINCIPLE]. Whether the hero carries one call to action or two, whether the cover stands beside the headline or above it, whether the sample chapter costs an email address, whether the offer shows three formats or one — these are the decisions that actually shape a page, and a table row cannot hold them. Listed as slots they become cuts the user can make in seconds; left in prose they get made silently in code.
+
+1. Compose `arc.json` from the archetype's default arc (design-intent.md), adapted to this product: sections, each with a goal and its blocks in reading order. Propose a **full** arc — never ask "what sections would you like", which is as unanswerable as asking whether they prefer oxblood or steel navy.
+2. Render it: `node scripts/wireframe.mjs arc.json --out=wireframe`. Greyscale, one system typeface, every slot dashed and addressed (`3.2` = section 3, slot 2), at **two viewports — web and mobile, both**. The narrow view is not a courtesy: it forces the decisions that otherwise happen by accident — what collapses, what moves above what, in what order a section is read on a phone (`"asideMobile": "last"` drops a side slot below the copy instead of above it).
+3. **Every user-visible string lives in [square brackets]** and the script refuses to render otherwise [STANDARD]. This is what stops a mockup from being taken for a design: bracketed text cannot be admired, only filled in. Write the brief inside the bracket — `[Bio, 2–3 zdania: kim jest i skąd wiarygodnie zna świat, o którym pisze]` — because a slot that says what to write and how long it runs is worth more than a table cell saying "biogram".
+4. **Put both images on their screen, then ask — in that order** [PRINCIPLE]. Same rule as every rendered gate: the script opens them; if your environment cannot, say *"Otwórz wireframe-web.png i wireframe-mobile.png — czekam"* / *"Open both files — I'll wait"* and **stop your turn there**.
+5. Then ask plainly: *"Tnij, przestawiaj i dodawaj po numerach — sekcji i slotów. Wklej treści, które już masz. Napisz 'ok', jeśli pasuje."* / *"Cut, reorder, add — by number, sections and slots. Paste any copy you already have. Say 'ok' if it fits."*
+
+Keep the mockup honest about what it does **not** claim: it shows order and contents, not proportion, colour or type. Say so in one line — those come next, on the specimen.
+
+**Gate (requires an answer):** an explicit reply — numbers, pasted copy, or "ok". Silence means they haven't looked. A structural disagreement costs one message here and a rebuild after implementation.
+
+## Stage 3 — Specimen (the visual gate)
+
+Purpose: the user picks palette and typography from rendered pixels — now on the page's **real** slots, which is why this stage follows the arc. Set the headline candidates in the actual headline, the hook at its actual length, the button in its actual label: a pairing that looks elegant on sample text and breaks the real title across three lines has to fail here, not after the build.
+
+1. Compose 3 palette candidates and 3–4 type pairings from the intent (visual-directions.md sets the character, color.md the construction). Make them differ in *character*, not in decimals — a control variant close to the obvious choice is useful as an anchor. If an asset exists, the hues measured in Stage 0 constrain every candidate (color.md, "Palette from an asset").
 2. Write them into `specimen.json` and run `node scripts/specimen.mjs specimen.json --out=specimen.html`. The script renders every candidate on the project's real copy, computes each palette's key contrast pairs, and badges failures.
 3. Fix anything badged FAIL *before* showing it — a failing candidate is not a choice (warm-hue actions usually need the escape hatch in color.md). Re-run until every candidate passes.
 4. **Put the image on their screen, then ask — in that order** [PRINCIPLE]. A specimen the user never opens is worth nothing: they will answer from the option list instead of from the pixels, which is exactly the failure this stage exists to prevent. The script opens the PNG in the system viewer automatically (`--open=false` disables it). If your environment cannot display images inline, say plainly *"Otwórz specimen.png — czekam"* / *"Open specimen.png — I'll wait"* and **stop your turn there**. Ask for the picks only in the next message, after the user has confirmed they're looking at it.
@@ -55,35 +71,25 @@ Fonts: verify every family actually exists and carries the subsets the language 
 
 **Rejection path:** if the user rejects all candidates, ask what specifically is wrong (too loud / too cold / too corporate / too playful), move that dial, and re-render. Never argue for a candidate — re-render; it costs a minute.
 
-## Stage 3 — Arc (the structural gate)
-
-Purpose: agree on the page structure *and* on where real content comes from — before either exists in code. This stage gets **its own message**; it is never appended to the intent brief.
-
-Produce a numbered table: section · what job it does · what content it needs · who supplies it. Start from the archetype's default arc (design-intent.md), adapted to this product. Example row: `3 · Fragment · daje próbkę pisania · pierwsze 2 strony rozdziału · **masz? wklej — inaczej piszę wypełniacz**`.
-
-The content column is the point, not decoration: it shows the user the shopping list before anything is built, and it invites real copy exactly where they already have it. Anything unclaimed becomes placeholder in the target register and length (content-design.md).
-
-Then ask plainly, and **stop**: *"Wytnij, przestaw albo dodaj — podaj numery. Wklej treści, które już masz. Napisz 'ok', jeśli pasuje."* / *"Cut, reorder, or add — give me numbers. Paste any copy you already have. Say 'ok' if it fits."*
-
-**Gate (requires an answer):** an explicit reply — edits, pasted copy, or "ok". Silence means they haven't read it. Structural disagreements cost one message here and a rebuild after implementation.
-
 ## Stage 4 — Tokens, then build
 
-Purpose: convert picks into tokens and record the reasoning. Write the token layer (Tailwind config or `@theme`, per version detection), the type roles, and `design-system/MASTER.md` (intent + direction + tokens + deviations log — design-process.md). Content goes into a single content module, never into components (content-design.md).
+Purpose: convert picks into tokens and record the reasoning. Write the token layer (Tailwind config or `@theme`, per version detection), the type roles, and `design-system/MASTER.md` (intent + direction + tokens + deviations log — design-process.md).
+
+The content module is **generated, not transcribed**: `node scripts/wireframe.mjs arc.json --content=content/site.ts` turns every bracket into a key with its brief intact. Components import from it and hold zero strings (content-design.md). This is what makes the closing shopping list a query instead of a memory exercise — the fields still owed are exactly the keys whose values are still in brackets.
 
 **Gate:** zero raw hex and zero arbitrary values in component code. From here, the normal Build workflow (SKILL.md) takes over, ending in the usual verification.
 
 **Hand over a page they can open** [PRINCIPLE]. Serve it, open it, and lead with the URL — the finished work must reach the user's screen exactly like the specimen did, or they end up asking "how do I see this?" after you have declared it done. Include the one-line command to bring it back, and the rebuild step after they edit content.
 
-**Close every build with the content shopping list** [PRINCIPLE]. Once the page renders, end the message with the concrete list of fields still carrying placeholder text — named, in one line each, in the order they appear on the page: *"Do wypełnienia w `content/book.ts`: cytat prasowy, fragment rozdziału, biogram autora, liczba stron, ISBN."* A section that renders nothing because its content is missing is reported too, not silently dropped — the count of empty sections is the honest measure of how much of the page is still owed. Never let placeholder text become permanent by going unmentioned.
+**Close every build with the content shopping list** [PRINCIPLE]. Once the page renders, end the message with the concrete list of fields still carrying placeholder text — grep the content module for `[` and you have it — named, in one line each, in the order they appear on the page: *"Do wypełnienia w `content/book.ts`: cytat prasowy, fragment rozdziału, biogram autora, liczba stron, ISBN."* A section that renders nothing because its content is missing is reported too, not silently dropped — the count of empty sections is the honest measure of how much of the page is still owed. Never let placeholder text become permanent by going unmentioned.
 
 ## Collapsing the ritual
 
 The ritual scales down to nothing — the default is to skip it:
 
 - Component tweak, bug fix, restyle inside an existing system → **no stages at all**; the styleguide cascade already has the answers.
-- New surface in an existing project → stages 3–4 only, reusing MASTER.md.
-- New project, user says "just build it" → run stages internally, show the specimen anyway (it costs one message and prevents a rebuild), take defaults for everything else.
+- New surface in an existing project → stages 2 and 4 only (arc, then build), reusing MASTER.md: the palette and type are already decided.
+- New project, user says "just build it" → run stages internally, show the mockup and the specimen anyway (two messages, and they prevent a rebuild of the whole page), take defaults for everything else.
 - Every stage accepts "choose for me": pick the first candidate, state the choice in one line, keep going. The ritual must never block on a user who wants to delegate.
 
 Total budget: at most three messages of back-and-forth before the first rendered page. If Kickoff feels like a workshop, it has failed — cut a stage rather than a screenshot.

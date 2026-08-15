@@ -10,6 +10,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Inteligencja projektowa** — brief intencji i dziesięć archetypów produktowych decyduje, CZYM interfejs ma być; dwanaście gramatyk kierunków wizualnych proponuje, JAK ma wyglądać; `design-system/MASTER.md` pamięta jedno i drugie między sesjami.
+- **Struktura przed stylem** — łuk strony renderuje się jako szara makieta w dwóch szerokościach, z numerem przy każdej sekcji i każdym slocie, zanim padnie pierwsza decyzja o kolorze. Każdy ciąg znaków musi stać w `[nawiasach]`, inaczej makieta się nie wyrenderuje, a te nawiasy stają się kluczami modułu treści.
 - **Assety na wejściu** — gdy istnieje okładka, logo albo zdjęcie produktu, paleta jest z nich mierzona (barwa gruntu, barwa sygnału, zakres jasności), nie wymyślana, z opisaną procedurą naprawczą dla kolorów, które nie przechodzą kontrastu.
 - **Trzy tryby** — *Kickoff* (rytuał wejścia dla nowych projektów: inwentarz → intencja → **wyrenderowany specimen** → łuk sekcji → tokeny), *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
 - **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Trzecim torem weryfikacji jest audyt klawiatury (spacer Tabem, widoczność fokusa, rozmiary celów).
@@ -83,6 +84,7 @@ Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące t
 | `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
 | `scripts/contrast-check.mjs` | Kontrast WCAG każdego węzła tekstowego wobec realnego tła z renderu |
 | `scripts/reflow-check.mjs` | Kontrola reflow przy 320px ze wskazaniem winnego elementu i przyczyny |
+| `scripts/wireframe.mjs` | Renderuje łuk sekcji jako neutralną makietę (web + mobile), żeby strukturę uzgodnić slot po slocie |
 | `scripts/specimen.mjs` | Renderuje kandydatów palet i krojów obok siebie na realnej treści, z plakietkami kontrastu |
 | `scripts/extract-palette.mjs` | Mierzy z istniejącego assetu barwę gruntu, barwę sygnału i zakres jasności |
 

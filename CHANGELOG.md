@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.4.0 — 2026-08-16
+
+Structure is decided on rendered material too. The section arc stops being a markdown table and becomes a neutral mockup — and it now comes *before* the specimen.
+
+- **New** `scripts/wireframe.mjs`: renders `arc.json` as a greyscale mockup at two viewports (web and mobile), with every section and slot addressed — `3.2` is section 3, slot 2 — so a cut is a number, not a paragraph. Fifteen block types covering content roles rather than layout components: eyebrow, heading, text, list, action(s), field, price, quote, rating, person, media, cards, disclosure, logos, meta.
+- **The unit of the structural decision moved from the section to the slot.** One CTA or two, cover beside the headline or above it, a sample chapter that costs an email address, three formats or one — these shape a page and a table row cannot hold them. Enumerated as slots they become edits a user makes in seconds.
+- **The bracket rule is enforced by the script, not by discipline**: any user-visible string outside `[brackets]` fails validation and nothing renders. A mockup that looks finished gets approved as a design, and then the user has agreed to a look nobody proposed.
+- **Stages swapped: arc (2) now precedes specimen (3).** The mockup is neutral by construction, so it loses nothing by going first — and the specimen gains a great deal, because it can render candidates on the page's real headline at its real length instead of on sample text.
+- **The mockup is an input, not a document to approve**: `--content=content/site.ts` turns every bracket into a key with its brief intact, so the closing shopping list is a grep for `[` rather than a summary someone has to remember to write.
+- The mobile viewport is not decoration — it forces decisions that otherwise happen silently in code (what collapses, what moves above what), and `"asideMobile": "last"` makes the one that matters most an explicit knob.
+
 ## 2.3.0 — 2026-08-15
 
 Assets first: when the brand material already exists, the palette is measured out of it.

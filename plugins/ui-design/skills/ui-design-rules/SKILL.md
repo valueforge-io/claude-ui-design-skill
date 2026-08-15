@@ -18,7 +18,7 @@ Turn design from taste into system: establish tokens first, style only from toke
 Three modes:
 
 - **Build** (default) — creating or styling UI. Follow the workflow below.
-- **Kickoff** — starting a new project or a major new surface from nothing. Run the five-stage entry ritual in `references/kickoff.md` first (inventory → intent → **specimen** → **arc** → tokens), then continue with Build. Two governing rules: replace questions with comparisons (visual decisions are made on rendered candidates, never on adjectives), and never bundle a decision gate — the visual pick and the section arc — into the same message as a summary the user is only asked to skim.
+- **Kickoff** — starting a new project or a major new surface from nothing. Run the five-stage entry ritual in `references/kickoff.md` first (inventory → intent → **arc** → **specimen** → tokens), then continue with Build. Two governing rules: replace questions with comparisons (structure and visuals are both decided on rendered material, never on adjectives or tables), and never bundle a decision gate — the section arc and the visual pick — into the same message as a summary the user is only asked to skim.
 - **Review** — critiquing or fixing existing UI. Follow `references/review-checklist.md`.
 
 ## Rule levels
@@ -40,7 +40,7 @@ Never style ad hoc. Source every visual decision through this cascade, first hit
 
 1. **Existing project system.** Look for `design-system/MASTER.md` first — this skill's own memory: intent, direction, tokens (references/design-process.md). Then `tailwind.config` color/font extensions, CSS custom properties, a component library (shadcn/ui, Flowbite…), or repeated class patterns in existing components. If found, follow it completely — consistency with the codebase beats every default in this skill. Never introduce skill defaults into a project that already has its own voice.
 2. **Explicit instructions** in the request: a brand hex, "make it green", an attached mockup or screenshot.
-3. **Guided intake.** Starting a new project, app, or standalone surface with no constraints from 1–2? This is Kickoff mode — run `references/kickoff.md`: take inventory of what exists, sketch the intent brief and archetype (`references/design-intent.md`), then compose 2–3 palette candidates and 3–4 type pairings (`references/visual-directions.md`) and render them with `node scripts/specimen.mjs specimen.json` so the user picks from pixels. Fix any candidate the script badges as failing contrast before showing it. Record the picks in `design-system/MASTER.md`.
+3. **Guided intake.** Starting a new project, app, or standalone surface with no constraints from 1–2? This is Kickoff mode — run `references/kickoff.md`: take inventory of what exists, sketch the intent brief and archetype (`references/design-intent.md`), render the section arc as a neutral mockup with `node scripts/wireframe.mjs arc.json` so structure is agreed slot by slot, then compose 2–3 palette candidates and 3–4 type pairings (`references/visual-directions.md`) and render them with `node scripts/specimen.mjs specimen.json` so the user picks from pixels. Fix any candidate the script badges as failing contrast before showing it. Record the picks in `design-system/MASTER.md`.
 4. **Skill defaults.** User defers, or the task is too small to justify questions: `indigo` primary, `slate` neutrals, Inter/system sans, 1.25 type scale, light mode.
 
 Do NOT run the intake for: component tweaks inside an existing codebase, bug fixes, or requests like "just make it look good" — that phrasing is deferral, take defaults and go. When surroundings can answer the question, never ask the user.
@@ -129,7 +129,7 @@ When asked to review, critique, or improve existing UI: read `references/review-
 
 | File | Read when |
 |---|---|
-| `references/kickoff.md` | Starting from nothing: the five-stage entry ritual and the specimen gate |
+| `references/kickoff.md` | Starting from nothing: the five-stage entry ritual, the arc mockup and the specimen gate |
 | `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, default section arcs |
 | `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
 | `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales, deriving a palette from an existing asset |
