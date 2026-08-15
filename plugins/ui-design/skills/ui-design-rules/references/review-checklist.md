@@ -8,7 +8,7 @@ Detailed rules live in the sibling reference files — this file is the audit pa
 
 1. Establish intent before judging: what is this screen for, what is its single primary action, what should the user see first, second, last? Judge against intent, not personal taste.
 2. If the UI can be rendered or a screenshot exists, run the squint test first (see visual-hierarchy.md): blur or squint and note what pops first, second, third. Compare against intended order.
-3. Audit in this order: tokens & system → spacing → typography → color & contrast → components → hierarchy. Structural problems invalidate cosmetic findings, so settle them first.
+3. Audit in this order: intent & task fit → structure and reading order → interaction & accessibility basics → hierarchy → system consistency (tokens, spacing, typography, color) → component & visual polish. A perfectly tokenized screen with a wrong workflow is still bad UI — structure and interaction outrank cosmetics.
 4. When one domain shows repeated violations, read its full reference file before writing the report — patterned failures usually share one root cause (most often: no styleguide exists).
 
 ## Severity levels
@@ -27,6 +27,12 @@ Fix: title → `text-lg font-semibold text-neutral-900`; body stays `text-base t
 ```
 
 Open the report with the three highest-impact fixes in priority order. Close with what already works — an accurate positive list calibrates trust in the negatives.
+
+## Structure & interaction basics
+
+- Reading order matches task priority — what the user must see first is visually first; the primary action sits where the scan ends.
+- Every interactive element is keyboard-reachable in a sensible order, with a clearly visible focus indicator at every stop [STANDARD].
+- Interactive elements have their states (hover, focus-visible, disabled; valid/invalid on fields) — a missing state is a missing feature, not polish.
 
 ## Tokens & system
 
@@ -51,7 +57,7 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 
 ## Color & contrast
 
-- Body text ≥4.5:1 against its background; large text and UI elements ≥3:1 — compute the ratios (see verification below), never eyeball.
+- Body text ≥4.5:1 against its background; large text and UI elements ≥3:1 [STANDARD] — compute the ratios (see verification below), never eyeball.
 - Hierarchy survives grayscale; no meaning encoded in hue alone (color always paired with text, icon, or weight).
 - Distribution near 60/30/10 (neutral surfaces / neutral text & structure / primary+accent+semantic); one saturated element family per view.
 - Semantic slots keep their meaning: red/error = destructive-failure, green = success, amber = warning — never repurposed.
@@ -61,7 +67,7 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 ## Components
 
 - Every interactive element has visible default, hover, focus-visible, and disabled states; form fields add valid/invalid with helper text.
-- Controls share the height token (`h-10` default), one radius token, ring-based focus (`focus-visible:ring-2`, not outline).
+- Controls share the height token (`h-10` default), one radius token, and a clearly visible focus indicator (`focus-visible:ring-2` house default; a visible outline is equally valid).
 - State changes move color/fill/shadow only — geometry (size, border width, position) stays stable.
 - Placeholders are examples, never labels; exactly one primary button per view; badges smaller than buttons; toasts auto-dismiss.
 

@@ -8,6 +8,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 
 - **Workflow styleguide-first** — zanim cokolwiek zostanie ostylowane, Claude ustala tokeny (paleta, role typograficzne, skala odstępów), a potem styluje wyłącznie z tokenów.
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
+- **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Dwa tryby** — *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
 - **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko.
 

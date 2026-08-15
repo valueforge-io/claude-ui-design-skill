@@ -17,7 +17,7 @@ Apply these to every component before reading its specific block:
 - **Consistency beats style:** design every component — small button or large table — with the same care, and give identical components identical spacing, radius, and treatment everywhere.
 - **Control height:** interactive form controls share `h-10` (40px) by default so inputs, dropdowns, and buttons line up on one row; compact `h-8`, large `h-12`.
 - **Radius:** one radius token across buttons, inputs, and containers (default `rounded-lg`); inner elements always use a smaller radius than their container.
-- **Focus:** `focus-visible:ring-2` (box-shadow) on everything interactive — rings don't shift layout the way outlines and added borders can.
+- **Focus [STANDARD]:** a clearly visible focus indicator on everything interactive. `focus-visible:ring-2` is the house default; CSS `outline` is equally valid — outline never affects layout (only added borders do). Whatever the technique: visible at every stop, ≥3:1 against adjacent colors, not obscured by neighboring elements.
 - **Disabled:** `disabled:opacity-50 disabled:pointer-events-none` — present but visibly inert.
 - **Four checks per component:** usability (easy to use), aesthetics (looks like the rest of the system), functionality (works as expected), accessibility (usable by everyone).
 
@@ -33,7 +33,7 @@ Every interactive component needs visible default, hover, focus, and disabled st
 
 - **Anatomy:** container + label, optional leading icon. Three priority tiers; visual weight must match action priority.
 - **Tiers:** primary = filled `bg-primary-600`, one per view because competing primaries dilute the main action; secondary = subtle tinted background for alternative actions; tertiary = outline or bare text for passive actions.
-- **States:** hover darkens the fill one step or adds a light shadow; focus shows a ring (box-shadow, not outline); disabled drops to ~50% opacity.
+- **States:** hover darkens the fill one step or adds a light shadow; focus shows a clearly visible indicator (ring or outline); disabled drops to ~50% opacity.
 - **Sizing:** padding ratio 2:1 horizontal:vertical; label `text-sm` minimum — smaller text is hard to read and hit; scale padding together with font size (em ratios) so variants stay proportional.
 - **Recipe:** `px-4 py-2 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-2 disabled:opacity-50`; secondary: `bg-primary-50 text-primary-700`; tertiary: `text-primary-700 hover:underline`.
 
@@ -90,7 +90,7 @@ Every interactive component needs visible default, hover, focus, and disabled st
 
 - **Anatomy:** label above, field, helper text below — combine all three; the placeholder is an example, never the label.
 - **States:** default, focus, disabled, valid, invalid — encode state via border/fill/helper changes only; never change geometry (a 2px border that shifts layout).
-- **Style:** prefer a background one shade darker than the page over a border; deepen it 5–15% on hover and again on focus — dramatic flips (white → black) disorient. Focus ring via box-shadow (`focus:ring-2`), not outline.
+- **Style:** prefer a background one shade darker than the page over a border; deepen it 5–15% on hover and again on focus — dramatic flips (white → black) disorient. Focus indicator via `focus:ring-2` (house default) or an equally visible outline.
 - **Validation:** tint border or background with the error/success slot and show the matching label text beneath.
 - **Placeholder:** ~50% opacity so it reads as passive and can't be confused with a typed value.
 - **Sizing:** heights 32/40/48px (`h-8`/`h-10`/`h-12`, default `h-10`), horizontal padding 16px (`px-4`); label → field 8px, field → helper 4px; width proportional to expected content (a ZIP field stays short) so users keep track of what's asked.

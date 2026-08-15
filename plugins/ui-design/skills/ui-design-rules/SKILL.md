@@ -20,6 +20,17 @@ Two modes:
 - **Build** (default) — creating or styling UI. Follow the workflow below.
 - **Review** — critiquing or fixing existing UI. Follow `references/review-checklist.md`.
 
+## Rule levels
+
+Rules in this skill and its references carry one of four weights — treat them differently:
+
+- **[STANDARD]** — normative requirements (WCAG contrast, visible focus). Never violate silently; an exception needs the user's informed sign-off.
+- **[PRINCIPLE]** — strong laws of the craft (hierarchy follows task priority; one dominant action per view). Break only with an articulated reason tied to the user's task.
+- **[DEFAULT]** — sound starting values (16px body, one type family, the spacing ladder). Apply unless context argues otherwise; record deviations as tokens or variants.
+- **[HEURISTIC]** — lenses, not instructions (scan patterns, color psychology, 60-30-10). Weigh against context; discard freely when they don't fit.
+
+Unmarked rules are DEFAULTs. When two rules conflict, the higher level wins; within a level, the more specific rule wins.
+
 ## Build workflow
 
 ### Step 0 — Establish the styleguide (before styling anything)
@@ -53,10 +64,10 @@ Run every time, and prefer computed checks over eyeballing:
 
 - **See it:** if any rendering path exists, screenshot the result and inspect the image — you are multimodal, and balance, crowding, and broken layout are visible only in pixels. Use the bundled `scripts/screenshot.mjs` — run it from the project root, calling the script by its absolute path (`node <path-to-this-skill>/scripts/screenshot.mjs page.html shot.png --width=1280`); it resolves playwright/puppeteer from the project's node_modules. Or use a running dev server plus a browser tool. Check desktop (`--width=1280`) and mobile (`--width=390`). Code-only checks are the fallback, not the norm.
 - **Squint test** (on the screenshot, or mentally on the code): does the intended element win? Exactly one dominant focal point?
-- **Contrast:** body text ≥4.5:1, large text and UI elements ≥3:1 — compute the ratios.
+- **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — compute the ratios; never ship a silent violation.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
 - **States:** hover, focus-visible, and disabled present on everything interactive; valid/invalid on form fields.
-- **Consistency:** same-role elements styled identically; exactly one primary button per view; no raw hex in components.
+- **Consistency:** same-role elements styled identically; exactly one primary button per view [PRINCIPLE]; no raw hex in components.
 
 ## Core defaults
 
@@ -109,7 +120,7 @@ Distribution ≈ 60% neutral surfaces / 30% neutral text & structure / 10% color
 
 ## Review mode
 
-When asked to review, critique, or improve existing UI: read `references/review-checklist.md` and follow it — establish intent, squint test, audit tokens → spacing → typography → color → components → hierarchy, then report severity-tagged issues with concrete before → after fixes. Also run its programmatic checks (contrast computation, arbitrary-value grep) after any large Build task.
+When asked to review, critique, or improve existing UI: read `references/review-checklist.md` and follow it — establish intent, squint test, then audit intent & structure → interaction & accessibility basics → hierarchy → system consistency (tokens, spacing, typography, color) → component & visual polish, and report severity-tagged issues with concrete before → after fixes. A perfectly tokenized screen with a wrong workflow is still bad UI — structure outranks cosmetics. Also run its programmatic checks (contrast computation, arbitrary-value grep) after any large Build task.
 
 ## Reference files — when to read
 

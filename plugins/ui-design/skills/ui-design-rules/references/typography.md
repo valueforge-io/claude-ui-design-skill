@@ -5,7 +5,7 @@ Rules for choosing, sizing, and styling text in React + Tailwind UIs: a fixed sl
 ## Core rules
 
 - Map every text node to a named slot below. Never invent a per-element size/weight/leading combination; consistency is the deliverable.
-- Use one sans-serif family for everything. Distinguish headings from body by size and weight, never by rendering them identically.
+- One type family covers most product UIs [DEFAULT]; introduce a second only when it has a defined role (editorial display, brand voice — see Font family). Distinguish headings from body by size and weight, never by rendering them identically.
 - Scale properties inversely with size: bigger text gets tighter leading, tighter tracking, and less weight; smaller text gets more leading and more weight.
 - Treat emphasis (bold, italic, underline, caps) as a scarce resource: one or two emphasized items per view, because every added emphasis dilutes the rest.
 
@@ -26,6 +26,8 @@ Rules for choosing, sizing, and styling text in React + Tailwind UIs: a fixed sl
 
 If you need more than four heading levels, restructure the content instead of adding H5/H6 slots; deep heading nesting signals a hierarchy problem, not a typography problem.
 
+Heading LEVEL is document semantics; the SLOT is visual presentation — they are independent axes. `<h2 class="text-lg">` is correct when the outline requires an h2 whose visual rank is minor. Never skip heading levels to get a size, and never choose the level for its looks — pick the level for the outline, the slot for the eye.
+
 ## Modular scale
 
 - Default a 1.25 (major third) modular scale from a 16px base: 16 → 20 → 25 → 31 → 39 → 49. Compute sizes from the scale, never by eye; harmonious ratios are what make a page feel designed.
@@ -43,7 +45,7 @@ If you need more than four heading levels, restructure the content instead of ad
 
 ## Font size
 
-- Set body at `text-base` (16px) minimum on every device; smaller body text fails older users and small screens. `text-sm` is the floor, and only for captions and secondary text.
+- Set body at `text-base` (16px) [DEFAULT] — the safe readability floor on every device; `text-sm` only for captions and secondary text. The goal is readability, not the number: measure, leading, and zoom/reflow behavior matter more than the pixel value. Dense professional tools may run `text-sm` body deliberately — compensate with `leading-normal`+, strong contrast, short measures, and record the deviation.
 - Step long-form prose up to `md:text-lg` on desktop; large screens sit farther from the eye.
 - Cap body text at `text-2xl` (24px); paragraph text above ~30px stops reading as body copy.
 - Make each heading clearly larger than the text it heads. DON'T set a heading to the same size as its paragraph.

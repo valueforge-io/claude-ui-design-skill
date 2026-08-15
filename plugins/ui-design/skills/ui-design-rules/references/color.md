@@ -54,9 +54,9 @@ Execute in order when starting a UI:
 1. Pick the primary hue from the psychology table below. When in doubt use `indigo` or `blue` — trust and stability read safely in almost every product domain.
 2. Choose the scheme: default is monochrome (primary family + neutral scale, nothing else). Add one complementary accent only if the UI genuinely needs a second voice (marketing highlights, charts, empty-state illustration).
 3. Choose the neutral: default `slate`. For a branded neutral, keep the primary's hue (H), drop saturation to 5–10%, and run lightness from 98% (step 50) down to 10% (step 950) — a hue-tinted gray feels cohesive without competing.
-4. If a brand hex is given, build a custom scale in HSL: fix H, place the brand value at step 500 or 600, raise L toward 97% for tints (50–200) while trimming S slightly, lower L toward 15% for shades (800–950) while letting S rise slightly. Keep S of the mid steps between 55% and 85% — lower reads muddy, higher reads harsh on screens.
+4. If a brand hex is given, build the custom scale in OKLCH (perceptually uniform — equal lightness steps actually look equal, which HSL cannot promise; Tailwind v4's own palettes are OKLCH): convert the brand value, fix hue H, anchor it at step 500 or 600, then run lightness L in even steps from ~0.97 (step 50) down to ~0.25 (step 950), holding chroma C moderate and trimming it toward both extremes. If a step clips outside sRGB gamut, reduce C before touching H. HSL is an acceptable fallback when tooling lacks OKLCH — but check the mid steps for muddy or neon drift by eye.
 5. Set semantic colors: `green-600`, `amber-500`, `red-600`, `sky-600` for solids, each with its 50/200/700 steps for tinted surfaces. Do not derive these from the brand hue.
-6. Distribute by 60-30-10: roughly 60% of any screen is neutral surfaces (backgrounds, cards), 30% is neutral text and structure (borders, secondary surfaces), 10% is primary + accent + semantic color. If a screen feels loud, count — primary exceeding 10% is the usual cause.
+6. Distribute by 60-30-10 [HEURISTIC]: roughly 60% of any screen is neutral surfaces (backgrounds, cards), 30% is neutral text and structure (borders, secondary surfaces), 10% is primary + accent + semantic color. A proportion lens, not arithmetic — dense data UIs legitimately run even more neutral. If a screen feels loud, count — primary exceeding 10% is the usual cause.
 7. Assign steps per the weight table, then verify contrast (section below) and view the screen in grayscale: hierarchy must survive with hue removed.
 
 Record the result as the token schema (slot × step, with hex) before building screens — the schema is the first artifact of the style guide, and components reference it, never ad-hoc values.
@@ -81,7 +81,7 @@ Whether a palette holds together is largely checkable. Work in hue degrees (0–
 
 Verification: sample real rendered colors — `node scripts/palette-check.mjs <file.html|url>` renders the page, clusters hue families, classifies pair relationships, and flags clash pairs, extra families, and chroma outliers. Numbers catch rule violations; the final aesthetic call is made on the screenshot.
 
-## Temperature
+## Temperature [HEURISTIC]
 
 - Warm hues (red, orange, yellow, amber) advance and demand attention. Reserve them for CTAs, warnings, and essential interactions.
 - Cool hues (green, teal, blue, violet) recede. Use them for structure: backgrounds, framework, passive and general-purpose controls.
@@ -112,9 +112,9 @@ The contrast ratio scale runs 1:1 (identical colors) to 21:1 (black on white). H
 - Never encode meaning in hue alone — pair color with text, icon, or weight; verify by viewing the screen in grayscale, which reveals whether hierarchy survives without hue (it must).
 - Contrast between two different hues also counts: only juxtapose hues that remain distinguishable in grayscale.
 
-## Color Psychology
+## Color Psychology [HEURISTIC]
 
-Hue choice is a message; pick the primary to match what the product must convey. Meaning is contextual — juxtaposition and background shift it — but these defaults hold:
+Hue choice sends a message — but the message is contextual: audience, culture, brand history, and juxtaposition can override every row below. Use this table as a tiebreaker when choosing a primary, never as a law that steers the system:
 
 | Hue (family) | Reads as | Default use |
 |---|---|---|
@@ -133,7 +133,9 @@ Background tone sets perceived authority: bright greens/yellows/pinks read young
 
 ## Dark Mode
 
-Default: invert the weight ladder — each role swaps to the opposite end of the same scale, preserving the ordered hierarchy instead of inventing new colors.
+Quick default for small projects: invert the weight ladder — each role swaps to the opposite end of the same scale, preserving the ordered hierarchy instead of inventing new colors.
+
+For real products, prefer a role-based mapping over arithmetic inversion: name semantic roles — `surface.canvas / surface.default / surface.raised`, `text.primary / secondary / muted`, `border.default / strong`, `action.primary` — and assign each role independent light and dark values. Dark mode then becomes a second mapping of the same roles, tuned on its own (dark surfaces usually need lower chroma and compressed elevation steps), not a mirror of light mode. Re-verify contrast per mapping, not once.
 
 - Backgrounds: `dark:bg-neutral-950`, cards `dark:bg-neutral-900`, borders `dark:border-neutral-800`.
 - Text: body `dark:text-neutral-100`, secondary `dark:text-neutral-400`, headings `dark:text-neutral-50`.

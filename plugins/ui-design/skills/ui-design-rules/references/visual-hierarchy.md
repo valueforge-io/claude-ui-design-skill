@@ -10,9 +10,9 @@ Consult this file when laying out any screen with competing elements — heroes,
 - Give each view exactly one dominant focal point, because a clear winner removes friction and hesitation.
 - DO keep clear hierarchy between text, images, and actions. DON'T ship a view where two elements tie for first place.
 
-## Scan patterns — where things go
+## Scan patterns — where things go [HEURISTIC]
 
-Users' eyes follow predictable paths; place elements along those paths in order of importance instead of fighting the flow.
+Reading tendencies, not laws — an explicit focal point (size, contrast, isolation) beats pattern position every time; when the levers and the pattern disagree, trust the levers. Users' eyes tend to follow predictable paths; place elements along those paths in order of importance instead of fighting the flow.
 
 Z-pattern — default for landing and marketing pages with sparse content:
 - Put the logo top-left (first fixation) and the nav plus a compact CTA top-right.
@@ -71,7 +71,7 @@ Alter hierarchy by adjusting these. Change one lever at a time, with the smalles
 - DO surround the primary CTA with clear space. DON'T crowd elements to fit more in — clutter hides focal points and users refuse to parse it.
 - Watch for: so much space around an element that it detaches from its own group and reads as unrelated.
 
-## Action hierarchy: buttons
+## Action hierarchy: buttons [PRINCIPLE]
 
 One view, one primary action; every other action visibly steps down.
 
@@ -142,7 +142,7 @@ Consistency lets users transfer what they learned on one screen to every other s
 - Symmetrical layouts feel stable and professional — but repeated on every section they turn monotonous; alternate with asymmetric sections to keep flow.
 - Asymmetrical layouts put a dominant element on one side balanced by lesser ones opposite (image left, text right) — use for movement and a modern feel, and alternate sides between sections.
 - Radial emphasis centers the recommended option and balances the rest around it — e.g. highlight the middle pricing plan with a distinct background so the choice is instant.
-- Color balance ≈60/30/10: dominant neutral 60%, secondary 30%, accent 10%; keep to 2–3 colors total, because more compete and clutter.
+- Color balance ≈60/30/10 [HEURISTIC] — a proportion lens, not arithmetic: dominant neutral 60%, secondary 30%, accent 10%; keep to 2–3 colors total, because more compete and clutter.
 - DON'T flood a whole section with saturated color — it steals attention from the CTA inside it; emphasize the action, not the box.
 - Balance text against images so neither overpowers: place text over the calm, empty region of an image, never across its busy area; if a text block dwarfs its image, split it into smaller chunks with smaller images.
 

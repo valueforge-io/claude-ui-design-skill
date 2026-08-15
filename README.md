@@ -8,6 +8,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 
 - **Styleguide-first workflow** — before styling anything, Claude establishes tokens (palette, type roles, spacing scale) and then styles only from tokens.
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
+- **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Two modes** — *Build* (create/style UI) and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
 - **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed.
 
