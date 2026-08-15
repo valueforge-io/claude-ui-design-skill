@@ -1,0 +1,69 @@
+# Design Intent
+
+What this UI should BE, decided before any wireframe: product context → archetype → an 8-line brief → visual direction. Consult at project kickoff, when adding a major new surface, or when a review reveals a screen serving the wrong job. Small tasks skip this file entirely.
+
+## When to establish intent (cascade)
+
+Same discipline as the styleguide cascade in SKILL.md — first hit wins:
+
+1. `design-system/MASTER.md` exists → intent is already recorded; follow it, update it deliberately at the source.
+2. The request and the repo carry enough context → infer the brief silently and state it back in one line; don't interrogate.
+3. Fresh project with material ambiguity → ask ONE compact question (what does the product do, for whom, used how often?), then infer the rest.
+4. Component tweaks, bug fixes, "just make it look good" → skip intent entirely; the surroundings answer.
+
+Intent is cheap — eight lines of reasoning, not a workshop. Its job is to make the next three decisions non-arbitrary: visual direction, density, and information priority.
+
+## The intent brief
+
+Write it as a compact block (it goes verbatim into MASTER.md later):
+
+```
+product:  B2B fleet-operations dashboard
+users:    dispatchers, ops managers
+primary_job: spot exceptions and act fast
+usage:    daily · long sessions · desktop · keyboard+pointer
+content:  data-heavy, high density
+brand:    precise, calm, competent
+sliders:  expression quiet ●──── · density ────● compact · motion ●──── static
+risks:    misreading vehicle status; missing a critical alert
+```
+
+- The sliders steer tokens directly: **expression** → type contrast and accent budget; **density** → which band of the spacing ladder and control heights; **motion** → the transition budget.
+- **risks** name what verification must protect (here: status must survive grayscale; alerts must win the squint test).
+- **primary_job** orders the wireframe: whatever serves it is visually first (visual-hierarchy.md).
+
+## Product archetypes
+
+Behavior-based, not industry-based — a medical portal is *trust-sensitive + transactional*, and that carries the design; the industry label carries nothing. Most products mix two archetypes: name the dominant one, borrow guardrails from the second.
+
+| Archetype | Dominant job | Design bias |
+|---|---|---|
+| Data-dense operational | scan, monitor, act fast | compact density; tables & status; exceptions surface first |
+| Transactional | complete a process correctly | one path, one primary action; visible progress; forms discipline |
+| Creation tool | make things in a workspace | quiet chrome; canvas gets the space and the color budget |
+| Content / editorial | read and discover | measure-driven typography; minimal chrome |
+| Conversion / marketing | narrate and persuade | bold display type; one CTA arc; section rhythm |
+| Search / discovery | find the right object | query + filters + comparable results; designed empty states |
+| Collaboration | see people, activity, state | presence, attribution, freshness cues |
+| Configuration / admin | change settings safely | grouped forms; guarded destructive zones; clarity over flair |
+| Trust-sensitive | avoid costly errors | conservative palette; explicit copy; consequences named |
+| Onboarding / workflow | progress with confidence | one decision per screen; defaults; visible progress |
+
+What each archetype protects (verification priorities):
+
+- **Data-dense operational** — scannability: status is color+icon+text, alerts outrank aesthetics, grouping gaps survive compact density.
+- **Transactional** — completion: no competing CTAs, inline error recovery, no redundant entry (accessibility.md).
+- **Creation tool** — the workspace: UI stays neutral and recedes; chroma belongs to user content (see Data Canvas direction).
+- **Content / editorial** — reading: measure, leading, and hierarchy carry the design; nothing interrupts the column.
+- **Conversion / marketing** — the narrative arc: one message per section; the CTA returns where scans exit.
+- **Search / discovery** — comparability: uniform result anatomy; filters visible; loading/empty states designed.
+- **Collaboration** — recency and attribution: who/when always visible; live changes announced (interaction.md).
+- **Configuration / admin** — reversibility: destructive isolated in the error slot, current values visible, save state explicit.
+- **Trust-sensitive** — comprehension: plain language, verifiable numbers, no dark patterns, generous contrast headroom.
+- **Onboarding / workflow** — momentum: fewest choices per screen, sensible defaults, progress visible, exits allowed.
+
+## From intent to direction and structure
+
+1. Archetype + sliders → shortlist 2–3 visual directions (visual-directions.md); propose them with one-line reasoning; the user picks or defers to your default.
+2. primary_job orders the wireframe's regions and the reading order; risks become named checks in Step 3 verification and in reviews.
+3. Record the final brief and the chosen direction in `design-system/MASTER.md` (design-process.md) — the next session inherits the reasoning, not just the tokens.

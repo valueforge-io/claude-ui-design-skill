@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0 — 2026-08-15
+
+Design Intelligence: the skill now reasons about what a UI should BE before enforcing how it is built.
+
+- New `references/design-intent.md`: an 8-line intent brief (product, users, primary job, usage, sliders for expression/density/motion, named risks) established through the same cascade as the styleguide — inferred when possible, one question at most, skipped for small tasks. Ten behavior-based product archetypes (data-dense operational, transactional, creation tool, content, conversion, search, collaboration, admin, trust-sensitive, onboarding), each with the thing it protects.
+- New `references/visual-directions.md`: twelve composable style grammars (Restrained Operational → Warm Marketplace), each a system of dependencies — composition, type and color character, density band, shape, elevation, motion posture, personality, fit, and its characteristic failure mode. Directions set dials; tokens implement them.
+- Persistent design memory: after the styleguide is established, the skill writes `design-system/MASTER.md` (intent, direction, tokens, deviations log); the cascade reads it first in later sessions — ending visual drift between page one and page five.
+- Guided intake upgraded: proposals are now full visual directions, not palettes alone.
+- SKILL.md wiring throughout; reference table +2; still under 150 lines.
+
 ## 1.2.0 — 2026-08-15
 
 Interaction release: components stop being paint and start being behavior.

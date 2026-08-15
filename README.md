@@ -9,6 +9,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Styleguide-first workflow** — before styling anything, Claude establishes tokens (palette, type roles, spacing scale) and then styles only from tokens.
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
+- **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
 - **Two modes** — *Build* (create/style UI) and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
 - **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. A keyboard audit (Tab-walk, focus visibility, target sizes) is the third verification track.
 
@@ -52,13 +53,15 @@ Restyle this settings form so it looks consistent with the rest of the app.
 Review the visual design of src/components/Dashboard.tsx and list concrete fixes.
 ```
 
-On a fresh project with no existing styles, the skill reads the product context and proposes 2–3 concrete palettes with reasoning (plus matching typography) — pick one in seconds or say "defaults".
+On a fresh project with no existing styles, the skill sketches a design intent (product archetype, density, expression) and proposes 2–3 visual directions — palette, typography, and density character with reasoning. Pick one in seconds or say "defaults"; the choice is remembered in `design-system/MASTER.md`.
 
 ## What's inside
 
 | File | Contents |
 |---|---|
 | `SKILL.md` | Workflow (build + review), core defaults, verification checklist |
+| `references/design-intent.md` | Intent brief, ten product archetypes, verification priorities |
+| `references/visual-directions.md` | Twelve style grammars and how a direction becomes tokens |
 | `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode |
 | `references/typography.md` | Type roles, modular scale, weight/leading/tracking rules |
 | `references/spacing-layout.md` | 4-point baseline, spacing ladder, grids and gutters |

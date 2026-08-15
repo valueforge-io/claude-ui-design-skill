@@ -179,6 +179,21 @@ design system, as long as pages import from it instead of restyling.
 Done when: a new page can be assembled from existing tokens, components, and
 templates without making a single new visual decision.
 
+## Persist the System (design-system/MASTER.md)
+
+After the styleguide exists, write it into the project so future sessions inherit decisions instead of re-making them — visual drift between page one and page five is what this prevents:
+
+```
+design-system/
+├── MASTER.md    ← source of truth: intent, direction, tokens, deviations
+└── pages/       ← optional per-surface overrides (marketing.md, app-shell.md)
+```
+
+MASTER.md contains, in order: the intent brief (design-intent.md), the chosen visual direction and one line on why, the token schema (color slots × steps, type roles, spacing subset, shape/elevation/motion budget), and a deviations log (what · where · why, one line each). Keep it under ~80 lines — it is a contract, not documentation.
+
+- The styleguide cascade reads MASTER.md first: it carries the WHY (intent, direction) while `tailwind.config`/`@theme` stays the runtime truth for values. If they disagree, flag the drift — never silently pick a side.
+- Change at the source: update MASTER.md and tokens together, log the change. Per-surface overrides only for genuinely different surfaces, and they still reference master tokens.
+
 ## Guardrails
 
 - Tokens before pixels: if no styleguide exists yet, creating one is the first

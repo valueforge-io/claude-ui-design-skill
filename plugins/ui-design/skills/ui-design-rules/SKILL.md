@@ -37,13 +37,12 @@ Unmarked rules are DEFAULTs. When two rules conflict, the higher level wins; wit
 
 Never style ad hoc. Source every visual decision through this cascade, first hit wins:
 
-1. **Existing project system.** Look for `tailwind.config` color/font extensions, CSS custom properties, a component library (shadcn/ui, Flowbite…), or repeated class patterns in existing components. If found, follow it completely — consistency with the codebase beats every default in this skill. Never introduce skill defaults into a project that already has its own voice.
+1. **Existing project system.** Look for `design-system/MASTER.md` first — this skill's own memory: intent, direction, tokens (references/design-process.md). Then `tailwind.config` color/font extensions, CSS custom properties, a component library (shadcn/ui, Flowbite…), or repeated class patterns in existing components. If found, follow it completely — consistency with the codebase beats every default in this skill. Never introduce skill defaults into a project that already has its own voice.
 2. **Explicit instructions** in the request: a brand hex, "make it green", an attached mockup or screenshot.
-3. **Guided intake.** Starting a new project, app, or standalone page with no constraints from 1–2? Don't make the user pick from abstract adjectives — read the product context from the request (domain, audience, competition) and PROPOSE, in one compact message:
-   - 2–3 concrete palette proposals fitted to this product, one line each: hue + why it fits + when to prefer it, one marked as default. Example for a team time-tracker: "indigo (default) — trust + modern SaaS convention, safe for B2B; teal — calmer, more human, stands out among blue competitors; slate + amber accent — bolder, if the brand should feel energetic". Ground the reasoning in the psychology table in references/color.md.
-   - A matching typography suggestion per proposal, one line: neutral sans (Inter) default; geometric (Poppins) when the brand should feel friendly and product-y; serif display + sans body for editorial or premium.
+3. **Guided intake.** Starting a new project, app, or standalone surface with no constraints from 1–2? First sketch the design intent — an 8-line brief plus the product archetype (procedure and archetypes: `references/design-intent.md`; infer from the request, ask at most one question). Then PROPOSE, in one compact message:
+   - 2–3 **visual directions** fitted to the intent (grammars: `references/visual-directions.md`), one line each — name + hue & type character + density + why it fits — with one marked default. Example for a fleet-ops dashboard: "Restrained Operational (default) — neutral + one action hue, compact, exceptions-first; Technical Utility — denser and dark-first, for expert dispatchers; Soft Product — friendlier, if the brand sells approachability".
    - Mode: light (default), dark, or both.
-   "Take the default" must be a complete answer. A given hex or brand asset skips the proposals — build the scale from it instead (references/color.md). No product context at all? Ask one question — which personality fits: trustworthy/corporate, premium/creative, friendly/energetic, calm/health, bold/consumer — then propose.
+   "Take the default" is a complete answer. A given hex or brand asset constrains the direction's color character — build the scale from it (references/color.md). Record the final intent + direction in `design-system/MASTER.md`.
 4. **Skill defaults.** User defers, or the task is too small to justify questions: `indigo` primary, `slate` neutrals, Inter/system sans, 1.25 type scale, light mode.
 
 Do NOT run the intake for: component tweaks inside an existing codebase, bug fixes, or requests like "just make it look good" — that phrasing is deferral, take defaults and go. When surroundings can answer the question, never ask the user.
@@ -52,7 +51,7 @@ Then record the outcome as tokens **before the first styled component** — `the
 
 ### Step 1 — Structure before style
 
-For new screens, decide the layout before any styling: what regions exist, what the reading order is, and which single element is the primary action of the view. A gray-box sketch or a written region list is enough. Layout mistakes cost minutes here and hours after styling. Details: `references/design-process.md`.
+For new screens, decide the layout before any styling: what regions exist, what the reading order is — the intent's primary_job comes first (references/design-intent.md) — and which single element is the primary action of the view. A gray-box sketch or a written region list is enough. Layout mistakes cost minutes here and hours after styling. Details: `references/design-process.md`.
 
 ### Step 2 — Build semantically, then style from the system
 
@@ -127,6 +126,8 @@ When asked to review, critique, or improve existing UI: read `references/review-
 
 | File | Read when |
 |---|---|
+| `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, what each screen must protect |
+| `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
 | `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales |
 | `references/typography.md` | Text-heavy screens, type hierarchy problems, font pairing |
 | `references/spacing-layout.md` | Page layout, grids/columns, any spacing uncertainty |

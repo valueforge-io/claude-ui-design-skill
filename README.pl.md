@@ -9,6 +9,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Workflow styleguide-first** — zanim cokolwiek zostanie ostylowane, Claude ustala tokeny (paleta, role typograficzne, skala odstępów), a potem styluje wyłącznie z tokenów.
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
+- **Inteligencja projektowa** — brief intencji i dziesięć archetypów produktowych decyduje, CZYM interfejs ma być; dwanaście gramatyk kierunków wizualnych proponuje, JAK ma wyglądać; `design-system/MASTER.md` pamięta jedno i drugie między sesjami.
 - **Dwa tryby** — *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
 - **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Trzecim torem weryfikacji jest audyt klawiatury (spacer Tabem, widoczność fokusa, rozmiary celów).
 
@@ -52,13 +53,15 @@ Ostyluj ten formularz ustawień tak, żeby był spójny z resztą aplikacji.
 Zrób przegląd designu src/components/Dashboard.tsx i wypisz konkretne poprawki.
 ```
 
-W świeżym projekcie bez istniejących stylów skill czyta kontekst produktu i proponuje 2–3 konkretne palety z uzasadnieniem (plus dopasowaną typografię) — wybierasz w kilka sekund albo mówisz „bierz domyślne".
+W świeżym projekcie bez istniejących stylów skill szkicuje intencję projektową (archetyp produktu, gęstość, ekspresja) i proponuje 2–3 kierunki wizualne — paleta, typografia i charakter gęstości z uzasadnieniem. Wybierasz w kilka sekund albo mówisz „bierz domyślne"; wybór zostaje zapamiętany w `design-system/MASTER.md`.
 
 ## Co jest w środku
 
 | Plik | Zawartość |
 |---|---|
 | `SKILL.md` | Workflow (build + review), rdzeń wartości domyślnych, checklista weryfikacji |
+| `references/design-intent.md` | Brief intencji, dziesięć archetypów produktowych, priorytety weryfikacji |
+| `references/visual-directions.md` | Dwanaście gramatyk stylu i przekład kierunku na tokeny |
 | `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode |
 | `references/typography.md` | Role typograficzne, skala modularna, reguły grubości/interlinii/trackingu |
 | `references/spacing-layout.md` | Baza 4pt, drabinka odstępów, gridy i guttery |

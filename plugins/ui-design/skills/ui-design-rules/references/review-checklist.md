@@ -31,6 +31,7 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 ## Structure & interaction basics
 
 - Reading order matches task priority — what the user must see first is visually first; the primary action sits where the scan ends.
+- The screen serves its archetype's dominant job (design-intent.md): a dashboard that buries exceptions or a checkout with three competing paths fails here regardless of polish.
 - Every interactive element is keyboard-reachable in a sensible order, with a clearly visible focus indicator at every stop [STANDARD].
 - Interactive elements have their states (hover, focus-visible, disabled; valid/invalid on fields) — a missing state is a missing feature, not polish.
 - Layers (menus, dialogs, comboboxes) close on Escape and return focus to their trigger; no positive `tabindex`; no clickable `div`s posing as buttons (interaction.md).
