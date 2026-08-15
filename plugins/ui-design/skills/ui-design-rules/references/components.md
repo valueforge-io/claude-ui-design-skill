@@ -1,7 +1,7 @@
 # Component Rules
 
 Per-component design rules for React + Tailwind: anatomy, states, sizing, and a one-line class recipe for 25 components.
-Consult when building or reviewing any individual UI component. Spacing follows the 4-point scale (see spacing-layout.md); color names like `primary-600` or `success-100` are palette slots — resolve them from the project palette; text classes map to the project type roles. Keyboard and focus behavior for interactive patterns: interaction.md.
+Consult when building or reviewing any individual UI component. Spacing follows the 4-point scale (see spacing-layout.md); color names like `primary-600` or `success-100` are palette slots — resolve them from the project palette; text classes map to the project type roles. Keyboard and focus behavior for interactive patterns: interaction.md. Copy patterns for labels, errors, and empty states: content-design.md.
 
 ## Contents
 

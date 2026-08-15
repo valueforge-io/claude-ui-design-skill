@@ -69,6 +69,9 @@ On a fresh project with no existing styles, the skill sketches a design intent (
 | `references/visual-hierarchy.md` | Scan patterns, the seven hierarchy levers, action tiers |
 | `references/interaction.md` | Keyboard models, focus management, the component state matrix |
 | `references/accessibility.md` | WCAG 2.2 floors: target size, zoom/reflow, reduced motion, forms |
+| `references/motion.md` | The five jobs of motion, duration/easing defaults, reduced-motion |
+| `references/data-viz.md` | Question-first chart selection, chart color tokens, chart accessibility |
+| `references/content-design.md` | Action labels, errors, empty states, confirmation vs undo |
 | `references/design-process.md` | Wireframe → styleguide → implementation → design system |
 | `references/review-checklist.md` | Audit procedure, severity levels, report format |
 | `scripts/screenshot.mjs` | Render-and-look helper (Playwright/Puppeteer) |

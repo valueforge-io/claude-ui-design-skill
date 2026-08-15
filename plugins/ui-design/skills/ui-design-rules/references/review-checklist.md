@@ -81,6 +81,12 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 - One shared content container across sections; shared edges, no stray off-grid elements.
 - Primary action sits where the scan ends (hero end / top-right of app screens / after form fields).
 
+## Motion, data, and words
+
+- Non-essential animation gated behind `prefers-reduced-motion` [STANDARD]; transitions animate transform/opacity, not layout; no `transition-all` on interactive elements; attention motions terminate (motion.md).
+- Every chart answers a named user question with the matching form; bar axes start at zero; ≤6 categorical colors from tokens and never meaning by hue alone (data-viz.md).
+- Buttons read verb + object (no "Submit"/"OK"); errors say what happened and what to do next; empty states offer the first action; one term per concept (content-design.md).
+
 ## Programmatic verification
 
 Prefer computed checks over judgment where possible; they are faster and non-negotiable:

@@ -69,6 +69,9 @@ W świeżym projekcie bez istniejących stylów skill szkicuje intencję projekt
 | `references/visual-hierarchy.md` | Wzorce skanowania, siedem dźwigni hierarchii, poziomy akcji |
 | `references/interaction.md` | Modele klawiaturowe, zarządzanie fokusem, macierz stanów komponentów |
 | `references/accessibility.md` | Podłogi WCAG 2.2: rozmiar celu, zoom/reflow, reduced motion, formularze |
+| `references/motion.md` | Pięć zadań ruchu, defaulty czasów i easingu, reduced-motion |
+| `references/data-viz.md` | Dobór wykresu od pytania, kolory wykresów z tokenów, dostępność |
+| `references/content-design.md` | Etykiety akcji, błędy, empty states, potwierdzenie vs undo |
 | `references/design-process.md` | Wireframe → styleguide → implementacja → design system |
 | `references/review-checklist.md` | Procedura audytu, poziomy wag, format raportu |
 | `scripts/screenshot.mjs` | Pomocnik „wyrenderuj i obejrzyj" (Playwright/Puppeteer) |

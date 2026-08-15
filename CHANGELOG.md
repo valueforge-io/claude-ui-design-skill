@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0 — 2026-08-15
+
+Breadth release: motion, data, and words join the system.
+
+- New `references/motion.md`: the five jobs of motion (feedback, state, spatial, attention, decorative) with duration/easing budgets, transform/opacity-only default, `prefers-reduced-motion` as a standard, framework-aware posture, and motion mapped to the visual-direction grammars.
+- New `references/data-viz.md`: question-first chart selection (compare→bar, trend→line, …), bar-axes-from-zero, direct labeling over legends, chart color tokens (`chart-1…6`, sequential/diverging rules, never hue alone), loading/empty/error states, text summaries for accessibility.
+- New `references/content-design.md`: verb+object action labels, the error template (what happened + why + what next), three-job empty states, confirmation vs undo, tone that freezes in errors, localization awareness.
+- Review checklist: new "Motion, data, and words" audit section.
+- SKILL.md wiring; reference table +3.
+
 ## 2.0.0 — 2026-08-15
 
 Design Intelligence: the skill now reasons about what a UI should BE before enforcing how it is built.

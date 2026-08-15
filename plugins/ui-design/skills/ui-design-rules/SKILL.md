@@ -55,7 +55,7 @@ For new screens, decide the layout before any styling: what regions exist, what 
 
 ### Step 2 — Build semantically, then style from the system
 
-Interaction before cosmetics: native elements first (`<button>`, `<a href>`, `<select>`, `<dialog>`), every pointer path has a keyboard path, and each component's states are explicitly decided — the state matrix and keyboard models live in `references/interaction.md`, the compliance floors in `references/accessibility.md`. Then style using token classes and the defaults below. Consult the domain references (table at the bottom) when the task touches their area — they carry the full rules; this file only carries the core.
+Interaction before cosmetics: native elements first (`<button>`, `<a href>`, `<select>`, `<dialog>`), every pointer path has a keyboard path, and each component's states are explicitly decided — the state matrix and keyboard models live in `references/interaction.md`, the compliance floors in `references/accessibility.md`. Words are part of the component — action labels, errors, and empty states follow `references/content-design.md`. Then style using token classes and the defaults below. Consult the domain references (table at the bottom) when the task touches their area — they carry the full rules; this file only carries the core.
 
 ### Step 3 — Verify before delivering
 
@@ -135,6 +135,9 @@ When asked to review, critique, or improve existing UI: read `references/review-
 | `references/visual-hierarchy.md` | Screen feels flat or cluttered, landing pages, placement decisions, "what goes where" |
 | `references/interaction.md` | Building or reviewing anything the user operates — keyboard models, focus management, state matrix |
 | `references/accessibility.md` | Forms, touch targets, zoom/reflow, reduced motion — the compliance floor |
+| `references/motion.md` | Any animation or transition: the five jobs of motion, durations, reduced-motion |
+| `references/data-viz.md` | Charts, KPIs, dashboards: question-first chart choice, chart color, chart a11y |
+| `references/content-design.md` | Labels, errors, empty states, confirmations — the words in the UI |
 | `references/design-process.md` | Project kickoff, creating the token layer, growing a design system |
 | `references/review-checklist.md` | Review mode, or final verification of a large build |
 
