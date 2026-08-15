@@ -97,6 +97,8 @@ Prefer computed checks over judgment where possible; they are faster and non-neg
 - Consistency: collect class strings of repeated components and diff them.
 - Harmony: run `node scripts/palette-check.mjs <page>` — samples rendered colors, clusters hue families, classifies relationships, flags clash pairs and chroma outliers.
 - Interaction: run `node scripts/interaction-check.mjs <page>` — Tab-walk reachability, focus-visibility diffing, positive tabindex, fake buttons, sub-24px targets.
+- Contrast: run `node scripts/contrast-check.mjs <page>` — every text node against its real backdrop, WCAG thresholds by size and weight.
+- Reflow: run `node scripts/reflow-check.mjs <page>` — 320px reflow with the offending element and cause named.
 
 ## Common quick wins
 

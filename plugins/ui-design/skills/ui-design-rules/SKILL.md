@@ -63,10 +63,11 @@ Run every time, and prefer computed checks over eyeballing:
 
 - **See it:** if any rendering path exists, screenshot the result and inspect the image — you are multimodal, and balance, crowding, and broken layout are visible only in pixels. Use the bundled `scripts/screenshot.mjs` — run it from the project root, calling the script by its absolute path (`node <path-to-this-skill>/scripts/screenshot.mjs page.html shot.png --width=1280`); it resolves playwright/puppeteer from the project's node_modules. Or use a running dev server plus a browser tool. Check desktop (`--width=1280`) and mobile (`--width=390`). Code-only checks are the fallback, not the norm.
 - **Squint test** (on the screenshot, or mentally on the code): does the intended element win? Exactly one dominant focal point?
-- **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — compute the ratios; never ship a silent violation.
+- **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — `node scripts/contrast-check.mjs page.html` measures every text node against its real rendered backdrop (handles oklch/lab colors); never ship a silent violation.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
 - **States:** hover, focus-visible, and disabled present on everything interactive; valid/invalid on form fields.
 - **Keyboard [STANDARD]:** walk the page with Tab — everything reachable, a visible indicator at every stop, Escape closes layers and returns focus. `node scripts/interaction-check.mjs page.html` automates the static half.
+- **Reflow [STANDARD]:** `node scripts/reflow-check.mjs page.html` — content works at 320 CSS px with no horizontal scrolling; the script names the element and the cause.
 - **Consistency:** same-role elements styled identically; exactly one primary button per view [PRINCIPLE]; no raw hex in components.
 
 ## Core defaults

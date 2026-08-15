@@ -77,6 +77,8 @@ W świeżym projekcie bez istniejących stylów skill szkicuje intencję projekt
 | `scripts/screenshot.mjs` | Pomocnik „wyrenderuj i obejrzyj" (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Audyt harmonii barw wyrenderowanej strony (rodziny odcieni, wykrywanie zgrzytów) |
 | `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
+| `scripts/contrast-check.mjs` | Kontrast WCAG każdego węzła tekstowego wobec realnego tła z renderu |
+| `scripts/reflow-check.mjs` | Kontrola reflow przy 320px ze wskazaniem winnego elementu i przyczyny |
 
 Claude czyta `SKILL.md`, gdy skill się uruchomi, a pojedyncze pliki referencyjne dociąga tylko wtedy, gdy zadanie ich dotyczy — rutynowa praca pozostaje tania.
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.1.1 — 2026-08-15
+
+Verification you can trust. Findings from the first real-world project run.
+
+- **Fixed** `interaction-check.mjs`: the Tab walk aborted at the first focus stop outside its scanned set, so pages with `<summary>`, `<iframe>`, or contenteditable reported phantom "unreachable" elements and a truncated walk. It now tags every natively focusable element (summary included), keeps walking past unknown stops, and ends on a real cycle. Target sizing now judges the effective hit area (padded wrappers count) and exempts inline prose links per WCAG 2.2.
+- **Fixed** `palette-check.mjs`: colors are read through a 1×1 canvas instead of a regex, so `oklch()`/`lab()`/`color()` values — the default in Tailwind v4 — are no longer silently skipped.
+- **New** `scripts/contrast-check.mjs`: measures every visible text node against its real rendered backdrop (walking transparent ancestors, compositing alpha), applies WCAG thresholds by size and weight, and flags text over background images as unverifiable-by-static-means. The skill demanded computed contrast without shipping the tool; now it ships.
+- **New** `scripts/reflow-check.mjs`: 320px (and any extra widths) reflow check that names the overflowing element and its cause — fixed width, min-width, nowrap, or an unwrapped table.
+- **Rule** color.md — escape hatch for warm hues: when a hue cannot satisfy 4.5:1 label-on-fill and 3:1 fill-on-canvas simultaneously (common for crimson/orange on dark), the action leaves the hue for a light neutral fill and the brand hue becomes a signal role.
+- **Rule** color.md — brand/semantic collision: separate them by treatment (brand = solid marks; state = tinted surface + icon + text), not by repainting the semantic slot.
+- **Rule** visual-hierarchy.md — "one primary per view" defined for scrolling pages: the unit is the viewport, and a repeated *same* action counts as one primary; two *different* primaries in one viewport slice is the violation.
+
 ## 2.1.0 — 2026-08-15
 
 Breadth release: motion, data, and words join the system.

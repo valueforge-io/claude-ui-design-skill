@@ -75,6 +75,8 @@ Alter hierarchy by adjusting these. Change one lever at a time, with the smalles
 
 One view, one primary action; every other action visibly steps down.
 
+**What "one view" means on a scrolling page**: the unit is the viewport, not the document. A landing page that repeats the *same* action (nav CTA, hero CTA, pricing CTA, closing CTA) has one primary action repeated — that is correct and expected; the repeats may share the primary treatment. What must never happen is two *different* actions competing at primary weight in the same viewport: there, one drops a tier. Practical test: screenshot each viewport-height slice and count solid primaries with different labels — more than one in a slice is the finding.
+
 - Primary (exactly one per view): solid `bg-primary-600 text-white px-4 py-2 rounded-lg font-medium` — the strongest button on the screen; hero CTAs may step up to `px-6 py-3 text-base`.
 - Secondary: tinted (`bg-primary-50 text-primary-700 hover:bg-primary-100`) or neutral outline (`border border-neutral-300 text-neutral-700`) or ghost, same or smaller size than the primary.
 - Tertiary: link style — `text-primary-600 underline underline-offset-2`, no box.

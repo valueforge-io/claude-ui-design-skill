@@ -39,6 +39,25 @@ await page.setViewportSize({ width: Number(flags.width ?? 1280), height: 900 });
 await page.goto(url);
 await new Promise(r => setTimeout(r, 1500));
 const samples = await page.evaluate(() => {
+  // Modern CSS colors (oklch/lab/color()) serialize in formats a regex can't parse portably.
+  // Paint each value on a 1x1 canvas and read the pixel back — works for every syntax.
+  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  const cache = new Map();
+  const norm = (css) => {
+    if (!css || css === 'transparent' || css === 'rgba(0, 0, 0, 0)') return null;
+    if (cache.has(css)) return cache.get(css);
+    let out = null;
+    try {
+      ctx.clearRect(0, 0, 1, 1);
+      ctx.fillStyle = '#000';
+      ctx.fillStyle = css;
+      ctx.fillRect(0, 0, 1, 1);
+      const d = ctx.getImageData(0, 0, 1, 1).data;
+      out = d[3] < 40 ? null : `rgb(${d[0]}, ${d[1]}, ${d[2]})`;
+    } catch { out = null; }
+    cache.set(css, out);
+    return out;
+  };
   const acc = new Map();
   for (const el of document.querySelectorAll('*')) {
     const r = el.getBoundingClientRect();
@@ -46,8 +65,8 @@ const samples = await page.evaluate(() => {
     const cs = getComputedStyle(el);
     // background dominates perception; text and borders weigh less per px
     for (const [prop, div] of [['backgroundColor', 1], ['color', 8], ['borderTopColor', 40]]) {
-      const v = cs[prop];
-      if (!v || v === 'transparent' || v === 'rgba(0, 0, 0, 0)') continue;
+      const v = norm(cs[prop]);
+      if (!v) continue;
       const w = Math.min(r.width * r.height, 400000) / div;
       acc.set(v, (acc.get(v) || 0) + w);
     }

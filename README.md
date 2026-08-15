@@ -77,6 +77,8 @@ On a fresh project with no existing styles, the skill sketches a design intent (
 | `scripts/screenshot.mjs` | Render-and-look helper (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Color-harmony audit of the rendered page (hue families, clash detection) |
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
+| `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
+| `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
 
 Claude reads `SKILL.md` when the skill triggers and pulls individual reference files only when the task needs them, so routine work stays cheap.
 

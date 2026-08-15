@@ -26,6 +26,12 @@ Define slots in `tailwind.config` (`theme.extend.colors`) and reference only slo
 
 Swap `primary` to fit brand psychology (table below). Keep the four semantic slots fixed — users read red/amber/green/blue by convention, and repurposing them breaks learned meaning.
 
+**When the brand hue collides with a semantic slot** (a crimson thriller, an amber energy brand, a green finance app), don't repaint the semantic — separate them by *treatment*, which is what users actually read:
+
+- Brand hue: solid marks, links, eyebrows, rules, one accent surface per view.
+- Semantic state: always a tinted surface + icon + text label (`bg-error-50 text-error-700` + icon + "Nie udało się zapisać"), never a bare colored word. Nudge the semantic hue 15–25° away from the brand hue where the family allows (crimson brand at 25° → error at 10–15°, colder).
+- The rule that survives: a state is recognized by its full treatment, not its hue alone [STANDARD] — which is the same reason color never carries meaning by itself.
+
 ## Weight Scale — Which Step for What (light mode)
 
 | Steps | Use for |
@@ -139,7 +145,8 @@ For real products, prefer a role-based mapping over arithmetic inversion: name s
 
 - Backgrounds: `dark:bg-neutral-950`, cards `dark:bg-neutral-900`, borders `dark:border-neutral-800`.
 - Text: body `dark:text-neutral-100`, secondary `dark:text-neutral-400`, headings `dark:text-neutral-50`.
-- Primary: shift solids one step lighter (`dark:bg-primary-500`) — the 600 tuned for white lacks presence on dark; hover now lightens (`dark:hover:bg-primary-400`) because the darken-on-hover rule inverts with the ladder.
+- Primary: shift solids one step lighter (`dark:bg-primary-500`) — the 600 tuned for white lacks presence on dark; hover now lightens (`dark:hover:bg-primary-400`) because the darken-on-hover rule inverts with the ladder. This works for cool and mid hues; warm hues need the escape hatch below.
+- **Escape hatch — when a hue can't carry the action** [PRINCIPLE]: a solid action button must satisfy two constraints at once — its label ≥4.5:1 against the fill, and the fill ≥3:1 against the page behind it. Warm, low-lightness hues (red, crimson, orange) on dark canvases often cannot: white text demands a dark fill, and a dark fill then dissolves into the near-black page. Don't compromise either threshold. Instead, **the action leaves the hue**: use a light neutral fill (bone/`neutral-50`) with dark text for the primary action, and demote the brand hue to a signal role — eyebrows, rules, links, small marks, hover accents — where 4.5:1 as text is achievable. The palette keeps its personality; the button keeps its legibility. Verify with `scripts/contrast-check.mjs`, never by eye.
 - Tinted status surfaces invert too: `dark:bg-error-950 dark:text-error-300 dark:border-error-900`.
 - Re-verify contrast after inversion; the same 4.5:1 / 3:1 minimums apply.
 
