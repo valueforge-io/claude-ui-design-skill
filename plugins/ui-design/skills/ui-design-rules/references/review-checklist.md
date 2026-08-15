@@ -95,10 +95,11 @@ Prefer computed checks over judgment where possible; they are faster and non-neg
 
 - Contrast: extract text/background pairs and compute WCAG ratios (relative luminance formula).
 - Spacing: grep for arbitrary-value classes (`\[\d+px\]`) and off-scale steps.
+- Documentation matches code: the token table in `design-system/MASTER.md` still equals what the config actually ships; every divergence is either a stale doc or an unlogged deviation (design-process.md).
 - Tokens: grep component code for raw hex (`#[0-9a-fA-F]{3,8}`) and raw Tailwind families (`bg-indigo-`, `text-slate-`) that bypass slots.
 - Consistency: collect class strings of repeated components and diff them.
 - Harmony: run `node scripts/palette-check.mjs <page>` — samples rendered colors, clusters hue families, classifies relationships, flags clash pairs and chroma outliers.
-- Interaction: run `node scripts/interaction-check.mjs <page>` — Tab-walk reachability, focus-visibility diffing, positive tabindex, fake buttons, sub-24px targets.
+- Interaction & semantics: run `node scripts/interaction-check.mjs <page>` — Tab-walk reachability, focus-visibility diffing, positive tabindex, fake buttons, sub-24px targets, heading-outline skips, landmark placement (a `<footer>` inside `<main>` gets no contentinfo role), and unmarked required fields.
 - Contrast: run `node scripts/contrast-check.mjs <page>` — every text node against its real backdrop, WCAG thresholds by size and weight.
 - Reflow: run `node scripts/reflow-check.mjs <page>` — 320px reflow with the offending element and cause named.
 

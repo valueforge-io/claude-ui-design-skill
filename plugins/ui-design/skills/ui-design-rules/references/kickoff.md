@@ -71,6 +71,8 @@ Purpose: convert picks into tokens and record the reasoning. Write the token lay
 
 **Gate:** zero raw hex and zero arbitrary values in component code. From here, the normal Build workflow (SKILL.md) takes over, ending in the usual verification.
 
+**Hand over a page they can open** [PRINCIPLE]. Serve it, open it, and lead with the URL — the finished work must reach the user's screen exactly like the specimen did, or they end up asking "how do I see this?" after you have declared it done. Include the one-line command to bring it back, and the rebuild step after they edit content.
+
 **Close every build with the content shopping list** [PRINCIPLE]. Once the page renders, end the message with the concrete list of fields still carrying placeholder text — named, in one line each, in the order they appear on the page: *"Do wypełnienia w `content/book.ts`: cytat prasowy, fragment rozdziału, biogram autora, liczba stron, ISBN."* A section that renders nothing because its content is missing is reported too, not silently dropped — the count of empty sections is the honest measure of how much of the page is still owed. Never let placeholder text become permanent by going unmentioned.
 
 ## Collapsing the ritual

@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.3 — 2026-08-15
+
+Third field run. The gates held; the handover didn't.
+
+- **The finished page must reach the user's screen too.** The specimen rule stopped at the specimen: a full Kickoff ended with a verified, running site and a summary — and the user still had to ask "how do I see the page?". Builds now end by serving it, opening it, and leading with the URL, plus the command to bring it back and the rebuild step. Show, don't describe, applies to the deliverable as much as to the candidates.
+- **`interaction-check.mjs` gained a document-semantics pass**: heading-outline skips (h2 → h4 hides structure from screen-reader navigation), landmark placement (a `<footer>` nested in `<main>` gets no contentinfo role — exactly where contact and legal information live), single `<h1>`/`<main>`, and form controls that are mandatory without saying so. All three defects were found by an adversarial reviewer in the field and were invisible to the previous checks; now they fail the script.
+- **Typographic quotes are a documented build trap** (content-design.md): a typographic opening mark closed with a plain `"` terminates a JS/TS literal and the compiler blames a line far from the cause. It cost a real run several cycles across 21 strings.
+- **A token change and its MASTER.md entry are one operation** (design-process.md): the field run left two values in the contract that no longer matched the code, because verification moved a token and the document stayed behind. Review checklist gains the doc-vs-code drift check.
+
 ## 2.2.2 — 2026-08-15
 
 The structural gate had the same defect as the visual one: it happened, but not for the user.

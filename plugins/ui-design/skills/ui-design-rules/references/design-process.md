@@ -159,6 +159,7 @@ folder into the single source of truth: tokens, type roles, icon rules, componen
 with variant props, and page templates in one place, with pages assembled from
 them — the payoff is consistency, speed, and scale as the product grows.
 
+- **A token change and its MASTER.md entry are one operation, not two** [PRINCIPLE]. Fixing a value in the config while leaving the contract stale makes the document lie, and the next session — human or agent — trusts the lie. When verification forces a token to move (a contrast failure, a size bump), update the table and add a deviations-log line in the same edit, with the measured number that forced it.
 - Change at the source, never at the instance: restyle a button by editing its
   base variant so the change propagates everywhere — scattered per-page overrides
   are exactly the inconsistency the system exists to prevent.

@@ -68,6 +68,10 @@ Run every time, and prefer computed checks over eyeballing:
 - **Reflow [STANDARD]:** `node scripts/reflow-check.mjs page.html` — content works at 320 CSS px with no horizontal scrolling; the script names the element and the cause.
 - **Consistency:** same-role elements styled identically; exactly one primary button per view [PRINCIPLE]; no raw hex in components.
 
+### Step 4 — Hand it over so they can actually see it
+
+A build the user cannot open is not delivered [PRINCIPLE]. The same rule that governs the specimen governs the finished work: show, don't describe. Before writing the summary, make the result reachable — start the dev server or serve the static output, open it (`open`/`xdg-open`/`start`), and put the URL in the **first line** of your message, not buried at the end. Say how to bring it back later (`npm run dev`, `npm run serve`) and how to rebuild after content edits. Then the shopping list of unfilled content (references/kickoff.md). Screenshots are evidence for you; the running page is the deliverable for them.
+
 ## Core defaults
 
 The most-used values, inline so the references aren't needed for routine work.

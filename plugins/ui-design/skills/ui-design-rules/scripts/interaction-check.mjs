@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Keyboard & focus audit of a rendered page: Tab-walk reachability, focus-indicator
-// visibility (style diffing), positive tabindex, fake buttons, and sub-24px targets.
+// Keyboard, focus & document-semantics audit of a rendered page: Tab-walk reachability,
+// focus-indicator visibility (style diffing), positive tabindex, fake buttons, sub-24px targets,
+// heading outline, landmark placement, and required-field marking.
 // Rules: references/interaction.md and references/accessibility.md.
 // Usage (from your project root): node /path/to/interaction-check.mjs <file.html|url> [--width=1280] [--max-tabs=300]
 // Requires playwright in the project: npm i -D playwright && npx playwright install chromium
@@ -117,6 +118,40 @@ for (let i = 0; i < maxTabs; i++) {
     if (item && info.focusStyle === item.restStyle) noVisibleFocus.push(item);
   }
 }
+// Phase 3: document semantics — the defects a keyboard walk cannot see.
+const semantics = await page.evaluate(() => {
+  const out = { headings: [], skips: [], landmarks: {}, requiredIssues: [] };
+  let prev = 0;
+  for (const h of document.querySelectorAll('h1,h2,h3,h4,h5,h6')) {
+    const lvl = Number(h.tagName[1]);
+    const label = (h.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+    out.headings.push({ lvl, label });
+    if (prev && lvl > prev + 1) out.skips.push(`h${prev} → h${lvl} at "${label}"`);
+    prev = lvl;
+  }
+  const mains = document.querySelectorAll('main, [role="main"]');
+  out.landmarks.mainCount = mains.length;
+  out.landmarks.h1Count = document.querySelectorAll('h1').length;
+  // <footer>/<header> nested in main or a sectioning element get no landmark role
+  const nested = [];
+  for (const tag of ['footer', 'header']) {
+    for (const el of document.querySelectorAll(tag)) {
+      if (el.closest('main, article, section, aside, nav')) nested.push(tag);
+    }
+  }
+  out.landmarks.nested = nested;
+  // required-looking fields that never say so
+  for (const el of document.querySelectorAll('input:not([type="hidden"]), select, textarea')) {
+    if (el.type === 'submit' || el.type === 'button' || el.disabled) continue;
+    const req = el.hasAttribute('required') || el.getAttribute('aria-required') === 'true';
+    if (req) continue;
+    const label = document.querySelector(`label[for="${el.id}"]`)?.textContent || el.closest('label')?.textContent || '';
+    const name = (el.getAttribute('aria-label') || label || el.getAttribute('placeholder') || el.name || '').trim().replace(/\s+/g, ' ').slice(0, 35);
+    out.requiredIssues.push(name || `<${el.tagName.toLowerCase()}>`);
+  }
+  return out;
+});
+
 await browser.close();
 
 const findings = [];
@@ -138,7 +173,14 @@ const expectedReachable = scan.filter(i => i.visible && (i.nativelyFocusable || 
 const unreached = expectedReachable.filter(i => !visited.has(i.key));
 if (visited.size > 0 && unreached.length) findings.push(`${unreached.length} focusable element(s) never reached in the ${visited.size}-stop Tab walk (order break, hidden trap, or off-screen?): ${unreached.slice(0, 3).map(fmt).join('; ')}`);
 
-console.log(`Scanned ${scan.length} interactive element(s); Tab walk visited ${visited.size} stop(s).`);
+// Document semantics — checkable defects that a Tab walk cannot see.
+if (semantics.skips.length) findings.push(`heading outline skips ${semantics.skips.length} level(s) — screen-reader users navigate by this outline: ${semantics.skips.slice(0, 3).join('; ')}. Pick the level for the document structure and the size from a named type slot; never skip a level to get a size (typography.md)`);
+if (semantics.landmarks.h1Count !== 1) findings.push(`${semantics.landmarks.h1Count} <h1> on the page — expected exactly one`);
+if (semantics.landmarks.mainCount !== 1) findings.push(`${semantics.landmarks.mainCount} <main> landmark(s) — expected exactly one`);
+if (semantics.landmarks.nested.length) findings.push(`<${semantics.landmarks.nested.join('>, <')}> nested inside main/article/section — a nested <footer> gets no contentinfo role, so it disappears from the landmark list where users go looking for contact and legal information`);
+if (semantics.requiredIssues.length) findings.push(`${semantics.requiredIssues.length} form control(s) without required/aria-required — if they are mandatory, users learn it only by bouncing off the submit button: ${semantics.requiredIssues.slice(0, 3).join('; ')} (mark them in the label too, never by a bare asterisk)`);
+
+console.log(`Scanned ${scan.length} interactive element(s); Tab walk visited ${visited.size} stop(s); outline: ${semantics.headings.map(h => 'h' + h.lvl).join(' ')}.`);
 if (unknownStops.length) console.log(`  (${unknownStops.length} focus stop(s) outside the scanned set — e.g. ${unknownStops.slice(0, 2).join(', ')})`);
 if (findings.length) {
   console.log('\nFINDINGS:');
@@ -146,4 +188,4 @@ if (findings.length) {
   console.log('\nManual half still applies: Escape closes layers and returns focus; arrows work inside composites (interaction.md).');
   process.exit(1);
 }
-console.log('OK: keyboard reachability, focus visibility, tab order, and target sizes hold.');
+console.log('OK: keyboard reachability, focus visibility, tab order, target sizes, heading outline, and landmarks hold.');

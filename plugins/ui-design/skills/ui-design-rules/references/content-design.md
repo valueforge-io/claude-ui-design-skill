@@ -9,6 +9,8 @@ Every user-visible string lives in a single content module (`content.ts`, `copy/
 - Placeholder copy is written in the target register and realistic length (never lorem ipsum): only real-shaped text reveals whether a headline wraps badly, a measure is too wide, or a card breaks on a long quote.
 - Mark every invented value that could escape into production: a TODO block at the top of the content module, obviously fake identifiers (ISBN `978-83-000000-0-0`), and **generic attributions** for testimonials or press quotes — never invent a named publication or person, even in a mockup, because fabricated endorsements survive in code long after the mockup dies.
 - Numbers, prices, dates, and legal text are placeholders until confirmed; never let a plausible-looking figure ship unverified.
+- **Typographic quotes break string literals** — a trap in every language that uses them (Polish „…", German „…", French «…»). Writing the opening mark as a typographic character and the closing one as a plain `"` terminates the JS/TS string early and the build fails with a parse error far from the real cause. Use the correct closing character (`"` for Polish), or switch the literal to backticks, or store the copy outside code. After writing non-English copy, build once before moving on — one compile catches every instance at once.
+- Curly apostrophes deserve the same care in French and English possessives inside single-quoted literals.
 
 ## Action labels
 
