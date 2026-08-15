@@ -132,7 +132,7 @@ When asked to review, critique, or improve existing UI: read `references/review-
 | `references/kickoff.md` | Starting from nothing: the five-stage entry ritual and the specimen gate |
 | `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, default section arcs |
 | `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
-| `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales |
+| `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales, deriving a palette from an existing asset |
 | `references/typography.md` | Text-heavy screens, type hierarchy problems, font pairing |
 | `references/spacing-layout.md` | Page layout, grids/columns, any spacing uncertainty |
 | `references/components.md` | Building any specific component — recipes for 25 components |

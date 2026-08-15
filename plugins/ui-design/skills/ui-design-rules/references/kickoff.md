@@ -29,7 +29,9 @@ Purpose: know what exists before inventing anything. Produce a three-column list
 
 Ask once, compactly: *"Before I start: do you have (a) brand assets or imagery, (b) real copy or should I draft placeholders, (c) an existing design system or reference sites you like?"* Anything the user doesn't answer becomes "agent produces".
 
-**Gate:** every row is assigned. Assets that exist are looked at before deciding color (a cover or logo constrains hue — the palette should agree with it, not fight it).
+If assets exist, **look at them and measure them before composing any candidate**: open the image (you are multimodal — see what it actually is), then run `node scripts/extract-palette.mjs <image>` for the ground hue, the signal hue and its share, and the lightness range. Those three numbers constrain the whole specimen: the palette should agree with the asset rather than fight it (procedure and repair path: references/color.md, "Palette from an asset").
+
+**Gate:** every row is assigned, and any existing asset has been looked at and measured.
 
 ## Stage 1 — Intent
 

@@ -251,6 +251,15 @@ Every interactive component needs visible default, hover, focus, and disabled st
 - **Meaning:** don't redraw universally understood symbols; add a text label when possible and a tooltip when the icon stands alone, so meaning never depends on guesswork.
 - **Recipe:** nav `size-6`, in-control `size-5`, wrapped in `flex size-12 items-center justify-center` (desktop `size-10`) targets; or `size-[1.5em]` to scale with the parent font size.
 
+## Imagery
+
+- **Show the real object flat.** A book cover, a product photo, a screenshot: rendered plainly at its own aspect ratio, with a subtle border or shadow if it needs separating from the page. 3D box renders, floating device mockups, and perspective-tilted screenshots read as infoproduct marketing — in categories where buyers know what the real object looks like, that costs more trust than it buys attention.
+- **Where imagery earns its place:** the product itself (essential — it *is* the thing being sold), a portrait when personal credibility is part of the offer, and at most one atmospheric full-bleed per page to set tone. Everything beyond that is decoration competing with the content.
+- **Text over an image needs a measured guarantee, not a hope** [STANDARD]. Contrast rules do not relax because the backdrop is a photograph. Either place text on a genuinely quiet region of the image (a sky, a wall, an out-of-focus area), or lay a scrim — a solid or gradient overlay at the opacity that actually achieves the ratio — and then *measure the rendered result* (`contrast-check.mjs` flags text over background images as unverifiable by static means; the number still has to be produced). A photograph that is light in one corner and dark in another cannot carry text safely anywhere without a scrim.
+- **Sizing and delivery:** serve responsive sources at the size actually displayed, give the hero image priority loading (it is usually the LCP element), and reserve its space in layout so nothing shifts on arrival. Decorative images take `alt=""`; meaningful ones get alt text that says what the image *conveys*, not what it depicts.
+- **Texture over illustration** when the budget for imagery is zero: film grain, paper fibre, or a halftone at very low opacity is the cheapest lever from "cheap" to "considered", and it never competes with content. Keep it static and under ~4% opacity.
+- **Placeholders must look unfinished** — a dashed frame saying what belongs there, never a stock photo standing in for a real asset. A placeholder that looks finished ships.
+
 ## Avatars
 
 - **Types:** image, initials fallback, icon placeholder — use the same representation for a given person everywhere in the app; never gendered placeholder art.

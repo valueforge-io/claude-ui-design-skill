@@ -67,6 +67,23 @@ Execute in order when starting a UI:
 
 Record the result as the token schema (slot × step, with hex) before building screens — the schema is the first artifact of the style guide, and components reference it, never ad-hoc values.
 
+## Palette from an asset [PRINCIPLE]
+
+When a cover, logo, product shot, or packaging already exists, the palette is **measured, not invented** — the page should look like it belongs to the asset, not like a backdrop the asset was dropped onto. Run `node scripts/extract-palette.mjs <image>` and read three things:
+
+1. **The ground** — the neutral hue and its chroma. Carry that hue into the project's neutrals at low chroma (a branded neutral, see the recipe above). This single move is what makes an asset sit *on* the page instead of *on top of* it; a cool-grey page under a warm-paper cover produces a visible seam at every edge.
+2. **The signal** — the most chromatic family and, crucially, **how much of the image it covers**. A hue occupying a fraction of a percent is a *signal*: use it for eyebrows, rules, links, small marks. A hue covering a third of the asset is a *ground colour*: the page must not repeat it at strength, or the asset stops being the loudest thing on screen.
+3. **The lightness range** — a dark asset usually wants a dark canvas (a light page frames it like a postage stamp), a light asset a light one. Let the intent overrule this when it has a reason.
+
+**The extracted colour is an input, never a token** [PRINCIPLE]. Sampled accents fail contrast more often than they pass — mid-lightness reds and oranges are the usual case. The repair procedure, in order:
+
+- Keep the hue, move the lightness: build the scale in OKLCH from H, and pick the step that passes. The identity lives in the hue; the value is yours to choose.
+- Trim chroma before touching hue if a step falls outside sRGB gamut.
+- If no step of that hue can carry the action (label ≥4.5:1 on the fill *and* fill ≥3:1 on the canvas), apply the escape hatch: the action leaves the hue, the hue becomes the signal.
+- Never soften the asset's colour to make it work — an accent adjusted into a near-miss of the printed original looks like a mis-calibrated echo, which reads worse than either matching it exactly or standing deliberately apart.
+
+Verify the result with `specimen.mjs` like any other candidate. An asset-derived palette gets no exemption from the checks.
+
 ## Scheme Types
 
 - Monochrome (default): one hue varied only by step. Darker steps for titles and buttons, lighter steps for backgrounds and borders. Safest scheme; a single Tailwind family already is one. Why: zero hue conflicts, hierarchy carried entirely by lightness.

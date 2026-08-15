@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.3.0 — 2026-08-15
+
+Assets first: when the brand material already exists, the palette is measured out of it.
+
+- **New** `scripts/extract-palette.mjs`: samples an asset (cover, logo, product shot), clusters colours in OKLCH, and reports the neutral ground hue, the chromatic families ranked by identity weight, the lightness range, and whether the asset's own accent can carry text or only marks. Validated against a real project: it reproduces, to the pixel, the palette a field agent had derived by hand — ground hue 80° at chroma 0.013, signal hue 27° peaking at rgb(203, 45, 41) on 0.037% of the image.
+- Calibration mattered more than the maths: a brand accent can occupy a fraction of a percent of an asset and still carry its entire identity, so families are judged by *peak* chroma rather than average, and rarity is reported as a role (signal vs accent vs ground colour) instead of being filtered out as noise.
+- **New rule** color.md — "Palette from an asset": carry the ground hue into the project's neutrals so the asset sits on the page rather than on top of it; treat the extracted accent as an input, never a token; repair by moving lightness while keeping hue, and never soften the asset's colour into a near-miss of the printed original.
+- **New section** components.md — Imagery: real objects shown flat (3D box renders read as infoproduct), where imagery earns its place, measured scrims for text over photography, sizing and alt-text basics, texture as the cheap credibility lever, and placeholders that must look unfinished.
+- Kickoff Stage 0 now looks at and measures existing assets before any candidate is composed.
+
 ## 2.2.3 — 2026-08-15
 
 Third field run. The gates held; the handover didn't.
