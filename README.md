@@ -65,7 +65,7 @@ On a fresh project with no existing styles, the skill sketches a design intent (
 | `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode |
 | `references/typography.md` | Type roles, modular scale, weight/leading/tracking rules |
 | `references/spacing-layout.md` | 4-point baseline, spacing ladder, grids and gutters |
-| `references/components.md` | Recipes for 25 components (buttons → tables → toasts) |
+| `references/components.md` | Recipes for 26 components (buttons → dialogs → toasts) |
 | `references/visual-hierarchy.md` | Scan patterns, the seven hierarchy levers, action tiers |
 | `references/interaction.md` | Keyboard models, focus management, the component state matrix |
 | `references/accessibility.md` | WCAG 2.2 floors: target size, zoom/reflow, reduced motion, forms |
@@ -90,6 +90,8 @@ Benchmarked against the same model without the skill on identical tasks (landing
 | without skill | 75% |
 
 Baseline failures clustered exactly where you'd expect: text contrast, missing focus states, competing primary buttons.
+
+*Measured at v1.0 on three build tasks. The skill has since gained interaction models, accessibility floors, design intelligence, and three more knowledge domains (see CHANGELOG); a broader multi-run benchmark is planned.*
 
 ## Design sources
 

@@ -65,7 +65,7 @@ W świeżym projekcie bez istniejących stylów skill szkicuje intencję projekt
 | `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode |
 | `references/typography.md` | Role typograficzne, skala modularna, reguły grubości/interlinii/trackingu |
 | `references/spacing-layout.md` | Baza 4pt, drabinka odstępów, gridy i guttery |
-| `references/components.md` | Przepisy na 25 komponentów (przyciski → tabele → toasty) |
+| `references/components.md` | Przepisy na 26 komponentów (przyciski → dialogi → toasty) |
 | `references/visual-hierarchy.md` | Wzorce skanowania, siedem dźwigni hierarchii, poziomy akcji |
 | `references/interaction.md` | Modele klawiaturowe, zarządzanie fokusem, macierz stanów komponentów |
 | `references/accessibility.md` | Podłogi WCAG 2.2: rozmiar celu, zoom/reflow, reduced motion, formularze |
@@ -90,6 +90,8 @@ Zmierzone przeciwko temu samemu modelowi bez skilla, na identycznych zadaniach (
 | bez skilla | 75% |
 
 Porażki wersji bez skilla skupiły się dokładnie tam, gdzie łatwo zgadnąć: kontrast tekstu, brakujące stany focus, konkurujące przyciski primary.
+
+*Pomiar wykonany na wersji 1.0 na trzech zadaniach budowania. Od tego czasu skill zyskał modele interakcji, podłogi dostępności, inteligencję projektową i trzy kolejne domeny wiedzy (zob. CHANGELOG); szerszy, wielokrotny benchmark jest w planach.*
 
 ## Źródła zasad
 
