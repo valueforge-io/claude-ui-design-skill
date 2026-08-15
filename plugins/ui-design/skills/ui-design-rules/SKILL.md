@@ -18,7 +18,7 @@ Turn design from taste into system: establish tokens first, style only from toke
 Three modes:
 
 - **Build** (default) — creating or styling UI. Follow the workflow below.
-- **Kickoff** — starting a new project or a major new surface from nothing. Run the five-stage entry ritual in `references/kickoff.md` first (inventory → intent → **specimen** → arc → tokens), then continue with Build. Its governing rule: replace questions with comparisons — visual decisions are made on rendered candidates, never on adjectives.
+- **Kickoff** — starting a new project or a major new surface from nothing. Run the five-stage entry ritual in `references/kickoff.md` first (inventory → intent → **specimen** → **arc** → tokens), then continue with Build. Two governing rules: replace questions with comparisons (visual decisions are made on rendered candidates, never on adjectives), and never bundle a decision gate — the visual pick and the section arc — into the same message as a summary the user is only asked to skim.
 - **Review** — critiquing or fixing existing UI. Follow `references/review-checklist.md`.
 
 ## Rule levels

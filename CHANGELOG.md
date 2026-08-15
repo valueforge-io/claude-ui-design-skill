@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.2 — 2026-08-15
+
+The structural gate had the same defect as the visual one: it happened, but not for the user.
+
+- **Two kinds of gates, now distinguished.** Confirm-by-silence (inventory, intent brief — a summary you could correct) vs requires-an-answer (specimen pick, section arc — a decision only the user can make). Bundling them in one message, which is what happened in the field, turns the decision into an appendix to the summary: the "silence is acceptance" rule written for Stage 1 leaked onto Stage 3 and the user approved a structure they never registered as a question.
+- **Stage 3 (Arc) rewritten**: gets its own message, and the section list gains a content column — section · job · what content it needs · who supplies it. The shopping list is visible before anything is built, and real copy is invited exactly where the user already has it.
+- **Every build now closes with the content shopping list**: the named fields still carrying placeholder text, plus any section rendering nothing because its content is missing. Placeholder text must never become permanent by going unmentioned.
+
 ## 2.2.1 — 2026-08-15
 
 Fixes from the first full Kickoff run on a real project.

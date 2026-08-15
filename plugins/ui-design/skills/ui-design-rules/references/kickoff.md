@@ -8,6 +8,15 @@ The entry ritual for a new UI project or a new major surface: five short stages,
 
 Corollary: asking *fewer* questions is not the goal — showing *more material* is. Keep the question count low (one per stage at most), but never let a visual decision happen in prose.
 
+## Two kinds of gates
+
+Not every gate closes the same way, and confusing them is how a ritual becomes theatre [PRINCIPLE]:
+
+- **Confirm-by-silence** — a *summary you could correct*: the inventory and the intent brief. State it, invite a correction, move on. Silence is acceptance; these must never stall the work.
+- **Requires an answer** — a *decision only the user can make*: the visual pick (Stage 2) and the section arc (Stage 3). State it, ask for the specific input, and **end your turn**. Silence here is not acceptance; it means the user hasn't looked yet.
+
+Never put a confirm-by-silence stage and a requires-an-answer stage in the same message. Bundled, the decision reads as an appendix to the summary and scrolls past — the user "agrees" to a structure they never registered as a question.
+
 ## Stage 0 — Inventory
 
 Purpose: know what exists before inventing anything. Produce a three-column list and confirm it in one message:
@@ -26,7 +35,7 @@ Ask once, compactly: *"Before I start: do you have (a) brand assets or imagery, 
 
 Purpose: the 8-line brief and archetype (procedure and format: design-intent.md). Infer from the request and the inventory; ask at most one question when the primary job is genuinely ambiguous. State the brief back in the message — the user corrects a line if it's wrong.
 
-**Gate:** the user has seen the brief and hasn't objected. Silence is acceptance; this stage must not stall.
+**Gate (confirm-by-silence):** the user has seen the brief and hasn't objected. This stage must not stall — but it also must not carry a decision stage along with it.
 
 ## Stage 2 — Specimen (the visual gate)
 
@@ -44,19 +53,25 @@ Fonts: verify every family actually exists and carries the subsets the language 
 
 **Rejection path:** if the user rejects all candidates, ask what specifically is wrong (too loud / too cold / too corporate / too playful), move that dial, and re-render. Never argue for a candidate — re-render; it costs a minute.
 
-## Stage 3 — Arc
+## Stage 3 — Arc (the structural gate)
 
-Purpose: agree on the page structure *before* it exists in code. Produce a numbered list of sections, each one line: what it says and what job it does. Start from the archetype's default arc (design-intent.md), adapted to this product.
+Purpose: agree on the page structure *and* on where real content comes from — before either exists in code. This stage gets **its own message**; it is never appended to the intent brief.
 
-Present it as an editable list — the user reorders, cuts, or adds. This is also where real copy enters: any section the user has final text for gets it now, the rest get placeholder copy in the right register and length.
+Produce a numbered table: section · what job it does · what content it needs · who supplies it. Start from the archetype's default arc (design-intent.md), adapted to this product. Example row: `3 · Fragment · daje próbkę pisania · pierwsze 2 strony rozdziału · **masz? wklej — inaczej piszę wypełniacz**`.
 
-**Gate:** the section list is accepted. Structural disagreements are cheap here and expensive after implementation.
+The content column is the point, not decoration: it shows the user the shopping list before anything is built, and it invites real copy exactly where they already have it. Anything unclaimed becomes placeholder in the target register and length (content-design.md).
+
+Then ask plainly, and **stop**: *"Wytnij, przestaw albo dodaj — podaj numery. Wklej treści, które już masz. Napisz 'ok', jeśli pasuje."* / *"Cut, reorder, or add — give me numbers. Paste any copy you already have. Say 'ok' if it fits."*
+
+**Gate (requires an answer):** an explicit reply — edits, pasted copy, or "ok". Silence means they haven't read it. Structural disagreements cost one message here and a rebuild after implementation.
 
 ## Stage 4 — Tokens, then build
 
 Purpose: convert picks into tokens and record the reasoning. Write the token layer (Tailwind config or `@theme`, per version detection), the type roles, and `design-system/MASTER.md` (intent + direction + tokens + deviations log — design-process.md). Content goes into a single content module, never into components (content-design.md).
 
 **Gate:** zero raw hex and zero arbitrary values in component code. From here, the normal Build workflow (SKILL.md) takes over, ending in the usual verification.
+
+**Close every build with the content shopping list** [PRINCIPLE]. Once the page renders, end the message with the concrete list of fields still carrying placeholder text — named, in one line each, in the order they appear on the page: *"Do wypełnienia w `content/book.ts`: cytat prasowy, fragment rozdziału, biogram autora, liczba stron, ISBN."* A section that renders nothing because its content is missing is reported too, not silently dropped — the count of empty sections is the honest measure of how much of the page is still owed. Never let placeholder text become permanent by going unmentioned.
 
 ## Collapsing the ritual
 
