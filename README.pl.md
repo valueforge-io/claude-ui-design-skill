@@ -53,7 +53,9 @@ Ostyluj ten formularz ustawień tak, żeby był spójny z resztą aplikacji.
 Zrób przegląd designu src/components/Dashboard.tsx i wypisz konkretne poprawki.
 ```
 
-W świeżym projekcie bez istniejących stylów skill szkicuje intencję projektową (archetyp produktu, gęstość, ekspresja) i proponuje 2–3 kierunki wizualne — paleta, typografia i charakter gęstości z uzasadnieniem. Wybierasz w kilka sekund albo mówisz „bierz domyślne"; wybór zostaje zapamiętany w `design-system/MASTER.md`.
+W świeżym projekcie skill uruchamia **Kickoff**: robi inwentarz tego, co już masz (assety, treści, istniejący system), szkicuje brief intencji, a potem renderuje **specimen** — kandydatów palet i par krojów obok siebie, na Twojej realnej treści, każdego z policzonymi wskaźnikami WCAG i plakietką PASS/FAIL. Wybierasz numer i literę z obrazka, ustalacie łuk sekcji i dopiero wtedy powstaje kod. Na każdym etapie możesz powiedzieć „wybierz sam" — skill weźmie bezpieczny default. Decyzje lądują w `design-system/MASTER.md`, więc kolejna sesja je dziedziczy.
+
+Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące tokeny i MASTER.md już odpowiadają na te pytania.
 
 ## Co jest w środku
 

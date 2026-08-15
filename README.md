@@ -53,7 +53,9 @@ Restyle this settings form so it looks consistent with the rest of the app.
 Review the visual design of src/components/Dashboard.tsx and list concrete fixes.
 ```
 
-On a fresh project with no existing styles, the skill sketches a design intent (product archetype, density, expression) and proposes 2–3 visual directions — palette, typography, and density character with reasoning. Pick one in seconds or say "defaults"; the choice is remembered in `design-system/MASTER.md`.
+On a fresh project, the skill runs **Kickoff**: it takes inventory of what you already have (assets, copy, existing system), sketches an intent brief, then renders a **specimen** — palette and type-pairing candidates side by side on your real copy, each with computed WCAG ratios badged PASS/FAIL. You pick a number and a letter from the picture, agree on the section arc, and only then does anything get coded. Say "choose for me" at any stage and it takes the safe default. The decisions land in `design-system/MASTER.md`, so the next session inherits them.
+
+For work inside an existing project the ritual collapses to nothing — the existing tokens and MASTER.md already answer the questions.
 
 ## What's inside
 
