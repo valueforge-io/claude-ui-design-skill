@@ -10,7 +10,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
-- **Two modes** — *Build* (create/style UI) and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
+- **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered specimen** → section arc → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
 - **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. A keyboard audit (Tab-walk, focus visibility, target sizes) is the third verification track.
 
 ## Install
@@ -60,7 +60,8 @@ On a fresh project with no existing styles, the skill sketches a design intent (
 | File | Contents |
 |---|---|
 | `SKILL.md` | Workflow (build + review), core defaults, verification checklist |
-| `references/design-intent.md` | Intent brief, ten product archetypes, verification priorities |
+| `references/kickoff.md` | The five-stage entry ritual and the specimen gate |
+| `references/design-intent.md` | Intent brief, ten product archetypes, default section arcs |
 | `references/visual-directions.md` | Twelve style grammars and how a direction becomes tokens |
 | `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode |
 | `references/typography.md` | Type roles, modular scale, weight/leading/tracking rules |
@@ -79,6 +80,7 @@ On a fresh project with no existing styles, the skill sketches a design intent (
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
 | `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
 | `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
+| `scripts/specimen.mjs` | Renders palette/type candidates side by side on real copy, with contrast badges |
 
 Claude reads `SKILL.md` when the skill triggers and pulls individual reference files only when the task needs them, so routine work stays cheap.
 

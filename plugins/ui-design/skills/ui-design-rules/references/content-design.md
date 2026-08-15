@@ -2,6 +2,14 @@
 
 The words are part of the interface — a perfectly spaced screen with "Are you sure? [OK] [Cancel]" is still broken UI. Consult when writing any label, error, empty state, confirmation, or helper text, and during reviews.
 
+## Content lives in one place [PRINCIPLE]
+
+Every user-visible string lives in a single content module (`content.ts`, `copy/`, or the project's i18n resource) — components import it and contain **zero** hard-coded words. This is not tidiness; it is what makes real copy cheap to introduce at any stage: swapping placeholders for final text becomes one file edit with no layout risk, and the same structure is what a translator or CMS plugs into later.
+
+- Placeholder copy is written in the target register and realistic length (never lorem ipsum): only real-shaped text reveals whether a headline wraps badly, a measure is too wide, or a card breaks on a long quote.
+- Mark every invented value that could escape into production: a TODO block at the top of the content module, obviously fake identifiers (ISBN `978-83-000000-0-0`), and **generic attributions** for testimonials or press quotes — never invent a named publication or person, even in a mockup, because fabricated endorsements survive in code long after the mockup dies.
+- Numbers, prices, dates, and legal text are placeholders until confirmed; never let a plausible-looking figure ship unverified.
+
 ## Action labels
 
 - Verb + object [PRINCIPLE]: "Create project", "Delete account", "Send invoice" — the button says what happens next. Never "Submit", "OK", "Yes", "Proceed", "Confirm" alone: they say only that a button was clicked.

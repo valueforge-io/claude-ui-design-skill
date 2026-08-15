@@ -62,6 +62,17 @@ What each archetype protects (verification priorities):
 - **Trust-sensitive** — comprehension: plain language, verifiable numbers, no dark patterns, generous contrast headroom.
 - **Onboarding / workflow** — momentum: fewest choices per screen, sensible defaults, progress visible, exits allowed.
 
+## Default section arcs
+
+Where the sequence itself is knowledge, start from these and adapt — they are opening positions to edit with the user (Kickoff stage 3), never a layout to impose:
+
+- **Conversion / marketing:** hook (what and for whom) → proof it works → what it actually is → try it (sample, demo, free tier) → who made it → social proof → objections (FAQ, guarantees) → close. Price appears wherever the audience expects it — early for cheap and obvious, late for considered purchases.
+- **Content / editorial:** entry point (why read this) → the piece itself in a single measure → related paths → subscribe/follow. Chrome stays out of the column.
+- **Onboarding / workflow:** orient (where am I, how long) → one decision per screen → progress made visible → confirm and hand off to the product. Every screen has an exit that doesn't lose work.
+- **Transactional:** summarize what's happening → the fields, grouped → cost and consequences stated before the button → one primary action → confirmation with what happens next.
+
+Other archetypes are structured by their content, not by a canonical sequence — derive the order from the primary job instead.
+
 ## From intent to direction and structure
 
 1. Archetype + sliders → shortlist 2–3 visual directions (visual-directions.md); propose them with one-line reasoning; the user picks or defers to your default.

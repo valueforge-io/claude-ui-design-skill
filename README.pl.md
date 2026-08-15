@@ -10,7 +10,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Inteligencja projektowa** — brief intencji i dziesięć archetypów produktowych decyduje, CZYM interfejs ma być; dwanaście gramatyk kierunków wizualnych proponuje, JAK ma wyglądać; `design-system/MASTER.md` pamięta jedno i drugie między sesjami.
-- **Dwa tryby** — *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
+- **Trzy tryby** — *Kickoff* (rytuał wejścia dla nowych projektów: inwentarz → intencja → **wyrenderowany specimen** → łuk sekcji → tokeny), *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
 - **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Trzecim torem weryfikacji jest audyt klawiatury (spacer Tabem, widoczność fokusa, rozmiary celów).
 
 ## Instalacja
@@ -60,7 +60,8 @@ W świeżym projekcie bez istniejących stylów skill szkicuje intencję projekt
 | Plik | Zawartość |
 |---|---|
 | `SKILL.md` | Workflow (build + review), rdzeń wartości domyślnych, checklista weryfikacji |
-| `references/design-intent.md` | Brief intencji, dziesięć archetypów produktowych, priorytety weryfikacji |
+| `references/kickoff.md` | Pięcioetapowy rytuał wejścia i bramka specimenu |
+| `references/design-intent.md` | Brief intencji, dziesięć archetypów produktowych, domyślne łuki sekcji |
 | `references/visual-directions.md` | Dwanaście gramatyk stylu i przekład kierunku na tokeny |
 | `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode |
 | `references/typography.md` | Role typograficzne, skala modularna, reguły grubości/interlinii/trackingu |
@@ -79,6 +80,7 @@ W świeżym projekcie bez istniejących stylów skill szkicuje intencję projekt
 | `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
 | `scripts/contrast-check.mjs` | Kontrast WCAG każdego węzła tekstowego wobec realnego tła z renderu |
 | `scripts/reflow-check.mjs` | Kontrola reflow przy 320px ze wskazaniem winnego elementu i przyczyny |
+| `scripts/specimen.mjs` | Renderuje kandydatów palet i krojów obok siebie na realnej treści, z plakietkami kontrastu |
 
 Claude czyta `SKILL.md`, gdy skill się uruchomi, a pojedyncze pliki referencyjne dociąga tylko wtedy, gdy zadanie ich dotyczy — rutynowa praca pozostaje tania.
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.2.0 — 2026-08-15
+
+Kickoff mode: the user decides on pixels, and real content becomes a first-class citizen.
+
+- **New mode — Kickoff** (`references/kickoff.md`): a five-stage entry ritual for new projects — inventory (what exists / what the agent invents) → intent brief → **specimen** → section arc → tokens, each with an explicit gate. Governing rule: *replace questions with comparisons*; no visual decision is made in prose. The ritual collapses to nothing for tweaks inside an existing system, and every stage accepts "choose for me".
+- **New** `scripts/specimen.mjs`: renders palette and type-pairing candidates side by side on the project's real copy, computes each palette's six key contrast pairs in-page (oklch-safe), badges them PASS/FAIL, screenshots the sheet, and exits non-zero if any candidate fails — a failing candidate is not a choice.
+- **Content as a first-class citizen** (content-design.md): user-visible strings live in one content module, components contain zero hard-coded words, so final copy can replace placeholders at any stage with one file edit. Placeholder copy is written in the real register and length; invented values are marked, and testimonials never carry invented named sources.
+- **Default section arcs** per archetype (design-intent.md) for conversion, content, onboarding, and transactional products — presented as an editable list before implementation, not a layout imposed at build time.
+- SKILL.md declares three modes; review checklist gains arc and content-source checks.
+
 ## 2.1.1 — 2026-08-15
 
 Verification you can trust. Findings from the first real-world project run.

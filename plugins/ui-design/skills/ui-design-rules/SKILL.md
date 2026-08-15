@@ -15,9 +15,10 @@ description: >-
 
 Turn design from taste into system: establish tokens first, style only from tokens, verify with hard checks. Good-looking UI is the product of consistency and hierarchy, not inspiration.
 
-Two modes:
+Three modes:
 
 - **Build** (default) — creating or styling UI. Follow the workflow below.
+- **Kickoff** — starting a new project or a major new surface from nothing. Run the five-stage entry ritual in `references/kickoff.md` first (inventory → intent → **specimen** → arc → tokens), then continue with Build. Its governing rule: replace questions with comparisons — visual decisions are made on rendered candidates, never on adjectives.
 - **Review** — critiquing or fixing existing UI. Follow `references/review-checklist.md`.
 
 ## Rule levels
@@ -39,10 +40,7 @@ Never style ad hoc. Source every visual decision through this cascade, first hit
 
 1. **Existing project system.** Look for `design-system/MASTER.md` first — this skill's own memory: intent, direction, tokens (references/design-process.md). Then `tailwind.config` color/font extensions, CSS custom properties, a component library (shadcn/ui, Flowbite…), or repeated class patterns in existing components. If found, follow it completely — consistency with the codebase beats every default in this skill. Never introduce skill defaults into a project that already has its own voice.
 2. **Explicit instructions** in the request: a brand hex, "make it green", an attached mockup or screenshot.
-3. **Guided intake.** Starting a new project, app, or standalone surface with no constraints from 1–2? First sketch the design intent — an 8-line brief plus the product archetype (procedure and archetypes: `references/design-intent.md`; infer from the request, ask at most one question). Then PROPOSE, in one compact message:
-   - 2–3 **visual directions** fitted to the intent (grammars: `references/visual-directions.md`), one line each — name + hue & type character + density + why it fits — with one marked default. Example for a fleet-ops dashboard: "Restrained Operational (default) — neutral + one action hue, compact, exceptions-first; Technical Utility — denser and dark-first, for expert dispatchers; Soft Product — friendlier, if the brand sells approachability".
-   - Mode: light (default), dark, or both.
-   "Take the default" is a complete answer. A given hex or brand asset constrains the direction's color character — build the scale from it (references/color.md). Record the final intent + direction in `design-system/MASTER.md`.
+3. **Guided intake.** Starting a new project, app, or standalone surface with no constraints from 1–2? This is Kickoff mode — run `references/kickoff.md`: take inventory of what exists, sketch the intent brief and archetype (`references/design-intent.md`), then compose 2–3 palette candidates and 3–4 type pairings (`references/visual-directions.md`) and render them with `node scripts/specimen.mjs specimen.json` so the user picks from pixels. Fix any candidate the script badges as failing contrast before showing it. Record the picks in `design-system/MASTER.md`.
 4. **Skill defaults.** User defers, or the task is too small to justify questions: `indigo` primary, `slate` neutrals, Inter/system sans, 1.25 type scale, light mode.
 
 Do NOT run the intake for: component tweaks inside an existing codebase, bug fixes, or requests like "just make it look good" — that phrasing is deferral, take defaults and go. When surroundings can answer the question, never ask the user.
@@ -127,7 +125,8 @@ When asked to review, critique, or improve existing UI: read `references/review-
 
 | File | Read when |
 |---|---|
-| `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, what each screen must protect |
+| `references/kickoff.md` | Starting from nothing: the five-stage entry ritual and the specimen gate |
+| `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, default section arcs |
 | `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
 | `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales |
 | `references/typography.md` | Text-heavy screens, type hierarchy problems, font pairing |
