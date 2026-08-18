@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.1 — 2026-08-18
+
+Three calibration fixes to `expression-check.mjs`, all forced by its first field run — a real site whose ritual had run correctly, whose floors all passed, and whose owner still called it bland. The check agreed, but only after learning three things:
+
+- **Computed backgrounds are not always rgb().** Modern Chromium serializes oklch-authored backgrounds as `oklch(L C H)`, and the naive number-grab read H as the blue channel — every section on the measured site came back "dark and blue". Colors now normalize through a 1×1 canvas, the same fix palette-check needed in its day.
+- **Colour can be spent as ambient, not only as events.** A whole band on a chroma-0.02 tinted ground clearly reads as colour, though no single pixel clears the 0.045 "visible chroma" bar — perceptibility scales with area. The budget now accepts either route: chroma events (high ≥2%, mid ≥0.5%) or ambient tint (high ≥12%, mid ≥6%). This matters because a tinted ground is exactly the fix a disciplined one-hue system reaches for.
+- **A large inline SVG is an image moment.** The measured site's only graphic is an inline diagram; `<svg>` over 40k px² now counts alongside img/video/canvas and background images.
+
+Field result after calibration: the site scores chroma events 0.18%, ambient 0.07%, a closing run of four same-tone sections — while holding display/body at 4.0 and passing every floor. The owner's complaint ("kolorystyka nijaka, sekcje zbyt wielkie") maps one-to-one onto the two failed measurements, which is what the check exists to do.
+
 ## 2.7.0 — 2026-08-18
 
 Cut from a field report of the opposite failure: a page built with the skill passed every check and still looked like nothing — bland palette, oversized white slabs. The diagnosis held across the whole system: ten scripts measured ten ways a page can be *broken*, and none measured whether it is *alive*. Floors converge on the middle of the distribution; taste-by-accident had been replaced by safe-by-default, and safe is beige.

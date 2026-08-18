@@ -34,10 +34,14 @@ if (level && !['quiet', 'mid', 'high'].includes(level)) { console.error('--expre
 // chromaPct  share of rendered pixels carrying visible chroma (OKLCH C > 0.045) — accents
 //            confined to buttons land near zero; one tinted band lifts it past 2%
 // moments    textured or image-bearing surfaces (photos, illustration, grain, gradients)
+// Colour can be spent two ways, and both count: as EVENTS (C > 0.045 — buttons, bands,
+// vivid marks) or as AMBIENT tint (0.012 < C ≤ 0.045 — a whole section on a tinted
+// ground). Perceptibility scales with area: a chroma-0.02 wash over a full band reads
+// clearly as colour even though no single pixel would. Either route satisfies the budget.
 const BUDGET = {
-  high: { ratio: 3.0, chromaPct: 2.0, moments: 1 },
-  mid: { ratio: 2.2, chromaPct: 0.5, moments: 0 },
-  quiet: { ratio: 0, chromaPct: 0, moments: 0 },
+  high: { ratio: 3.0, chromaPct: 2.0, ambientPct: 12, moments: 1 },
+  mid: { ratio: 2.2, chromaPct: 0.5, ambientPct: 6, moments: 0 },
+  quiet: { ratio: 0, chromaPct: 0, ambientPct: 0, moments: 0 },
 };
 
 async function importFrom(pkg) {
@@ -71,7 +75,17 @@ const dom = await page.evaluate(() => {
       0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s);
   };
   const lum = (r, g, b) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
-  const parse = css => { const m = css.match(/\d+(\.\d+)?/g); return m ? m.slice(0, 4).map(Number) : [255, 255, 255, 1]; };
+  // Canvas 1×1, not a regex: modern Chromium serializes oklch-authored backgrounds AS
+  // oklch(L C H), and naive number-grabbing reads H as the blue channel. Same trap,
+  // same fix as palette-check.
+  const nctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  const parse = css => {
+    if (!css || css === 'transparent') return [0, 0, 0, 0];
+    nctx.clearRect(0, 0, 1, 1); nctx.fillStyle = '#000'; nctx.fillStyle = css; nctx.fillRect(0, 0, 1, 1);
+    const d = nctx.getImageData(0, 0, 1, 1).data;
+    const alpha = /rgba?\([^)]*,\s*0(\.\d+)?\s*\)|transparent/.test(css) && d[3] < 250 ? d[3] / 255 : (d[3] >= 250 ? 1 : d[3] / 255);
+    return [d[0], d[1], d[2], alpha];
+  };
   const effBg = el => {
     for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
       const c = parse(getComputedStyle(n).backgroundColor);
@@ -93,8 +107,10 @@ const dom = await page.evaluate(() => {
     const [br, bg2, bb] = effBg(s);
     const L = lum(br, bg2, bb);
     // querySelectorAll misses the section itself — and grain or a full-bleed photo usually
-    // sits on the section, not on a child. Check the host element too.
+    // sits on the section, not on a child. Check the host element too. Large inline SVG
+    // counts: a diagram is an image moment even when it is markup rather than a file.
     const media = s.querySelectorAll('img, video, canvas, picture').length
+      + [...s.querySelectorAll('svg')].filter(e => { const r2 = e.getBoundingClientRect(); return r2.width * r2.height > 40000; }).length
       + [s, ...s.querySelectorAll('*')].filter(e => { const bi = getComputedStyle(e).backgroundImage; return bi && bi !== 'none' && e.getBoundingClientRect().width * e.getBoundingClientRect().height > 40000; }).length;
     // The loudest text in the band: a section whose type towers is spending its height on
     // the voice — air around a 96px headline is a frame, not an empty slab.
@@ -141,7 +157,7 @@ const dom = await page.evaluate(() => {
 // Measured off the rendered composite, so tinted bands, imagery and gradients all count —
 // exactly the things an accent-on-buttons-only page does not have.
 const shot = (await page.screenshot({ fullPage: true })).toString('base64');
-const chromaPct = await page.evaluate(async (b64) => {
+const chroma = await page.evaluate(async (b64) => {
   const im = await new Promise(res => { const i = new Image(); i.onload = () => res(i); i.src = `data:image/png;base64,${b64}`; });
   const w = 320, h = Math.round(im.height * w / im.width);
   const c = document.createElement('canvas'); c.width = w; c.height = h;
@@ -157,10 +173,16 @@ const chromaPct = await page.evaluate(async (b64) => {
     return Math.hypot(1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
       0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s);
   };
-  let chromatic = 0, total = 0;
-  for (let i = 0; i < d.length; i += 4) { total++; if (toC(d[i], d[i + 1], d[i + 2]) > 0.045) chromatic++; }
-  return +(chromatic / total * 100).toFixed(2);
+  let chromatic = 0, ambient = 0, total = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    total++;
+    const C = toC(d[i], d[i + 1], d[i + 2]);
+    if (C > 0.045) chromatic++;
+    else if (C > 0.012) ambient++;
+  }
+  return { events: +(chromatic / total * 100).toFixed(2), ambient: +(ambient / total * 100).toFixed(2) };
 }, shot);
+const chromaPct = chroma.events, ambientPct = chroma.ambient;
 await browser.close();
 
 // ── Findings ─────────────────────────────────────────────────────────────────
@@ -190,12 +212,12 @@ for (const s of S) {
 }
 
 const ratio = +(dom.display / Math.max(1, dom.body)).toFixed(2);
-notes.push(`type voice: display ${dom.display}px / body ${dom.body}px = ${ratio} · chroma area ${chromaPct}% · image/texture moments ${dom.imagery + S.reduce((t, s) => t + s.media, 0) > 0 ? S.reduce((t, s) => t + s.media, 0) + dom.imagery : 0}`);
+notes.push(`type voice: display ${dom.display}px / body ${dom.body}px = ${ratio} · chroma events ${chromaPct}% · ambient tint ${ambientPct}% · image/texture moments ${dom.imagery + S.reduce((t, s) => t + s.media, 0) > 0 ? S.reduce((t, s) => t + s.media, 0) + dom.imagery : 0}`);
 
 const budget = level ? BUDGET[level] : null;
 if (budget) {
   if (ratio < budget.ratio) findings.push(`declared expression "${level}" but display/body is ${ratio} (needs ≥${budget.ratio}) — the voice of a memo, not the one the brief asked for`);
-  if (chromaPct < budget.chromaPct) findings.push(`declared expression "${level}" but only ${chromaPct}% of rendered pixels carry chroma (needs ≥${budget.chromaPct}%) — the accent exists in the tokens and does nothing on the page; spend it as a surface, a band, a tinted section`);
+  if (chromaPct < budget.chromaPct && ambientPct < budget.ambientPct) findings.push(`declared expression "${level}" but colour is spent neither way: chroma events ${chromaPct}% (route needs ≥${budget.chromaPct}%), ambient tint ${ambientPct}% (route needs ≥${budget.ambientPct}%) — the accent exists in the tokens and does nothing on the page; spend it as a band of events or as one tinted ground`);
   const moments = dom.imagery + S.reduce((t, s) => t + s.media, 0);
   if (moments < budget.moments) findings.push(`declared expression "${level}" with zero image or texture moments — flat surfaces everywhere is the cheapest tell of a generated page; even grain at 4% opacity breaks it`);
 }
@@ -205,7 +227,7 @@ console.log(`Sections (${S.length}):`);
 for (const s of S) console.log(`  ${String(s.h).padStart(5)}px  ${s.tone.padEnd(5)} chroma ${String(s.chroma).padEnd(5)} density ${String(s.density).padEnd(6)} media ${s.media}  ${s.label}`);
 console.log();
 for (const n2 of notes) console.log(`· ${n2}`);
-if (flags.json) { writeFileSync(path.resolve(String(flags.json)), JSON.stringify({ sections: S, display: dom.display, body: dom.body, ratio, chromaPct, findings }, null, 2)); console.log(`wrote ${flags.json}`); }
+if (flags.json) { writeFileSync(path.resolve(String(flags.json)), JSON.stringify({ sections: S, display: dom.display, body: dom.body, ratio, chromaPct, ambientPct, findings }, null, 2)); console.log(`wrote ${flags.json}`); }
 
 if (findings.length) {
   console.log(`\nFINDINGS (${findings.length}):`);
