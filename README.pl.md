@@ -14,8 +14,8 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Obrazy mierzone, nie oceniane na oko** — tekst na zdjęciu sprawdzany jest na pikselach faktycznie leżących pod każdym glifem, a skrypt zwraca dokładną krycie scrimu, które domyka brakujący kontrast.
 - **Struktura przed stylem** — łuk strony renderuje się jako szara makieta w dwóch szerokościach, z numerem przy każdej sekcji i każdym slocie, zanim padnie pierwsza decyzja o kolorze. Każdy ciąg znaków musi stać w `[nawiasach]`, inaczej makieta się nie wyrenderuje, a te nawiasy stają się kluczami modułu treści.
 - **Assety na wejściu** — gdy istnieje okładka, logo albo zdjęcie produktu, paleta jest z nich mierzona (barwa gruntu, barwa sygnału, zakres jasności), nie wymyślana, z opisaną procedurą naprawczą dla kolorów, które nie przechodzą kontrastu.
-- **Trzy tryby** — *Kickoff* (rytuał wejścia dla nowych projektów: inwentarz → intencja → **wyrenderowany specimen** → łuk sekcji → tokeny), *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
-- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Trzecim torem weryfikacji jest audyt klawiatury (spacer Tabem, widoczność fokusa, rozmiary celów).
+- **Trzy tryby** — *Kickoff* (rytuał wejścia dla nowych projektów: inwentarz → intencja → **wyrenderowana makieta** → **wyrenderowany specimen** → tokeny), *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
+- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Torów pomiaru jest sześć: kontrast, klawiatura i fokus, przewijanie przy 320 px, harmonia barw, tekst na obrazach i same piksele.
 
 ## Instalacja
 
@@ -57,7 +57,15 @@ Ostyluj ten formularz ustawień tak, żeby był spójny z resztą aplikacji.
 Zrób przegląd designu src/components/Dashboard.tsx i wypisz konkretne poprawki.
 ```
 
-W świeżym projekcie skill uruchamia **Kickoff**: robi inwentarz tego, co już masz (assety, treści, istniejący system), szkicuje brief intencji, a potem renderuje **specimen** — kandydatów palet i par krojów obok siebie, na Twojej realnej treści, każdego z policzonymi wskaźnikami WCAG i plakietką PASS/FAIL. Wybierasz numer i literę z obrazka, ustalacie łuk sekcji i dopiero wtedy powstaje kod. Na każdym etapie możesz powiedzieć „wybierz sam" — skill weźmie bezpieczny default. Decyzje lądują w `design-system/MASTER.md`, więc kolejna sesja je dziedziczy.
+W świeżym projekcie skill uruchamia **Kickoff**, a obie zapadające w nim decyzje podejmujesz na wyrenderowanym materiale, nie w prozie:
+
+1. **Inwentarz** — co już masz. Istniejące obrazy są mierzone i przypisywane do slotów, a asset ustalony z góry (okładka, logo) wyznacza też barwę palety.
+2. **Intencja** — ośmiolinijkowy brief i archetyp produktu, przedstawione Ci do poprawienia.
+3. **Makieta** — łuk strony wyrenderowany w szarościach, w szerokości desktopu i telefonu, z numerem przy każdej sekcji i każdym slocie. Tniesz, przestawiasz i dopisujesz po numerach oraz wklejasz treści, które już masz.
+4. **Specimen** — kandydaci palet i par krojów obok siebie, na Twojej realnej treści, z policzonymi wskaźnikami WCAG i plakietką PASS/FAIL. Cokolwiek oblewa, jest naprawiane, zanim to zobaczysz; wybierasz numer i literę z obrazka.
+5. **Tokeny i budowa** — wybory stają się warstwą tokenów, makieta modułem treści, a uzasadnienie ląduje w `design-system/MASTER.md`, skąd dziedziczy je następna sesja.
+
+Na każdym etapie możesz powiedzieć „wybierz sam" — skill weźmie bezpieczny default.
 
 Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące tokeny i MASTER.md już odpowiadają na te pytania.
 
@@ -66,13 +74,13 @@ Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące t
 | Plik | Zawartość |
 |---|---|
 | `SKILL.md` | Workflow (build + review), rdzeń wartości domyślnych, checklista weryfikacji |
-| `references/kickoff.md` | Pięcioetapowy rytuał wejścia i bramka specimenu |
+| `references/kickoff.md` | Pięcioetapowy rytuał wejścia: inwentarz assetów, makieta łuku, bramka specimenu |
 | `references/design-intent.md` | Brief intencji, dziesięć archetypów produktowych, domyślne łuki sekcji |
 | `references/visual-directions.md` | Dwanaście gramatyk stylu i przekład kierunku na tokeny |
 | `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode |
 | `references/typography.md` | Role typograficzne, skala modularna, reguły grubości/interlinii/trackingu |
 | `references/spacing-layout.md` | Baza 4pt, drabinka odstępów, gridy i guttery |
-| `references/components.md` | Przepisy na 26 komponentów (przyciski → dialogi → toasty) |
+| `references/components.md` | Przepisy na 27 komponentów (przyciski → dialogi → obrazy) |
 | `references/visual-hierarchy.md` | Wzorce skanowania, siedem dźwigni hierarchii, poziomy akcji |
 | `references/interaction.md` | Modele klawiaturowe, zarządzanie fokusem, macierz stanów komponentów |
 | `references/accessibility.md` | Podłogi WCAG 2.2: rozmiar celu, zoom/reflow, reduced motion, formularze |
@@ -105,7 +113,7 @@ Zmierzone przeciwko temu samemu modelowi bez skilla, na identycznych zadaniach (
 
 Porażki wersji bez skilla skupiły się dokładnie tam, gdzie łatwo zgadnąć: kontrast tekstu, brakujące stany focus, konkurujące przyciski primary.
 
-*Pomiar wykonany na wersji 1.0 na trzech zadaniach budowania. Od tego czasu skill zyskał modele interakcji, podłogi dostępności, inteligencję projektową i trzy kolejne domeny wiedzy (zob. CHANGELOG); szerszy, wielokrotny benchmark jest w planach.*
+*Pomiar wykonany na wersji 1.0 na trzech zadaniach budowania — te liczby opisują tamtą wersję, nie obecną. Skill od tego czasu urósł mniej więcej trzykrotnie (Kickoff z renderowanymi bramkami, pomiar assetów, dziesięć skryptów weryfikacyjnych, cztery poprawki z testów terenowych — zob. CHANGELOG), a benchmark nie był powtarzany. Szerszy, wielokrotny pomiar to najbliższy dług tego pliku.*
 
 ## Źródła zasad
 

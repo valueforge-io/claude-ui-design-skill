@@ -14,8 +14,8 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Imagery is measured, not eyeballed** — text over a photograph is checked against the actual pixels behind each glyph, and the script returns the exact scrim opacity that closes the gap.
 - **Structure before style** — the page arc is rendered as a greyscale mockup at two viewports, with every section and slot numbered, before a single colour is chosen. Every string must sit in `[brackets]` or the mockup refuses to render, and those brackets become the keys of the content module.
 - **Assets first** — when a cover, logo, or product shot exists, the palette is measured out of it (ground hue, signal hue, lightness range) instead of invented, with a documented repair path for sampled colours that fail contrast.
-- **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered specimen** → section arc → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
-- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. A keyboard audit (Tab-walk, focus visibility, target sizes) is the third verification track.
+- **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered mockup** → **rendered specimen** → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
+- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. Six measured tracks in all: contrast, keyboard and focus, 320px reflow, colour harmony, text over imagery, and the pixels themselves.
 
 ## Install
 
@@ -57,7 +57,15 @@ Restyle this settings form so it looks consistent with the rest of the app.
 Review the visual design of src/components/Dashboard.tsx and list concrete fixes.
 ```
 
-On a fresh project, the skill runs **Kickoff**: it takes inventory of what you already have (assets, copy, existing system), sketches an intent brief, then renders a **specimen** — palette and type-pairing candidates side by side on your real copy, each with computed WCAG ratios badged PASS/FAIL. You pick a number and a letter from the picture, agree on the section arc, and only then does anything get coded. Say "choose for me" at any stage and it takes the safe default. The decisions land in `design-system/MASTER.md`, so the next session inherits them.
+On a fresh project, the skill runs **Kickoff**, and both of its decisions are made on rendered material rather than in prose:
+
+1. **Inventory** — what you already have. Existing images get measured and mapped to slots; a fixed asset like a cover or logo also sets the palette's hue.
+2. **Intent** — an eight-line brief and a product archetype, stated back for you to correct.
+3. **Mockup** — the page arc rendered in greyscale at desktop and mobile width, every section and slot numbered. You cut, reorder and add by number, and paste any copy you already have.
+4. **Specimen** — palette and type-pairing candidates side by side on your real copy, each with computed WCAG ratios badged PASS/FAIL. Anything that fails is fixed before you see it; you pick a number and a letter from the picture.
+5. **Tokens, then build** — the picks become the token layer, the mockup becomes the content module, and the reasoning lands in `design-system/MASTER.md` so the next session inherits it.
+
+Say "choose for me" at any stage and it takes the safe default.
 
 For work inside an existing project the ritual collapses to nothing — the existing tokens and MASTER.md already answer the questions.
 
@@ -66,13 +74,13 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | File | Contents |
 |---|---|
 | `SKILL.md` | Workflow (build + review), core defaults, verification checklist |
-| `references/kickoff.md` | The five-stage entry ritual and the specimen gate |
+| `references/kickoff.md` | The five-stage entry ritual: asset inventory, the arc mockup, the specimen gate |
 | `references/design-intent.md` | Intent brief, ten product archetypes, default section arcs |
 | `references/visual-directions.md` | Twelve style grammars and how a direction becomes tokens |
 | `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode |
 | `references/typography.md` | Type roles, modular scale, weight/leading/tracking rules |
 | `references/spacing-layout.md` | 4-point baseline, spacing ladder, grids and gutters |
-| `references/components.md` | Recipes for 26 components (buttons → dialogs → toasts) |
+| `references/components.md` | Recipes for 27 components (buttons → dialogs → imagery) |
 | `references/visual-hierarchy.md` | Scan patterns, the seven hierarchy levers, action tiers |
 | `references/interaction.md` | Keyboard models, focus management, the component state matrix |
 | `references/accessibility.md` | WCAG 2.2 floors: target size, zoom/reflow, reduced motion, forms |
@@ -105,7 +113,7 @@ Benchmarked against the same model without the skill on identical tasks (landing
 
 Baseline failures clustered exactly where you'd expect: text contrast, missing focus states, competing primary buttons.
 
-*Measured at v1.0 on three build tasks. The skill has since gained interaction models, accessibility floors, design intelligence, and three more knowledge domains (see CHANGELOG); a broader multi-run benchmark is planned.*
+*Measured at v1.0 on three build tasks — treat the numbers as indicative of that version, not this one. The skill has roughly tripled since (Kickoff with rendered gates, asset measurement, ten verification scripts, four field-tested revisions — see CHANGELOG), and the benchmark has not been re-run. A broader multi-run benchmark is the next thing owed here.*
 
 ## Design sources
 
@@ -116,7 +124,7 @@ The rules encode widely accepted UI design practice: WCAG 2.x contrast minimums,
 1. Edit the skill files.
 2. Bump `version` in `plugins/ui-design/.claude-plugin/plugin.json` **and** in the plugin entry of `.claude-plugin/marketplace.json` (keep both in sync).
 3. Add an entry to `CHANGELOG.md`.
-4. Commit, push, then tag: `git tag vX.Y.Z && git push --tags`.
+4. Commit and push, then tag: `git tag vX.Y.Z && git push origin vX.Y.Z`. Push tags one at a time rather than with `--tags` — you get an explicit result per tag instead of a silent "Everything up-to-date". If a tag already exists on the wrong commit, move it with `git tag -f vX.Y.Z && git push -f origin vX.Y.Z`.
 
 Users receive updates via background marketplace auto-update, or manually with `/plugin marketplace update valueforge-skills`.
 
