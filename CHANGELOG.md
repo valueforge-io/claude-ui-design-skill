@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.7.0 — 2026-08-18
+
+Cut from a field report of the opposite failure: a page built with the skill passed every check and still looked like nothing — bland palette, oversized white slabs. The diagnosis held across the whole system: ten scripts measured ten ways a page can be *broken*, and none measured whether it is *alive*. Floors converge on the middle of the distribution; taste-by-accident had been replaced by safe-by-default, and safe is beige.
+
+- **New** `scripts/expression-check.mjs`: measures whether the page spent the energy its brief declared. Rendered display/body ratio (the largest text actually painted, not the token), chromatic area share at page scale, light/dark temperature transitions down the page, empty slabs (sections whose content fills under a third of their height), section-height uniformity, and the presence of one memorable moment. Budgets keyed to the brief's expression slider: quiet, medium, high.
+- Calibrated against a reconstruction of the field page: at `high` it fails with five findings that map one-to-one onto the owner's complaints — chromatic area 0.09% ("kolorystyka nijaka"), five 1100px sections with content under 36% of height ("białe sekcje zbyt wielkie"), no moment. The same content with a 96px display, a chromatic band and a tight proof strip passes. A quiet brief tolerates a metronome: uniformity downgrades to advisory there.
+- **Sliders became budgets** (design-intent.md). Risks were already named checks; now the expression slider is a table of concrete numbers, recorded in MASTER.md and verified after the build. A brief that says high and a page that measures quiet is a failed build even though every floor passes.
+- **Vertical rhythm** (spacing-layout.md): uniform section padding is correct on app surfaces and a bug on narrative pages — the skill itself prescribed "begin sections at `py-16`" with no counterweight, making this the second confirmed case of a default causing the failure it should prevent (after `leading-none`). Density now follows the section's job, padding must never do the work of content, and temperature changes are planned at the arc stage.
+- **The specimen spreads on an energy axis** (kickoff.md): one candidate quieter than the brief, one at it, one louder — never three variants of safe, where the user picks the middle of a distribution whose entire width is beige.
+- **Spending the accent** (color.md): rare means concentrated, not homogeneously shy — one full-bleed deployment beats twenty link colours, and an accent that lives only on buttons rounds to zero at page scale.
+
 ## 2.6.0 — 2026-08-18
 
 Answers "which picture goes where" with a table someone approved, instead of a decision the agent made quietly while building.

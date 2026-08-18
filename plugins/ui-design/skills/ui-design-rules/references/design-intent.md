@@ -29,6 +29,17 @@ risks:    misreading vehicle status; missing a critical alert
 ```
 
 - The sliders steer tokens directly: **expression** → type contrast and accent budget; **density** → which band of the spacing ladder and control heights; **motion** → the transition budget.
+- **The sliders are budgets, and budgets get audited** [PRINCIPLE]. Risks become named checks — sliders must too, or they are decoration on the brief: after the build, run `expression-check.mjs` with the declared expression level. "High" that renders as a memo (display/body under 3, accent confined to buttons, zero texture) is a verification failure exactly like a contrast violation — the page broke a promise the brief made.
+
+**A slider is a promise the build must spend** [PRINCIPLE]. Risks become named checks; sliders become budgets — concrete, measured after the build:
+
+| expression | display/body ratio | colour at page scale | moment |
+|---|---|---|---|
+| quiet | ≥ 2 | accent on interactive elements only is fine | none required |
+| medium | ≥ 2.5 | ≥1 tinted surface, or ≥2 temperature shifts | one earns its keep |
+| high | ≥ 3.25 | a chromatic or dark band every 2–3 sections | at least one, non-negotiable |
+
+`node scripts/expression-check.mjs <page> --expression=<level>` measures all of it — rendered type ratio, chromatic area, temperature rhythm, empty slabs, the moment. A brief that says *high* and a page that measures *quiet* is a failed build even though every floor passes: floors prevent broken, the budget prevents beige. Record the declared level in MASTER.md with the rest of the brief, so reviews audit against the promise that was actually made.
 - **risks** name what verification must protect (here: status must survive grayscale; alerts must win the squint test).
 - **primary_job** orders the wireframe: whatever serves it is visually first (visual-hierarchy.md).
 

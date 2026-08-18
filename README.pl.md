@@ -10,12 +10,14 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Twarde wartości domyślne** — siatka odstępów 4pt, modularna skala typograficzna, pary kolorów sprawdzone pod WCAG, jedna główna akcja na widok, komplet stanów interaktywnych.
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Inteligencja projektowa** — brief intencji i dziesięć archetypów produktowych decyduje, CZYM interfejs ma być; dwanaście gramatyk kierunków wizualnych proponuje, JAK ma wyglądać; `design-system/MASTER.md` pamięta jedno i drugie między sesjami.
+- **Suwak ekspresji ma zęby** — poziom energii zadeklarowany w briefie jest mierzony po budowie (wyrenderowana skala typografii, powierzchnia chromatyczna, rytm temperatur, puste sekcje). Strona może przejść każdą podłogę i wciąż oblać za bycie beżową.
+- **Nijakość jest mierzalna** — strona może przejść każdy próg poprawności i wciąż być modalną stroną AI: jednolite płyty, akcent żyjący tylko na przyciskach, zero obrazu. Suwak ekspresji w briefie jest budżetem, a po budowie skrypt rozlicza, czy został wydany.
 - **Który obraz gdzie stoi, jest zatwierdzane, nie zakładane** — obrazy projektu trafiają do inwentarza i są przypisywane do zadeklarowanych slotów, a niezgodne proporcje i za niskie rozdzielczości wychodzą przed budową.
 - **Obrazy mierzone, nie oceniane na oko** — tekst na zdjęciu sprawdzany jest na pikselach faktycznie leżących pod każdym glifem, a skrypt zwraca dokładną krycie scrimu, które domyka brakujący kontrast.
 - **Struktura przed stylem** — łuk strony renderuje się jako szara makieta w dwóch szerokościach, z numerem przy każdej sekcji i każdym slocie, zanim padnie pierwsza decyzja o kolorze. Każdy ciąg znaków musi stać w `[nawiasach]`, inaczej makieta się nie wyrenderuje, a te nawiasy stają się kluczami modułu treści.
 - **Assety na wejściu** — gdy istnieje okładka, logo albo zdjęcie produktu, paleta jest z nich mierzona (barwa gruntu, barwa sygnału, zakres jasności), nie wymyślana, z opisaną procedurą naprawczą dla kolorów, które nie przechodzą kontrastu.
 - **Trzy tryby** — *Kickoff* (rytuał wejścia dla nowych projektów: inwentarz → intencja → **wyrenderowana makieta** → **wyrenderowany specimen** → tokeny), *Build* (tworzenie i stylowanie UI) oraz *Review* (audyt istniejącego UI: problemy oznaczone wagą, poprawki w formie przed → po).
-- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Torów pomiaru jest sześć: kontrast, klawiatura i fokus, przewijanie przy 320 px, harmonia barw, tekst na obrazach i same piksele.
+- **Samoweryfikacja** — Claude robi zrzuty ekranu własnej pracy (dołączonym skryptem Playwright) i ogląda piksele przed oddaniem; kontrasty i zgodność z siatką są liczone, nie oceniane na oko. Torów pomiaru jest siedem: kontrast, klawiatura i fokus, przewijanie przy 320 px, harmonia barw, tekst na obrazach, ekspresja względem briefu i same piksele.
 
 ## Instalacja
 
@@ -94,6 +96,8 @@ Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące t
 | `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
 | `scripts/contrast-check.mjs` | Kontrast WCAG każdego węzła tekstowego wobec realnego tła z renderu |
 | `scripts/reflow-check.mjs` | Kontrola reflow przy 320px ze wskazaniem winnego elementu i przyczyny |
+| `scripts/expression-check.mjs` | Mierzy, czy strona wydała zadeklarowaną energię: skalę typografii, powierzchnię chromatyczną, rytm, puste płyty |
+| `scripts/expression-check.mjs` | Mierzy, czy strona wydaje jakąkolwiek energię: rytm sekcji, sekwencję tonów, udział chromy, stosunek display/body |
 | `scripts/asset-inventory.mjs` | Mierzy każdy obraz w projekcie i sprawdza go względem slotów zadeklarowanych w łuku |
 | `scripts/scrim-check.mjs` | Mierzy piksel po pikselu tekst leżący na zdjęciu lub gradiencie i wylicza scrim, który to naprawia |
 | `scripts/wireframe.mjs` | Renderuje łuk sekcji jako neutralną makietę (web + mobile), żeby strukturę uzgodnić slot po slocie |

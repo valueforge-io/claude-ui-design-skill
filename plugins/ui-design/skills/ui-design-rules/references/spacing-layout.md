@@ -31,7 +31,7 @@ Tailwind's spacing scale IS a 4-point system — 1 spacing unit = 4px — so sta
 | 32 | 8 | `p-8`, `gap-8` | strong group boundaries |
 | 40 | 10 | `h-10`, `p-10` | control heights, large padding |
 | 48 | 12 | `h-12`, `py-12` | section spacing (minimum) |
-| 64 | 16 | `py-16` | section spacing (default) |
+| 64 | 16 | `py-16` | section spacing (baseline — see Rhythm below; never one value for every section) |
 
 Rules:
 
@@ -59,7 +59,7 @@ Per level:
 - **Inside components:** default `p-4` (16px). Compact interactive controls use the 2:1 horizontal:vertical ratio instead (`px-4 py-2`), so text gets breathing room where users click.
 - **Between related elements:** `gap-3` (12px) is the standard gap; reduce to `gap-2` only inside dense composite controls.
 - **Between groups:** double the standard gap (`gap-6`–`gap-8`) — the jump in distance is what marks the group boundary, before any divider or color is added.
-- **Between sections:** triple the standard gap or more (`py-12`+, default `py-16`); step down only in dense dashboard UIs.
+- **Between sections:** triple the standard gap or more (`py-12`+ as the floor); the actual value per section comes from its job — see Rhythm. Step down across the board only in dense dashboard UIs. On narrative pages the default is a floor, not a uniform — see Vertical rhythm below.
 - **Labeled controls** keep a 2:1 internal ratio: 8px label → control, 4px control → helper text.
 
 ## Consistency rules
@@ -67,6 +67,15 @@ Per level:
 - Same component, same spacing, everywhere: if one button is `px-4 py-2`, every button is; if one card is `p-4`, every card is. One-off exceptions destroy the cohesion the system buys.
 - Scale padding with font size (em-based ratios) when creating size variants, so a large button stays proportional to a small one.
 - Reuse the spacing standards for icons and typography blocks too — one system, applied everywhere, is the whole point.
+
+## Rhythm [PRINCIPLE]
+
+**Uniform section spacing is monotony, not consistency.** Consistency means same-role elements match; a hero, a proof strip, a prose block and a final call do not share a role, and giving them all `py-16` and the same background produces the modal AI page: identical slabs of air scrolling by, each politely correct, none doing anything. This is the failure mode that passes every floor-check — whitespace is only a design lever when its *variation* carries meaning.
+
+- **Padding states the section's importance and density.** A manifesto moment may take `py-32` and a viewport of air around one towering line; a logo strip or metrics bar compresses to `py-6`–`py-8`; long-form prose sits between. If two adjacent sections have the same padding, that should be a decision, not a default.
+- **The tone sequence is composed, not accumulated.** Read the page as a strip of section backgrounds — light, dark, tinted. Three identical full-height tones in a row means the temperature never changes; break the run with a tint, a texture, a compression, or an inversion. The alternation is itself content: it tells the reader where one thought ends.
+- **Air must frame something.** A 700px section carrying two sentences at body size is not "breathing room", it is an empty slab — either give the section a voice (display-scale type, an image, a texture) or give its height back.
+- **Verification:** `node scripts/expression-check.mjs page.html` measures the height histogram, the tone sequence and the empty slabs; with the brief's expression slider (`--expression=high|mid|quiet`) the budget becomes binding.
 
 ## Grids & columns
 
@@ -88,7 +97,7 @@ Per level:
 
 When unsure how much white space to use, start with generous amounts and reduce gradually until the layout feels comfortable — it is far easier to trim abundant space than to add space to a cramped design.
 
-- Practically: begin page sections at `py-16` and groups at `gap-8`, then step down the scale one notch at a time; stop at comfort, never below the defaults table.
+- Practically: begin groups at `gap-8` and step down one notch at a time; for sections, choose the padding per section from its job (Rhythm below) — `py-16` is the fallback for a section you have not thought about yet, and a page full of fallbacks reads as one. Then, on narrative pages, *vary* from there — identical generosity everywhere is the failure the rhythm rule exists to stop.
 - DO treat crowding as the failure you correct toward; DON'T start dense and try to air the layout out later.
 
 ## DO / DON'T checklist
@@ -99,3 +108,12 @@ When unsure how much white space to use, start with generous amounts and reduce 
 - DO size row layouts with preset column spans and shared gutters; DON'T hand-set widths per element.
 - DO separate groups by doubling the gap and sections by tripling it; DON'T rely on borders where distance can do the job.
 - DO begin with abundant white space and trim down; DON'T begin cramped and try to add air later.
+
+## Vertical rhythm [PRINCIPLE]
+
+Uniform section padding is correct on application surfaces — a settings page has no drama to stage. On **narrative pages** (conversion/marketing, editorial, portfolio, landing) it is a bug: generosity applied identically to every section reads as emptiness, the eye stops registering section boundaries as events, and the page becomes slabs. This is a confirmed field failure — a page that passed every floor check and was still described by its owner as "white sections too big, overall picture bland" had five sections of identical height whose content filled under a third of each.
+
+- Density follows the section's job: a hero breathes (`py-24`+), a proof bar is a tight strip (`py-8`–`py-12`), prose sits between; a closing CTA can be tall again. Down the page, avoid two adjacent sections sharing both background and padding class.
+- Padding must never do the work of content [HEURISTIC]: a section taller than ~80vh whose children occupy under a third of its height either loses the air or gains material.
+- Temperature is part of rhythm: a page that flips once (dark hero, then white forever) has a lid, not a rhythm. Plan where the canvas darkens or takes tint *at the arc stage* — a `band` section in the arc is cheaper than a rebuild.
+- Verification: `node scripts/expression-check.mjs <page> --expression=<level>` measures section heights, content share, and temperature transitions; uniform slabs and empty slabs are named findings.

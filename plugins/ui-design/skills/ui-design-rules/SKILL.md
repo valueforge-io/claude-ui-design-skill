@@ -64,10 +64,12 @@ Run every time, and prefer computed checks over eyeballing:
 - **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — `node scripts/contrast-check.mjs page.html` measures every text node against its real rendered backdrop (handles oklch/lab colors); never ship a silent violation.
 - **Harmony:** `node scripts/palette-check.mjs page.html` — samples the colors actually rendered, clusters hue families, and flags clash pairs, extra families, and chroma outliers. A palette that passed the specimen can still drift once components multiply it.
 - **Text over imagery [STANDARD]:** `node scripts/scrim-check.mjs page.html` — for every text node sitting on a photo, gradient, or video it diffs the glyph pixels against the backdrop behind them and reports the worst one, plus the scrim opacity that would close the gap. Contrast rules do not relax because the backdrop is a photograph.
+- **Expression:** `node scripts/expression-check.mjs page.html --expression=<the brief's slider>` — measures whether the page spent the energy the brief declared: rendered type scale, chromatic area, temperature rhythm, empty slabs, a memorable moment. Floors prevent broken; this prevents beige.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
 - **States:** hover, focus-visible, and disabled present on everything interactive; valid/invalid on form fields.
 - **Keyboard [STANDARD]:** walk the page with Tab — everything reachable, a visible indicator at every stop, Escape closes layers and returns focus. `node scripts/interaction-check.mjs page.html` automates the static half.
 - **Reflow [STANDARD]:** `node scripts/reflow-check.mjs page.html` — content works at 320 CSS px with no horizontal scrolling; the script names the element and the cause.
+- **Expression [HEURISTIC]:** `node scripts/expression-check.mjs page.html --expression=<brief's slider>` — section height histogram, tone sequence, chroma area share, rendered display/body ratio, texture moments. Every other check catches a way to be wrong; this one catches a page that avoids being wrong without being anything. A declared "high" that spends nothing fails.
 - **Consistency:** same-role elements styled identically; exactly one primary button per view [PRINCIPLE]; no raw hex in components.
 
 ### Step 4 — Hand it over so they can actually see it
@@ -89,7 +91,7 @@ The most-used values, inline so the references aren't needed for routine work.
 | Related elements, button rows | 12px | `gap-3` |
 | Component padding; stacked fields | 16px | `p-4` (controls `px-4 py-2`), `space-y-4` |
 | Card padding; group boundaries | 24–32px | `p-6`; `gap-6`–`gap-8` |
-| Page sections | 48–64px+ | `py-12`–`py-16` |
+| Page sections | 48px floor; then per section's job | `py-6` strip → `py-32` manifesto — never one value for all (rhythm) |
 
 **Type slots** (map every text node to one; never invent per-element combos):
 

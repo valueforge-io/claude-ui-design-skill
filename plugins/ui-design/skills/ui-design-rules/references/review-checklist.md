@@ -67,8 +67,11 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 - Semantic slots keep their meaning: red/error = destructive-failure, green = success, amber = warning — never repurposed.
 - Hover darkens one step in light mode; dark mode inverts the ladder and re-passes the same contrast minimums.
 - Structural pairs beyond WCAG: signal on surfaces (not only canvas), CTA fill distinguishable from the title color, accent still ranked above body text in grayscale, surface either visible against canvas or backed by a border/shadow token (color.md).
+- Expression: run `node scripts/expression-check.mjs <page> --expression=<level from MASTER.md>` — a page that spends none of its declared energy is a finding (medium severity), not a difference in taste.
 - Text over imagery: run `node scripts/scrim-check.mjs <page>` — it measures the glyph pixels against the backdrop behind them; a warning is not a measurement.
 - Imagery: real objects shown flat (no 3D box renders or device mockups); text over photography either sits on a quiet region or carries a scrim whose ratio was measured, not assumed; decorative images have empty alt (components.md).
+- Character: run `node scripts/expression-check.mjs <page> --expression=<brief's slider>` — height histogram, tone sequence, chroma area, display/body ratio. Then the one question numbers cannot answer: what does this page do that a template would not? If the answer is nothing, say so — "correct but characterless" is a finding with severity, not a compliment.
+- The modal-AI-page tell, checked explicitly: dark hero → uniform white slabs → one accent living only on buttons → zero imagery or texture. Each element is legal; the combination is the signature of a generated page.
 - Harmony: ≤3 non-neutral hue families; no family pair in the 60–150° clash zone (unless semantic status); one chroma band; tinted neutrals only when hue-matched to the primary — see color.md “Hue Discipline”.
 
 ## Components

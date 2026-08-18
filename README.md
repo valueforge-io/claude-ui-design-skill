@@ -10,12 +10,14 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
+- **The expression slider has teeth** — the energy level the brief declares is measured after the build (rendered type scale, chromatic area, temperature rhythm, empty sections). A page can pass every floor and still fail for being beige.
+- **Beige is measurable** — a page can pass every correctness floor and still be the modal AI page: uniform slabs, an accent that lives only on buttons, no imagery. The expression slider in the brief is a budget, and after the build a script audits whether it was spent.
 - **Which picture goes where is approved, not assumed** — the project's images are inventoried and matched to declared slots, with ratio and resolution mismatches caught before the build.
 - **Imagery is measured, not eyeballed** — text over a photograph is checked against the actual pixels behind each glyph, and the script returns the exact scrim opacity that closes the gap.
 - **Structure before style** — the page arc is rendered as a greyscale mockup at two viewports, with every section and slot numbered, before a single colour is chosen. Every string must sit in `[brackets]` or the mockup refuses to render, and those brackets become the keys of the content module.
 - **Assets first** — when a cover, logo, or product shot exists, the palette is measured out of it (ground hue, signal hue, lightness range) instead of invented, with a documented repair path for sampled colours that fail contrast.
 - **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered mockup** → **rendered specimen** → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
-- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. Six measured tracks in all: contrast, keyboard and focus, 320px reflow, colour harmony, text over imagery, and the pixels themselves.
+- **Self-verification** — Claude screenshots its own output (via the bundled Playwright script) and inspects the pixels before delivering; contrast ratios and grid compliance are computed, not eyeballed. Seven measured tracks in all: contrast, keyboard and focus, 320px reflow, colour harmony, text over imagery, expression against the brief, and the pixels themselves.
 
 ## Install
 
@@ -94,6 +96,8 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
 | `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
 | `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
+| `scripts/expression-check.mjs` | Measures whether the page spent its declared energy: type scale, chromatic area, rhythm, empty slabs |
+| `scripts/expression-check.mjs` | Measures whether the page spends any energy: section rhythm, tone sequence, chroma area, display/body ratio |
 | `scripts/asset-inventory.mjs` | Measures every image in the project and checks it against the slots the arc declares |
 | `scripts/scrim-check.mjs` | Measures text sitting on photos or gradients pixel by pixel, and computes the scrim that would fix it |
 | `scripts/wireframe.mjs` | Renders the section arc as a neutral mockup (web + mobile) so structure is agreed slot by slot |

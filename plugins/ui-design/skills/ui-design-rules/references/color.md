@@ -84,6 +84,10 @@ When a cover, logo, product shot, or packaging already exists, the palette is **
 
 Verify the result with `specimen.mjs` like any other candidate. An asset-derived palette gets no exemption from the checks.
 
+## Spending the accent [PRINCIPLE]
+
+Rarity is not timidity. The signal stays rare — but rare means *concentrated*, not homogeneously shy. One committed deployment (a full-bleed chromatic band, a duotone image, an oversized numeral, a dark section inside a light page) beats twenty link colours and 2px rules; it is the difference between a palette that exists in the tokens and one that exists on the page. On narrative pages give the accent at least one surface-scale moment — `expression-check.mjs` measures chromatic area at page scale, and an accent that lives only on buttons rounds to zero. Application surfaces are exempt: there the accent's job is wayfinding, not memory.
+
 ## Scheme Types
 
 - Monochrome (default): one hue varied only by step. Darker steps for titles and buttons, lighter steps for backgrounds and borders. Safest scheme; a single Tailwind family already is one. Why: zero hue conflicts, hierarchy carried entirely by lightness.
