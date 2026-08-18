@@ -10,6 +10,8 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Opinionated defaults** — 4-point spacing grid, modular type scale, WCAG-checked color pairs, one primary action per view, complete interactive states.
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
+- **Which picture goes where is approved, not assumed** — the project's images are inventoried and matched to declared slots, with ratio and resolution mismatches caught before the build.
+- **Imagery is measured, not eyeballed** — text over a photograph is checked against the actual pixels behind each glyph, and the script returns the exact scrim opacity that closes the gap.
 - **Structure before style** — the page arc is rendered as a greyscale mockup at two viewports, with every section and slot numbered, before a single colour is chosen. Every string must sit in `[brackets]` or the mockup refuses to render, and those brackets become the keys of the content module.
 - **Assets first** — when a cover, logo, or product shot exists, the palette is measured out of it (ground hue, signal hue, lightness range) instead of invented, with a documented repair path for sampled colours that fail contrast.
 - **Three modes** — *Kickoff* (entry ritual for new projects: inventory → intent → **rendered specimen** → section arc → tokens), *Build* (create/style UI), and *Review* (audit existing UI with severity-tagged findings and concrete before → after fixes).
@@ -20,15 +22,15 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 **Recommended — as a Claude Code plugin:**
 
 ```
-/plugin marketplace add valueforge-io/claude-ui-design-skill
+/plugin marketplace add valueforge-io/vf-ui-design-skill
 /plugin install ui-design@valueforge-skills
 ```
 
 **Manual — as a personal skill:**
 
 ```bash
-git clone https://github.com/valueforge-io/claude-ui-design-skill.git
-cd claude-ui-design-skill && ./install.sh
+git clone https://github.com/valueforge-io/vf-ui-design-skill.git
+cd vf-ui-design-skill && ./install.sh
 ```
 
 (or copy `plugins/ui-design/skills/ui-design-rules/` into `~/.claude/skills/` yourself; per-project: into `<project>/.claude/skills/`).
@@ -84,6 +86,8 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
 | `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
 | `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
+| `scripts/asset-inventory.mjs` | Measures every image in the project and checks it against the slots the arc declares |
+| `scripts/scrim-check.mjs` | Measures text sitting on photos or gradients pixel by pixel, and computes the scrim that would fix it |
 | `scripts/wireframe.mjs` | Renders the section arc as a neutral mockup (web + mobile) so structure is agreed slot by slot |
 | `scripts/specimen.mjs` | Renders palette/type candidates side by side on real copy, with contrast badges |
 | `scripts/extract-palette.mjs` | Measures ground hue, signal hue and lightness range out of an existing asset |

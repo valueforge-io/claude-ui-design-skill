@@ -89,7 +89,9 @@ function block(b, addr) {
     case 'quote': return slot(addr, 'quote', `<div class="q">${t}</div>${b.source ? `<div class="src">${esc(b.source)}</div>` : ''}`);
     case 'rating': return slot(addr, 'rating', `<span class="stars">★★★★★</span>${t}`);
     case 'person': return slot(addr, 'person', `<span class="avatar">${esc(b.label ?? '[foto]')}</span><span class="pbody"><b>${esc(b.name ?? '[Imię i nazwisko]')}</b>${t}</span>`);
-    case 'media': return slot(addr, 'media', `<span class="frame" style="aspect-ratio:${b.ratio ?? '3 / 4'}">${t}</span>`);
+    // The assigned file is printed in the slot, so "which picture goes where" is approved
+    // with the structure instead of being decided quietly at build time.
+    case 'media': return slot(addr, 'media', `<span class="frame" style="aspect-ratio:${b.ratio ?? '3 / 4'}">${t}${b.file ? `<em class="fileref">${esc(b.file)}</em>` : '<em class="fileref none">brak pliku — do dostarczenia</em>'}</span>`);
     case 'logos': return slot(addr, 'logos', Array.from({ length: b.count ?? 3 }, () => `<span class="logo">${t || '[logo]'}</span>`).join(''));
     case 'disclosure': return slot(addr, 'disc', (b.items ?? []).map(i => `<div class="drow">${esc(i)}<span>⌄</span></div>`).join(''));
     case 'cards': return slot(addr, 'cards', `<div class="cardrow">${(b.items ?? []).map((c, k) =>
@@ -143,6 +145,9 @@ body{background:#101010;color:#e8e8e8;font:15px/1.5 ui-sans-serif,system-ui,-app
 .pbody{flex:1;min-width:0;font-size:13.5px;color:#a9a9a9}
 .pbody b{display:block;color:#e0e0e0;font-weight:600;margin-bottom:3px}
 .frame{flex:1 1 auto;width:100%;border:1px dashed #3a3a3a;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#6f6f6f;font-size:12.5px;text-align:center;padding:12px;min-height:100px}
+.frame{flex-direction:column;gap:8px}
+.fileref{font-style:normal;font-size:11.5px;color:#7d7d7d;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+.fileref.none{color:#6a6a6a;font-family:inherit}
 .logo{border:1px dashed #333;border-radius:6px;padding:8px 18px;font-size:11.5px;color:#6a6a6a}
 .slot.disc{display:block;padding-top:8px;padding-bottom:8px}
 .drow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #262626;color:#b6b6b6;font-size:13.5px}

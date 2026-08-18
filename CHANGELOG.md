@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.6.0 — 2026-08-18
+
+Answers "which picture goes where" with a table someone approved, instead of a decision the agent made quietly while building.
+
+- **New** `scripts/asset-inventory.mjs`: walks the project's images and reports dimensions, aspect ratio, orientation, transparency, and whether each is light or dark. Given `arc.json` it also audits the assignments — a file whose ratio does not match its slot (it will be cropped, and the crop only becomes visible once the page exists), a file too small for the size it renders at, a slot with no file, a file no slot uses.
+- **Three jobs, three parties, stated as a rule**: the script measures what is measurable, the model opens each image and says what it shows, the user approves the finished table. The "what it shows" column ships in brackets on purpose — a column filled by guessing from filenames is how a landscape photo ends up in a portrait frame.
+- **The mapping is now visible on the mockup.** Every media slot prints the file assigned to it, or "brak pliku — do dostarczenia". Slot-to-file is confirmed together with the structure, at the gate that already stops and waits.
+- **Named the direction of influence**, which had been implied and never written down: an asset that is already fixed — a published cover, a logo, packaging — dictates the palette, because the page must live beside it and cannot redesign it. Imagery still to be chosen or made obeys the palette instead. With no fixed asset, the brand hue is a free choice from intent, and extract-palette says so.
+- Verified against a deliberately broken project: all five findings fired, including a cover whose declared slot ratio (992/1586) no longer matched the actual file (1053×1494) — precisely the mismatch that survives a file swap and surfaces as a silently cropped image.
+
+## 2.5.0 — 2026-08-16
+
+Cut from a field test that built and shipped a real landing page. Most of the machinery held; what follows is what did not, plus the imagery gap the last two releases left open.
+
+- **Fixed a default that caused a bug.** typography.md prescribed `leading-none` for the Display role. Polish Ą and Ę descend past the baseline, so uppercase headings at line-height 1 collide with the line beneath — the failure surfaced on the word `DZIĘKUJĘ` and nowhere else on the page. The leading floor now belongs to the language and lives in a token.
+- **The specimen now tests the condition that failed.** It carried a diacritic line, but at 14px in prose — never uppercase, never at display size, never at display leading. It now renders the stress case *and measures it*: per pairing it reports the leading floor computed from the font's own ink metrics (1.10 for the family in the field test, against the 1.12 that had been found by hand after the bug shipped), and whether the family actually loaded or silently fell back.
+- **New** `scripts/scrim-check.mjs`. The rule "text over an image needs a measured guarantee" was a [STANDARD] with nothing behind it — contrast-check could only print a warning. The script screenshots each candidate twice, once with the text visible and once hidden, and diffs: the pixels that changed *are* the glyphs, so the backdrop gets sampled exactly where letters fall. The worst pixel decides, and a binary search returns the minimum scrim opacity that closes the gap. Verified end to end: white text failing at 1.4:1 was prescribed `rgba(0,0,0,0.32)`, and applying precisely that value measured back at 3.04:1.
+- **A status code is not proof that the page is yours.** In the field the agent announced a URL that served a different project entirely: its own server had failed with `EADDRINUSE`, and the `200` came from whatever already owned port 3000. Verify the served page by a string only your page contains, treat an occupied port as a foreign app, and read the server log before believing it started.
+- **`palette-check.mjs` was missing from the Build verification list** — present in the review checklist and in two reference files, absent from the list the agent actually works through after building. It never ran once. Added, along with `scrim-check`.
+- **Imagery, expanded**: where images come from (generated is legitimate for atmosphere, never where the image asserts a fact — a real person, a real product, an actual cover); deliberate crops with a focal point held across breakpoints; one ratio, one treatment, one light across a set; and dark mode decided per asset rather than filtered.
+- **Four patterns the field agent invented, now rules**: an action whose destination is still a placeholder renders disabled rather than as a link to nowhere; unfilled copy stays visibly unfilled in the running page; quoted prose is not a heading; bot traps are `type="hidden"` plus fill timing, never an off-screen visible input that produces the same three audit findings every run.
+- Consent and privacy copy is now marked as blocking publication rather than as ordinary content debt, and MASTER.md carries the dated state of verification so the next session can tell a current pass from a stale one.
+
 ## 2.4.0 — 2026-08-16
 
 Structure is decided on rendered material too. The section arc stops being a markdown table and becomes a neutral mockup — and it now comes *before* the specimen.

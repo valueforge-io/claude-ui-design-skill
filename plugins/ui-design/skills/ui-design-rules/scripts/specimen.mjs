@@ -82,8 +82,11 @@ const typeCard = (t, i, base) => `
     <h3 style="font-family:'${esc(t.display)}',Georgia,serif;font-weight:${t.displayWeight ?? 600};color:var(--tp)">${esc(content.headline)}</h3>
     <p class="lede" style="color:var(--ts)">${esc(content.lede)}</p>
     <p class="diacritics" style="color:var(--ts)">Zażółć gęślą jaźń — ĄĆĘŁŃÓŚŹŻ · 0123456789</p>
+    <div class="stress" style="font-family:'${esc(t.display)}',Georgia,serif;font-weight:${t.displayWeight ?? 600};color:var(--tp)"
+         data-display="${esc(t.display)}" data-weight="${t.displayWeight ?? 600}">ZAŻÓŁĆ GĘŚLĄ<br>JAŹŃ ĘĄŚĆ</div>
     <div class="actions"><button style="background:var(--abg);color:var(--afg)">${esc(content.cta)}</button></div>
   </div>
+  <ul class="checks"></ul>
 </article>`;
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Specimen</title>${fontLink}
@@ -101,7 +104,10 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
   .preview h3{font-size:30px;line-height:1.1;margin:0 0 12px;letter-spacing:-.01em}
   .lede{font-size:15px;line-height:1.6;margin:0 0 18px;max-width:46ch}
-  .diacritics{font-size:14px;margin:0 0 18px;opacity:.9}
+  .diacritics{font-size:14px;margin:0 0 14px;opacity:.9}
+  /* line-height:1 deliberately — this is exactly the setting that clips descending
+     diacritics (Ą, Ę) in uppercase. If the two lines touch here, they touch in the build. */
+  .stress{font-size:38px;line-height:1;margin:0 0 18px;text-transform:uppercase}
   .actions{display:flex;gap:10px;flex-wrap:wrap}
   .preview button{font:inherit;font-size:14px;font-weight:500;padding:10px 18px;border:0;border-radius:9px;cursor:pointer}
   .preview button.ghost{background:transparent;border:1px solid}
@@ -176,6 +182,39 @@ const audit = await page.evaluate(() => {
   }
   return out;
 });
+
+// Type pairings get measured too: a family that silently fell back, and the leading floor that
+// uppercase diacritics impose. Both were caught by hand in the field before they were caught here.
+const typeAudit = await page.evaluate(() => {
+  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  const STRESS = 'ZAŻÓŁĆ GĘŚLĄ JAŹŃ';
+  const out = [];
+  for (const card of document.querySelectorAll('.card[data-kind="type"]')) {
+    const el = card.querySelector('.stress');
+    const family = el.dataset.display, weight = el.dataset.weight;
+    // Loaded, or silently swapped for a fallback? Same string, same size, family vs bare sentinel:
+    // identical advance widths mean the family never arrived and you are judging the fallback.
+    ctx.font = `${weight} 64px monospace`;
+    const bare = ctx.measureText(STRESS).width;
+    ctx.font = `${weight} 64px "${family}", monospace`;
+    const withFamily = ctx.measureText(STRESS).width;
+    const loaded = Math.abs(bare - withFamily) > 0.5;
+    // Ink height of uppercase-with-ogonki at 100px = the multiplier at which consecutive
+    // lines just touch. Anything tighter clips; +0.04 is breathing room, not decoration.
+    ctx.font = `${weight} 100px "${family}", Georgia, serif`;
+    const m = ctx.measureText(STRESS);
+    const ink = (m.actualBoundingBoxAscent ?? 70) + (m.actualBoundingBoxDescent ?? 20);
+    const floor = Math.ceil((ink / 100 + 0.04) * 100) / 100;
+    const checks = [
+      { label: `${family} actually loaded`, pass: loaded, verdict: loaded ? 'yes' : 'NO — fallback' },
+      { label: 'leading floor, uppercase + ogonki', pass: true, verdict: `≥ ${floor}` },
+    ];
+    card.querySelector('.checks').innerHTML = checks.map(c =>
+      `<li class="${c.pass ? 'ok' : 'bad'}"><span>${c.pass ? '✓' : '✗'}</span><span>${c.label}</span><span class="verdict">${c.verdict}</span></li>`).join('');
+    out.push({ name: card.dataset.name, family, loaded, floor });
+  }
+  return out;
+});
 const finalHtml = await page.content();
 writeFileSync(outPath, finalHtml, 'utf8');
 const shot = outPath.replace(/\.html?$/i, '') + '.png';
@@ -183,6 +222,10 @@ await page.screenshot({ path: shot, fullPage: true });
 await browser.close();
 
 console.log(`Specimen: ${palettes.length} palette(s), ${typePairs.length} type pairing(s)`);
+for (const t of typeAudit) {
+  if (!t.loaded) console.log(`  ✗ ${t.name}: "${t.family}" never loaded — you would be picking a fallback. Check the family name and its subsets.`);
+  else console.log(`  · ${t.name}: display leading floor ${t.floor} (uppercase with ogonki) — set the token to at least this, never leading-none`);
+}
 console.log(`  page  → ${outPath}`);
 console.log(`  image → ${shot}`);
 

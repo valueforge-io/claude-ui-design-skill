@@ -87,6 +87,11 @@ For each: keys, focus behavior, states, common failures.
 - Selection: header checkbox selects all (indeterminate when partial); selection count announced near the table (`role="status"`).
 - Sort controls are buttons in `<th>` with `aria-sort` reflecting the current order.
 
+## Bot traps
+
+- The classic honeypot — a visible input pushed off-screen — is an unlabeled form control as far as the accessibility tree and any audit are concerned, so it produces the same findings every run (no label, unreachable by Tab, below the target-size floor). A finding you have to explain away each time stops being a finding.
+- Use `type="hidden"` plus a fill-time measurement instead (a submission completed in under ~1s was not typed by a person). Both are invisible to the accessibility tree, neither costs a real user anything, and neither pollutes the audit. Neither stops a determined attacker — say so rather than implying otherwise.
+
 ## Verification
 
 - Walk the page with Tab only: everything interactive reachable, a visible indicator at every stop, order follows reading order, no traps outside modal layers.

@@ -10,7 +10,7 @@
       "name": "ui-design",
       "source": "./plugins/ui-design",
       "description": "Opinionated UI design rules for React + Tailwind: styleguide-first workflow, WCAG contrast, 4pt spacing, type scale, component recipes, visual-hierarchy review.",
-      "version": "2.4.0",
+      "version": "2.6.0",
       "author": { "name": "Tomasz Kowalczyk" }
     }
   ]

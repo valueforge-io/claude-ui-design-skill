@@ -62,6 +62,8 @@ Run every time, and prefer computed checks over eyeballing:
 - **See it:** if any rendering path exists, screenshot the result and inspect the image — you are multimodal, and balance, crowding, and broken layout are visible only in pixels. Use the bundled `scripts/screenshot.mjs` — run it from the project root, calling the script by its absolute path (`node <path-to-this-skill>/scripts/screenshot.mjs page.html shot.png --width=1280`); it resolves playwright/puppeteer from the project's node_modules. Or use a running dev server plus a browser tool. Check desktop (`--width=1280`) and mobile (`--width=390`). Code-only checks are the fallback, not the norm.
 - **Squint test** (on the screenshot, or mentally on the code): does the intended element win? Exactly one dominant focal point?
 - **Contrast [STANDARD]:** body text ≥4.5:1, large text and UI elements ≥3:1 — `node scripts/contrast-check.mjs page.html` measures every text node against its real rendered backdrop (handles oklch/lab colors); never ship a silent violation.
+- **Harmony:** `node scripts/palette-check.mjs page.html` — samples the colors actually rendered, clusters hue families, and flags clash pairs, extra families, and chroma outliers. A palette that passed the specimen can still drift once components multiply it.
+- **Text over imagery [STANDARD]:** `node scripts/scrim-check.mjs page.html` — for every text node sitting on a photo, gradient, or video it diffs the glyph pixels against the backdrop behind them and reports the worst one, plus the scrim opacity that would close the gap. Contrast rules do not relax because the backdrop is a photograph.
 - **Spacing:** every value on the 4pt scale (grep for `\[\d+px\]`); in-group gaps smaller than between-group gaps.
 - **States:** hover, focus-visible, and disabled present on everything interactive; valid/invalid on form fields.
 - **Keyboard [STANDARD]:** walk the page with Tab — everything reachable, a visible indicator at every stop, Escape closes layers and returns focus. `node scripts/interaction-check.mjs page.html` automates the static half.
@@ -71,6 +73,8 @@ Run every time, and prefer computed checks over eyeballing:
 ### Step 4 — Hand it over so they can actually see it
 
 A build the user cannot open is not delivered [PRINCIPLE]. The same rule that governs the specimen governs the finished work: show, don't describe. Before writing the summary, make the result reachable — start the dev server or serve the static output, open it (`open`/`xdg-open`/`start`), and put the URL in the **first line** of your message, not buried at the end. Say how to bring it back later (`npm run dev`, `npm run serve`) and how to rebuild after content edits. Then the shopping list of unfilled content (references/kickoff.md). Screenshots are evidence for you; the running page is the deliverable for them.
+
+**A status code is not proof that the page is yours** [PRINCIPLE]. Ports are shared; the user very likely has another project already listening on 3000. If your server failed to bind, the request still returns `200` — from somebody else's application — and you will announce a URL showing a stranger's work. So verify by *content*: `curl -s <url> | grep -q "<a string only your page contains>"` (the `<title>`, the headline), and treat an occupied port as a foreign app — move to a free one rather than assuming it is yours. Read the server's own log before believing it started; `EADDRINUSE` is the failure you will otherwise miss.
 
 ## Core defaults
 
@@ -129,7 +133,7 @@ When asked to review, critique, or improve existing UI: read `references/review-
 
 | File | Read when |
 |---|---|
-| `references/kickoff.md` | Starting from nothing: the five-stage entry ritual, the arc mockup and the specimen gate |
+| `references/kickoff.md` | Starting from nothing: the five-stage entry ritual, the asset inventory, the arc mockup and the specimen gate |
 | `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, default section arcs |
 | `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
 | `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales, deriving a palette from an existing asset |

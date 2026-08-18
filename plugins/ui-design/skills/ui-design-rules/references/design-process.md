@@ -190,7 +190,7 @@ design-system/
 └── pages/       ← optional per-surface overrides (marketing.md, app-shell.md)
 ```
 
-MASTER.md contains, in order: the intent brief (design-intent.md), the chosen visual direction and one line on why, the token schema (color slots × steps, type roles, spacing subset, shape/elevation/motion budget), and a deviations log (what · where · why, one line each). Keep it under ~80 lines — it is a contract, not documentation.
+MASTER.md contains, in order: the intent brief (design-intent.md), the chosen visual direction and one line on why, the token schema (color slots × steps, type roles, spacing subset, shape/elevation/motion budget), a deviations log (what · where · why, one line each), and the **state of verification**: which checks last ran, what they returned, and on what date. Without the date the next session cannot tell whether the numbers still describe the code or three changes' worth of history, and it will either re-run everything or trust a stale pass. Keep it under ~80 lines — it is a contract, not documentation.
 
 - The styleguide cascade reads MASTER.md first: it carries the WHY (intent, direction) while `tailwind.config`/`@theme` stays the runtime truth for values. If they disagree, flag the drift — never silently pick a side.
 - Change at the source: update MASTER.md and tokens together, log the change. Per-surface overrides only for genuinely different surfaces, and they still reference master tokens.

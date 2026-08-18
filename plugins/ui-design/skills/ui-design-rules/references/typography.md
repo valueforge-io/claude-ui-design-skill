@@ -7,13 +7,14 @@ Rules for choosing, sizing, and styling text in React + Tailwind UIs: a fixed sl
 - Map every text node to a named slot below. Never invent a per-element size/weight/leading combination; consistency is the deliverable.
 - One type family covers most product UIs [DEFAULT]; introduce a second only when it has a defined role (editorial display, brand voice — see Font family). Distinguish headings from body by size and weight, never by rendering them identically.
 - Scale properties inversely with size: bigger text gets tighter leading, tighter tracking, and less weight; smaller text gets more leading and more weight.
+- **The leading floor belongs to the language, not to taste** [STANDARD]. `leading-none` (line-height 1) is safe only for scripts whose capitals carry nothing below the baseline. Polish Ą and Ę, Lithuanian Ų, Turkish Ç and Ş, Romanian Ț, and every stacked Vietnamese diacritic descend past it — set in uppercase at line-height 1 they collide with the line beneath, and the failure appears only on a word that happens to contain one. Never write `leading-none` on display or heading roles; define `--leading-display` as a token instead, and take its value from the measurement `specimen.mjs` prints for the chosen family (typically 1.05–1.15). A single word — `DZIĘKUJĘ` — is enough to expose a page that looked correct in every other heading.
 - Treat emphasis (bold, italic, underline, caps) as a scarce resource: one or two emphasized items per view, because every added emphasis dilutes the rest.
 
 ## Type slots (default system)
 
 | Slot | Tailwind classes | Use for |
 |---|---|---|
-| Display | `text-4xl md:text-6xl font-bold tracking-tight leading-none` | Hero headline, at most one per page |
+| Display | `text-4xl md:text-6xl font-bold tracking-tight leading-display` | Hero headline, at most one per page |
 | H1 | `text-3xl md:text-4xl font-bold tracking-tight leading-tight` | Page title, one per page |
 | H2 | `text-2xl md:text-3xl font-semibold tracking-tight leading-tight` | Section headings |
 | H3 | `text-xl md:text-2xl font-semibold leading-snug` | Subsection headings |

@@ -29,9 +29,17 @@ Purpose: know what exists before inventing anything. Produce a three-column list
 
 Ask once, compactly: *"Before I start: do you have (a) brand assets or imagery, (b) real copy or should I draft placeholders, (c) an existing design system or reference sites you like?"* Anything the user doesn't answer becomes "agent produces".
 
-If assets exist, **look at them and measure them before composing any candidate**: open the image (you are multimodal — see what it actually is), then run `node scripts/extract-palette.mjs <image>` for the ground hue, the signal hue and its share, and the lightness range. Those three numbers constrain the whole specimen: the palette should agree with the asset rather than fight it (procedure and repair path: references/color.md, "Palette from an asset").
+If assets exist, take stock of them before composing anything. Three jobs, and they belong to three different parties [PRINCIPLE]:
 
-**Gate:** every row is assigned, and any existing asset has been looked at and measured.
+- **The script measures.** `node scripts/asset-inventory.mjs <dir> --arc=arc.json` walks the folder and reports, per file, dimensions, aspect ratio, orientation, whether it carries transparency, and whether it is light or dark. With an arc it also checks the assignments: a ratio that does not match its slot (the image will be cropped and nobody will notice until the page exists), a file too small for the size it renders at, a slot with no file, a file no slot uses.
+- **You describe.** Open every image — you are multimodal, you can see them — and fill the "what it shows" column. The script cannot know that one file is the cover and another is a portrait; guessing it from a filename is how a landscape shot ends up in a portrait frame.
+- **The user approves.** The finished table goes out next to the mockup in Stage 2, where every media slot prints the file assigned to it. Which picture goes where is then something the user agreed to, not something you decided quietly at build time.
+
+Then measure the one asset that constrains everything else: `node scripts/extract-palette.mjs <image>` on the fixed asset — a published cover, a logo, packaging, a real product shot — for the ground hue, the signal hue and its share, and the lightness range. Those three numbers constrain the whole specimen (procedure and repair path: references/color.md, "Palette from an asset").
+
+**Which way the influence runs depends on whether the asset can still change** [PRINCIPLE]. An asset that is already fixed dictates the palette, because the page has to live beside it and cannot redesign it — a cool-grey page under a warm-paper cover shows a seam at every edge. Imagery that will be chosen or made later obeys the palette instead, and its brief says so: `[Portret autora — mono, w duchu okładki]`. With no fixed asset at all, extract-palette says the image is essentially achromatic and the brand hue becomes a free choice from intent.
+
+**Gate:** every row is assigned, every existing asset has been opened and measured, and each one is either mapped to a slot or explicitly set aside.
 
 ## Stage 1 — Intent
 

@@ -116,6 +116,10 @@ One view, one primary action; every other action visibly steps down.
 - Treat misalignment as noise: an off-grid element draws the eye like a focal point, so either align it or promote it on purpose.
 - DON'T give sibling cards different starting points, and DON'T let the container exceed the screen — both break scanning.
 
+## Quoted prose is not a heading [PRINCIPLE]
+
+A sentence lifted from the work — a line of the novel, a customer's words, a pull quote — is prose that has been made prominent, not a structural heading. Set it in the display face at heading size and it reads as a second H1: the page appears to start over, and the real outline is lost. Give a pull quote the prose family, larger size, italic or a rule, and generous space; keep the display face for the elements that actually divide the document. The failure is invisible in code and obvious in a screenshot, which is where to catch it.
+
 ## Consistency
 
 Consistency lets users transfer what they learned on one screen to every other screen; a predictable UI needs no instructions.
