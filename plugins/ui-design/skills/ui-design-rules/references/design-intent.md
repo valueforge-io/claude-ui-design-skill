@@ -39,6 +39,8 @@ risks:    misreading vehicle status; missing a critical alert
 | medium | ≥ 2.5 | ≥1 tinted surface, or ≥2 temperature shifts | one earns its keep |
 | high | ≥ 3.25 | a chromatic or dark band every 2–3 sections | at least one, non-negotiable |
 
+- **Moving a slider mid-project is legitimate; drifting past it is not** [PRINCIPLE]. The owner looking at the shipped page and saying "more life" is a brief revision: move the slider, record one line of why in MASTER.md, re-audit at the new level. What is never legitimate is the build quietly exceeding or undershooting the declared level — that is drift, and the audit exists to catch it in both directions.
+
 `node scripts/expression-check.mjs <page> --expression=<level>` measures all of it — rendered type ratio, chromatic area, temperature rhythm, empty slabs, the moment. A brief that says *high* and a page that measures *quiet* is a failed build even though every floor passes: floors prevent broken, the budget prevents beige. Record the declared level in MASTER.md with the rest of the brief, so reviews audit against the promise that was actually made.
 - **risks** name what verification must protect (here: status must survive grayscale; alerts must win the squint test).
 - **primary_job** orders the wireframe: whatever serves it is visually first (visual-hierarchy.md).

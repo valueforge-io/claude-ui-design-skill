@@ -79,14 +79,14 @@ Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące t
 | `references/kickoff.md` | Pięcioetapowy rytuał wejścia: inwentarz assetów, makieta łuku, bramka specimenu |
 | `references/design-intent.md` | Brief intencji, dziesięć archetypów produktowych, domyślne łuki sekcji |
 | `references/visual-directions.md` | Dwanaście gramatyk stylu i przekład kierunku na tokeny |
-| `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode |
+| `references/color.md` | Sloty kolorów, przepis na paletę, reguły kontrastu i harmonii, dark mode, atmosfera (gradienty w barwie gruntu, ziarno, jedno zdarzenie duotone) |
 | `references/typography.md` | Role typograficzne, skala modularna, reguły grubości/interlinii/trackingu |
 | `references/spacing-layout.md` | Baza 4pt, drabinka odstępów, gridy i guttery |
 | `references/components.md` | Przepisy na 27 komponentów (przyciski → dialogi → obrazy) |
 | `references/visual-hierarchy.md` | Wzorce skanowania, siedem dźwigni hierarchii, poziomy akcji |
 | `references/interaction.md` | Modele klawiaturowe, zarządzanie fokusem, macierz stanów komponentów |
 | `references/accessibility.md` | Podłogi WCAG 2.2: rozmiar celu, zoom/reflow, reduced motion, formularze |
-| `references/motion.md` | Pięć zadań ruchu, defaulty czasów i easingu, reduced-motion |
+| `references/motion.md` | Pięć zadań ruchu, defaulty czasów, reduced-motion, drabina życia: choreografia scrolla, rysujące się kreski, jeden element podpisowy |
 | `references/data-viz.md` | Dobór wykresu od pytania, kolory wykresów z tokenów, dostępność |
 | `references/content-design.md` | Etykiety akcji, błędy, empty states, potwierdzenie vs undo |
 | `references/design-process.md` | Wireframe → styleguide → implementacja → design system |

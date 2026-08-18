@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.8.0 — 2026-08-18
+
+Life without theatre. 2.7 taught the skill to detect a page that avoids being wrong without being anything; 2.8 teaches it what to do about one — rules only, no new scripts.
+
+- **New** color.md, "Atmosphere — depth without decoration": a cost-ordered ladder for grounds that stop being flat without becoming wallpaper. Same-hue gradients that move only lightness (atmosphere precisely because nobody can point at it), grain, technical patterns that are chosen for their register because they will be read, and the page's single duotone event — a second one demotes both. Guardrails: measured on the composite via scrim-check, at most one slow ambient, dark mode gets its own values because an inverted gradient stops being light and starts being glow.
+- **New** motion.md, "Making a page feel alive": the four classes ordered by return — scroll entrances whose stagger repeats the hierarchy in time (heading, lede, actions: a page that arrives in reading order explains itself), micro-interactions, drawn rules for precision registers, and **one signature element**. The governing principle: one living event per viewport — a page where everything moves is exactly as dead as one where nothing does.
+- **Named the "AI agency" uniform** in motion's failure list: default parallax, floating blobs, typewriter headlines, universal hover scale, glow behind display type. Each is a filled-in blank, not a decision.
+- **design-intent.md**: moving a slider mid-project is the owner's legitimate brief revision — recorded in MASTER.md, re-audited at the new level. Drifting past the declared level without the revision is what the audit catches, in both directions.
+- Review mode now asks for the signature moment (zero reads as static, two compete) and checks whether atmosphere is doing quiet work or absent everywhere.
+
 ## 2.7.1 — 2026-08-18
 
 Three calibration fixes to `expression-check.mjs`, all forced by its first field run — a real site whose ritual had run correctly, whose floors all passed, and whose owner still called it bland. The check agreed, but only after learning three things:

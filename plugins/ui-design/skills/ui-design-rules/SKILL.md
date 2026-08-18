@@ -138,14 +138,14 @@ When asked to review, critique, or improve existing UI: read `references/review-
 | `references/kickoff.md` | Starting from nothing: the five-stage entry ritual, the asset inventory, the arc mockup and the specimen gate |
 | `references/design-intent.md` | Project kickoff: the intent brief, product archetypes, default section arcs |
 | `references/visual-directions.md` | Choosing a look: 12 style grammars, direction proposals, direction → tokens |
-| `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales, deriving a palette from an existing asset |
+| `references/color.md` | Defining a palette, dark mode, contrast issues, choosing hues, custom brand scales, deriving a palette from an existing asset, atmosphere (gradients, grain, pattern) |
 | `references/typography.md` | Text-heavy screens, type hierarchy problems, font pairing |
 | `references/spacing-layout.md` | Page layout, grids/columns, any spacing uncertainty |
 | `references/components.md` | Building any specific component — recipes for 25 components |
 | `references/visual-hierarchy.md` | Screen feels flat or cluttered, landing pages, placement decisions, "what goes where" |
 | `references/interaction.md` | Building or reviewing anything the user operates — keyboard models, focus management, state matrix |
 | `references/accessibility.md` | Forms, touch targets, zoom/reflow, reduced motion — the compliance floor |
-| `references/motion.md` | Any animation or transition: the five jobs of motion, durations, reduced-motion |
+| `references/motion.md` | Any animation or transition: the five jobs, durations, reduced-motion, making a page feel alive (entrances, drawn rules, the one signature element) |
 | `references/data-viz.md` | Charts, KPIs, dashboards: question-first chart choice, chart color, chart a11y |
 | `references/content-design.md` | Labels, errors, empty states, confirmations — the words in the UI |
 | `references/design-process.md` | Project kickoff, creating the token layer, growing a design system |

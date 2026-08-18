@@ -79,14 +79,14 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | `references/kickoff.md` | The five-stage entry ritual: asset inventory, the arc mockup, the specimen gate |
 | `references/design-intent.md` | Intent brief, ten product archetypes, default section arcs |
 | `references/visual-directions.md` | Twelve style grammars and how a direction becomes tokens |
-| `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode |
+| `references/color.md` | Semantic color slots, palette recipe, contrast rules, dark mode, atmosphere (same-hue gradients, grain, one duotone event) |
 | `references/typography.md` | Type roles, modular scale, weight/leading/tracking rules |
 | `references/spacing-layout.md` | 4-point baseline, spacing ladder, grids and gutters |
 | `references/components.md` | Recipes for 27 components (buttons → dialogs → imagery) |
 | `references/visual-hierarchy.md` | Scan patterns, the seven hierarchy levers, action tiers |
 | `references/interaction.md` | Keyboard models, focus management, the component state matrix |
 | `references/accessibility.md` | WCAG 2.2 floors: target size, zoom/reflow, reduced motion, forms |
-| `references/motion.md` | The five jobs of motion, duration/easing defaults, reduced-motion |
+| `references/motion.md` | The five jobs of motion, durations, reduced-motion, the life ladder: scroll choreography, drawn rules, one signature element |
 | `references/data-viz.md` | Question-first chart selection, chart color tokens, chart accessibility |
 | `references/content-design.md` | Action labels, errors, empty states, confirmation vs undo |
 | `references/design-process.md` | Wireframe → styleguide → implementation → design system |

@@ -16,6 +16,17 @@ Classify every animation into one of these before writing it — the category se
 - **Attention** — pulls the eye to one thing (error shake, new-item highlight, badge pulse). Budget: one at a time on screen, runs once or stops after acknowledgment — a looping attention-getter becomes noise [PRINCIPLE].
 - **Decorative / storytelling** — brand moments (hero reveals, celebration confetti). Budget: marketing surfaces and empty moments only; never on task-critical paths; always fully removable by reduced-motion.
 
+## Making a page feel alive [DEFAULT]
+
+When the ask is "more life", spend in this order — each class pays more than the one below it:
+
+1. **Scroll entrances** — fade plus an 8–16 px rise, 200–350 ms ease-out, staggered 40–80 ms between siblings, executed once. The choreography repeats the hierarchy in time: heading first, lede second, actions last — a page where everything arrives at once has no voice; one where things arrive in reading order explains itself.
+2. **Micro-interactions** — the layer that makes a page feel touched: the CTA arrow nudges 2 px on hover, a link's underline grows in, a card's hairline darkens. 150 ms, colors and transform only.
+3. **Drawn rules** — borders and dividers that draw themselves in on first view. In precision registers this lands better than any fade: the page appears to be constructed, not faded up.
+4. **One signature element** [PRINCIPLE] — exactly one thing on the page moves while everything else stands still: the diagram that traces its loop once when scrolled into view, metrics that count up on first sight. **One living event per viewport** — a page where everything moves is exactly as dead as one where nothing does, because once again nothing stands out.
+
+The brief's motion slider gates the whole ladder (design-intent.md): "almost static" buys classes 1–2 at most, and moving the slider afterwards is the owner's call to make, recorded in MASTER.md — not the build's to drift into.
+
 ## Defaults
 
 - Durations [DEFAULT]: feedback 100–150 ms · state 150–250 ms · spatial 200–350 ms. Nothing above 500 ms outside decorative storytelling; a modal that takes 400 ms to open reads as a slow app, not an elegant one.
@@ -59,6 +70,7 @@ The direction (visual-directions.md) sets the dial; these are the mappings:
 ## Common failures
 
 - Everything animates → nothing means anything; motion budget spent, attention bankrupt.
+- The "AI agency" uniform: parallax by default, floating blobs, typewriter headlines, `scale(1.05)` on every hover, glow behind display type. Each is a filled-in blank, not a decision.
 - Hover transforms that change layout (growing cards push neighbors) — lift with shadow/scale on the compositor instead.
 - Looping attention animations that never stop; celebration effects on destructive actions.
 - Charts re-animating on every data tick (data-viz.md) — animate on first paint, update in place after.

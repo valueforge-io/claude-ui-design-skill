@@ -72,6 +72,7 @@ Open the report with the three highest-impact fixes in priority order. Close wit
 - Imagery: real objects shown flat (no 3D box renders or device mockups); text over photography either sits on a quiet region or carries a scrim whose ratio was measured, not assumed; decorative images have empty alt (components.md).
 - Character: run `node scripts/expression-check.mjs <page> --expression=<brief's slider>` — height histogram, tone sequence, chroma area, display/body ratio. Then the one question numbers cannot answer: what does this page do that a template would not? If the answer is nothing, say so — "correct but characterless" is a finding with severity, not a compliment.
 - The modal-AI-page tell, checked explicitly: dark hero → uniform white slabs → one accent living only on buttons → zero imagery or texture. Each element is legal; the combination is the signature of a generated page.
+- Signature moment: exactly one element may live while the rest stands still (motion.md). Zero reads as static; two compete. Atmosphere check alongside it: flat untextured grounds everywhere, or one same-hue gradient/grain/pattern doing quiet work (color.md, "Atmosphere")?
 - Harmony: ≤3 non-neutral hue families; no family pair in the 60–150° clash zone (unless semantic status); one chroma band; tinted neutrals only when hue-matched to the primary — see color.md “Hue Discipline”.
 
 ## Components

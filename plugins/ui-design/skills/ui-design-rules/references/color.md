@@ -88,6 +88,17 @@ Verify the result with `specimen.mjs` like any other candidate. An asset-derived
 
 Rarity is not timidity. The signal stays rare — but rare means *concentrated*, not homogeneously shy. One committed deployment (a full-bleed chromatic band, a duotone image, an oversized numeral, a dark section inside a light page) beats twenty link colours and 2px rules; it is the difference between a palette that exists in the tokens and one that exists on the page. On narrative pages give the accent at least one surface-scale moment — `expression-check.mjs` measures chromatic area at page scale, and an accent that lives only on buttons rounds to zero. Application surfaces are exempt: there the accent's job is wayfinding, not memory.
 
+## Atmosphere — depth without decoration [DEFAULT]
+
+A perfectly flat, untextured ground is correct and mute. When a page needs air in its surfaces, spend from this ladder — cheapest first, and everything lives in the ground's **own** hue:
+
+1. **Same-hue gradient** — lightness moves 2–4%, hue and chroma stay put; radial in a hero reads as light falling on the surface, not as "a gradient". This is atmosphere precisely because nobody can point at it.
+2. **Grain** at 3–4% opacity (components.md), static, under the content.
+3. **Technical pattern** — a dot grid or ruled hairlines at 2–3% opacity. This one carries a register (engineering paper, ledger, blueprint); choose it only when that register matches the intent, because it will be read.
+4. **One duotone event** — ground hue → accent hue across a single band: a manifesto slab, a closing section. This is the page's one coloured-gradient moment [PRINCIPLE]; a second one demotes both to wallpaper.
+
+Guardrails: atmosphere never competes with text — contrast is measured on the composite (`scrim-check.mjs` treats a gradient like any imagery); it does not move, except at most one slow ambient which disappears under reduced motion; and dark mode gets its own values, because a light-mode gradient inverted stops being light and starts being glow.
+
 ## Scheme Types
 
 - Monochrome (default): one hue varied only by step. Darker steps for titles and buttons, lighter steps for backgrounds and borders. Safest scheme; a single Tailwind family already is one. Why: zero hue conflicts, hierarchy carried entirely by lightness.
