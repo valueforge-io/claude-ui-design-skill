@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.9.0 — 2026-08-19
+
+Built from a five-point field report — the first that arrived with reproduction steps and numbers. All five confirmed; two were bugs that had waved real violations through.
+
+- **contrast-check measures pinned bars from pixels.** `backdropOf()` walked DOM ancestors, so a sticky header with a translucent background was composited onto `body` — a surface it never visually sits on. Floating elements are now measured by the scrim-diff method at up to ten scroll stops, each approached **from below** (hide-on-scroll headers reveal on the way up — the revealed-over-a-deep-section state is exactly the one the DOM never describes), with a stability sentinel: a third shot proves the scene didn't move between the pair, discarding the sliding-header artifact that samples displaced glyphs as backdrop. Field validation: the reporter's hand-computed 4.45:1 over the manifesto reproduced to the hundredth, with the section named. The pass epsilon also dropped from 0.05 to 0.01 — the old grace was exactly wide enough to wave that violation through.
+- **contrast-check reads the paint that renders.** SVG text is painted with `fill`, not CSS `color`; reading `color` there measured an inherited black nobody sees, passing everything. Thresholds now also use the **effective rendered size** — a 19px-bold label scaled to 13px by its viewBox needs 4.5:1, not the large-text 3:1.
+- **New `font-check.mjs`** — the gate that can say no. Width-probes every family used by rendered text (`document.fonts.check()` answers yes for families that do not exist — the script demonstrates this on every run by testing itself against a deliberately fake family first), verifies the language's glyphs are actually in the loaded faces per glyph, and compares every used weight/style against the loaded faces to catch faux italic and faux bold. First field run immediately found a real defect: a site shipping italic font files whose built CSS never declared them, so every `<em>` rendered synthesized.
+- **typography.md, "Provisioning"**: a style you use is a face you ship. `font-synthesis: none` in the token layer so a missing face fails visibly instead of almost-right; single-weight display faces move hierarchy by size, never weight.
+- **Negative-testing is now a general principle** in SKILL.md, not a sentence parked in kickoff's font paragraph: a probe that can only say yes must be shown able to say no before its yes means anything.
+- **The specimen spreads on two axes.** Energy was one axis, and a field round was lost on the other: three warm-paper candidates, perfectly spread quiet-to-loud, all rejected as coding the wrong industry. At least one candidate must challenge the brief's leading premise, every candidate carries a `reads` line (what its register codes as on this market) rendered on the card, and the register critique happens at the direction shortlist — one sentence before pixels, instead of a lost round after them.
+
 ## 2.8.0 — 2026-08-18
 
 Life without theatre. 2.7 taught the skill to detect a page that avoids being wrong without being anything; 2.8 teaches it what to do about one — rules only, no new scripts.

@@ -57,7 +57,7 @@ const fontLink = useWebfonts && families.length
 
 const paletteCard = (p, i) => `
 <article class="card" data-kind="palette" data-name="${esc(p.name)}" style="--canvas:${p.canvas};--surface:${p.surface ?? p.canvas};--tp:${p.textPrimary};--ts:${p.textSecondary ?? p.textPrimary};--sig:${p.signal ?? p.textPrimary};--abg:${p.actionBg ?? p.signal};--afg:${p.actionFg ?? p.canvas}">
-  <header class="cardhead"><span class="idx">${i + 1}</span><h2>${esc(p.name)}</h2>${p.note ? `<p class="note">${esc(p.note)}</p>` : ''}</header>
+  <header class="cardhead"><span class="idx">${i + 1}</span><h2>${esc(p.name)}</h2>${p.note ? `<p class="note">${esc(p.note)}</p>` : ''}${p.reads ? `<p class="reads">reads as: ${esc(p.reads)}</p>` : ''}</header>
   <div class="preview" style="background:var(--canvas);color:var(--tp)">
     <p class="eyebrow" data-pair="signal-on-canvas" style="color:var(--sig)">${esc(content.eyebrow)}</p>
     <h3 data-pair="title-on-canvas" style="color:var(--tp)">${esc(content.headline)}</h3>
@@ -76,7 +76,7 @@ const paletteCard = (p, i) => `
 const typeCard = (t, i, base) => `
 <article class="card" data-kind="type" data-name="${esc(t.name)}" style="--canvas:${base.canvas};--tp:${base.textPrimary};--ts:${base.textSecondary ?? base.textPrimary};--sig:${base.signal ?? base.textPrimary};--abg:${base.actionBg ?? base.signal};--afg:${base.actionFg ?? base.canvas}">
   <header class="cardhead"><span class="idx">${String.fromCharCode(65 + i)}</span><h2>${esc(t.name)}</h2>
-    <p class="note">${esc(t.display)} + ${esc(t.ui)}${t.note ? ` — ${esc(t.note)}` : ''}</p></header>
+    <p class="note">${esc(t.display)} + ${esc(t.ui)}${t.note ? ` — ${esc(t.note)}` : ''}</p>${t.reads ? `<p class="reads">reads as: ${esc(t.reads)}</p>` : ''}</header>
   <div class="preview" style="background:var(--canvas);color:var(--tp);font-family:'${esc(t.ui)}',system-ui,sans-serif">
     <p class="eyebrow" style="color:var(--sig)">${esc(content.eyebrow)}</p>
     <h3 style="font-family:'${esc(t.display)}',Georgia,serif;font-weight:${t.displayWeight ?? 600};color:var(--tp)">${esc(content.headline)}</h3>
@@ -100,6 +100,7 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   .cardhead{padding:14px 16px;border-bottom:1px solid #f1f1f3;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
   .idx{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border-radius:6px;background:#18181b;color:#fff;font-size:12px;font-weight:600}
   .cardhead h2{font-size:15px;margin:0} .note{grid-column:2;margin:2px 0 0;font-size:13px;color:#52525b}
+  .reads{grid-column:2;margin:1px 0 0;font-size:12px;font-style:italic;color:#8a6d1a}
   .preview{padding:28px 24px;flex:1}
   .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
   .preview h3{font-size:30px;line-height:1.1;margin:0 0 12px;letter-spacing:-.01em}

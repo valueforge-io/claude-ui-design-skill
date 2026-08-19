@@ -11,6 +11,7 @@ LLMs are good at producing working UI and notoriously uneven at making it *look 
 - **Weighted rules** — standards, principles, defaults, and heuristics are explicitly distinguished, so the agent knows what must always hold, what usually holds, and what is merely a lens — and deviates intelligently.
 - **Design intelligence** — an intent brief and ten product archetypes decide what the UI should BE; twelve visual-direction grammars propose how it should LOOK; `design-system/MASTER.md` remembers both across sessions.
 - **The expression slider has teeth** — the energy level the brief declares is measured after the build (rendered type scale, chromatic area, temperature rhythm, empty sections). A page can pass every floor and still fail for being beige.
+- **Gates are negative-tested** — every probe must prove it can say no: the font gate self-tests against a nonexistent family on every run, and the pixel checks were calibrated on pages built to fail.
 - **Beige is measurable** — a page can pass every correctness floor and still be the modal AI page: uniform slabs, an accent that lives only on buttons, no imagery. The expression slider in the brief is a budget, and after the build a script audits whether it was spent.
 - **Which picture goes where is approved, not assumed** — the project's images are inventoried and matched to declared slots, with ratio and resolution mismatches caught before the build.
 - **Imagery is measured, not eyeballed** — text over a photograph is checked against the actual pixels behind each glyph, and the script returns the exact scrim opacity that closes the gap.
@@ -94,8 +95,9 @@ For work inside an existing project the ritual collapses to nothing — the exis
 | `scripts/screenshot.mjs` | Render-and-look helper (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Color-harmony audit of the rendered page (hue families, clash detection) |
 | `scripts/interaction-check.mjs` | Keyboard/focus audit: Tab-walk reachability, focus visibility, target sizes |
-| `scripts/contrast-check.mjs` | WCAG contrast of every rendered text node against its real backdrop |
+| `scripts/contrast-check.mjs` | WCAG contrast against the real backdrop — sticky/fixed bars measured from pixels at every scroll position, thresholds from the effective rendered size |
 | `scripts/reflow-check.mjs` | 320px reflow check with the offending element and cause named |
+| `scripts/font-check.mjs` | Asserts declared fonts really loaded, glyph subsets are complete, and no weight/style is faux-synthesized |
 | `scripts/expression-check.mjs` | Measures whether the page spent its declared energy: type scale, chromatic area, rhythm, empty slabs |
 | `scripts/expression-check.mjs` | Measures whether the page spends any energy: section rhythm, tone sequence, chroma area, display/body ratio |
 | `scripts/asset-inventory.mjs` | Measures every image in the project and checks it against the slots the arc declares |

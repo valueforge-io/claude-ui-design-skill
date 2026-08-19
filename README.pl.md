@@ -11,6 +11,7 @@ Modele językowe dobrze piszą działające UI, ale nierówno wychodzi im sprawi
 - **Ważone reguły** — standardy, zasady, defaulty i heurystyki są jawnie rozróżnione: agent wie, co musi obowiązywać zawsze, co zwykle, a co jest tylko soczewką — i odstępuje świadomie.
 - **Inteligencja projektowa** — brief intencji i dziesięć archetypów produktowych decyduje, CZYM interfejs ma być; dwanaście gramatyk kierunków wizualnych proponuje, JAK ma wyglądać; `design-system/MASTER.md` pamięta jedno i drugie między sesjami.
 - **Suwak ekspresji ma zęby** — poziom energii zadeklarowany w briefie jest mierzony po budowie (wyrenderowana skala typografii, powierzchnia chromatyczna, rytm temperatur, puste sekcje). Strona może przejść każdą podłogę i wciąż oblać za bycie beżową.
+- **Bramki są testowane negatywnie** — każda sonda musi udowodnić, że umie powiedzieć „nie": bramka fontów autotestuje się na nieistniejącej rodzinie przy każdym uruchomieniu, a pomiary pikselowe kalibrowano na stronach zbudowanych po to, żeby oblać.
 - **Nijakość jest mierzalna** — strona może przejść każdy próg poprawności i wciąż być modalną stroną AI: jednolite płyty, akcent żyjący tylko na przyciskach, zero obrazu. Suwak ekspresji w briefie jest budżetem, a po budowie skrypt rozlicza, czy został wydany.
 - **Który obraz gdzie stoi, jest zatwierdzane, nie zakładane** — obrazy projektu trafiają do inwentarza i są przypisywane do zadeklarowanych slotów, a niezgodne proporcje i za niskie rozdzielczości wychodzą przed budową.
 - **Obrazy mierzone, nie oceniane na oko** — tekst na zdjęciu sprawdzany jest na pikselach faktycznie leżących pod każdym glifem, a skrypt zwraca dokładną krycie scrimu, które domyka brakujący kontrast.
@@ -94,8 +95,9 @@ Przy pracy w istniejącym projekcie rytuał zwija się do zera — istniejące t
 | `scripts/screenshot.mjs` | Pomocnik „wyrenderuj i obejrzyj" (Playwright/Puppeteer) |
 | `scripts/palette-check.mjs` | Audyt harmonii barw wyrenderowanej strony (rodziny odcieni, wykrywanie zgrzytów) |
 | `scripts/interaction-check.mjs` | Audyt klawiatury i fokusa: spacer Tabem, widoczność fokusa, rozmiary celów |
-| `scripts/contrast-check.mjs` | Kontrast WCAG każdego węzła tekstowego wobec realnego tła z renderu |
+| `scripts/contrast-check.mjs` | Kontrast WCAG wobec realnego tła — paski sticky/fixed mierzone z pikseli na każdej pozycji scrolla, progi z faktycznego rozmiaru po skalowaniu |
 | `scripts/reflow-check.mjs` | Kontrola reflow przy 320px ze wskazaniem winnego elementu i przyczyny |
+| `scripts/font-check.mjs` | Sprawdza, że zadeklarowane kroje naprawdę się załadowały, subsety są kompletne, a żadna odmiana nie jest syntezowana |
 | `scripts/expression-check.mjs` | Mierzy, czy strona wydała zadeklarowaną energię: skalę typografii, powierzchnię chromatyczną, rytm, puste płyty |
 | `scripts/expression-check.mjs` | Mierzy, czy strona wydaje jakąkolwiek energię: rytm sekcji, sekwencję tonów, udział chromy, stosunek display/body |
 | `scripts/asset-inventory.mjs` | Mierzy każdy obraz w projekcie i sprawdza go względem slotów zadeklarowanych w łuku |

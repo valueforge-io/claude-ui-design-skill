@@ -88,6 +88,6 @@ Other archetypes are structured by their content, not by a canonical sequence �
 
 ## From intent to direction and structure
 
-1. Archetype + sliders → shortlist 2–3 visual directions (visual-directions.md); propose them with one-line reasoning; the user picks or defers to your default.
+1. Archetype + sliders → shortlist 2–3 visual directions (visual-directions.md); propose them with one-line reasoning — **and name what each direction's register codes as on this market**, in categories the user already knows ("reads as boutique publisher", "reads as IT integrator"). A direction whose register codes a category the copy explicitly walks away from is flagged here, for the price of one sentence; discovered after a full specimen round, the same flaw costs the round. The user picks or defers to your default.
 2. primary_job orders the wireframe's regions and the reading order; risks become named checks in Step 3 verification and in reviews.
 3. Record the final brief and the chosen direction in `design-system/MASTER.md` (design-process.md) — the next session inherits the reasoning, not just the tokens.

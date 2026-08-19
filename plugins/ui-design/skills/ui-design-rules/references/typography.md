@@ -96,6 +96,14 @@ Heading LEVEL is document semantics; the SLOT is visual presentation — they ar
 - DO bold at most one or two items per paragraph or view. DON'T scatter bold through text; overuse dilutes every instance and overwhelms the reader.
 - When two adjacent actions compete, bold only the primary one and leave the secondary regular.
 
+### Provisioning — a style you use is a face you ship [STANDARD]
+
+Every weight and style the page uses must exist as a real font face. A browser asked for italic with no italic face will slant the upright one; asked for 700 with only 400 loaded, it will smear the strokes — **faux italic** and **faux bold**, glyph shapes nobody designed and nobody approved. Self-hosting makes this the default failure mode, because each face is a file you must remember to declare.
+
+- Set `font-synthesis: none` in the token layer. This does not fix a missing face — it makes the miss **visible**: text renders upright/regular instead of pretending, and the screenshot you already take catches it. Silent synthesis is the only alternative, and it looks almost right, which is worse than wrong.
+- Single-weight display faces (common in wordmark kits) impose their own rule: hierarchy inside display slots moves by size, never by weight — and the face never carries a style it does not own.
+- The measure: `node scripts/font-check.mjs page.html` compares every used weight/style combination against the faces that actually loaded, and reports the synthesis before a reader sees it.
+
 ### Italics
 - Reserve italics for quotes, testimonials, references, or one emphasized phrase.
 - DO italicize a single item to make it stand out. DON'T italicize full paragraphs; slanted body text is hard to read and buries the message.
